@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\Borrowing;
 use App\Models\ReturnTool;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PetugasController extends Controller
 {
@@ -22,6 +24,7 @@ class PetugasController extends Controller
         $borrowing->update(['status' => 'dipinjam']);
         // Decrease stock
         $borrowing->tool->decrement('stock');
+
 
         return back();
     }
@@ -43,13 +46,17 @@ class PetugasController extends Controller
         // Tambah stok alat
         $borrowing->tool->increment('stock');
 
+
         // Simpan data pengembalian
         ReturnTool::create([
             'borrowing_id' => $borrowing->id,
             'returned_at' => Carbon::now(),
         ]);
 
-
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action'  => "Mengembalikan alat: {$borrowing->tool->name}"
+        ]);
 
         return redirect()->route('petugas.borrowings.index')->with('success', 'Pengembalian alat berhasil diproses!');
     }

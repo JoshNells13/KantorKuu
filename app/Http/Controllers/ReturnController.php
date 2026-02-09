@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\Borrowing;
 use App\Models\ReturnTool;
 use Illuminate\Http\Request;
@@ -46,6 +47,11 @@ class ReturnController extends Controller
         $borrowing->tool->update(['condition' => $request->condition]);
         $borrowing->tool->increment('stock');
 
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action'  => "Mengembalikan alat: {$borrowing->tool->name}"
+        ]);
+
         return redirect()
             ->route('admin.borrowings.index')
             ->with('success', 'Pengembalian berhasil diproses');
@@ -72,12 +78,23 @@ class ReturnController extends Controller
             'returned_at' => $request->returned_at,
         ]);
 
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action'  => "Mengembalikan alat: {$returnTool->borrowing->tool->name}"
+        ]);
+
         return redirect()->route('admin.return-tools.index')->with('success', 'Data pengembalian berhasil diperbarui!');
     }
 
     public function destroy(ReturnTool $returnTool)
     {
         $returnTool->delete();
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action'  => "Menghapus data pengembalian alat: {$returnTool->borrowing->tool->name}"
+        ]);
+
         return back();
     }
 }

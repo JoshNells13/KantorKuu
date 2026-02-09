@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\Borrowing;
 use App\Models\Tool;
 use App\Models\User;
@@ -46,6 +47,11 @@ class BorrowingController extends Controller
         $tool->decrement('stock');
 
 
+        ActivityLog::create([
+            'user_id' => $userId,
+            'action'  => "Meminjam alat: {$tool->name}"
+        ]);
+
         Borrowing::create([
             'user_id'     => $userId,
             'tool_id'     => $request->tool_id,
@@ -63,6 +69,13 @@ class BorrowingController extends Controller
         $borrowing->update(['status' => 'dipinjam']);
 
         // Decrease stock
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action'  => "Meminjam alat: {$borrowing->tool->name}"
+        ]);
+
+
         $borrowing->tool->decrement('stock');
 
         return back();
@@ -76,7 +89,7 @@ class BorrowingController extends Controller
         return view('Admin.Borrowing.edit', [
             'borrowing' => $borrowing,
             'tools' => Tool::all(),
-            'users' => User::where('role_id', 3)->get()
+            'users' => User::where('role_id', 1)->get()
         ]);
     }
 
@@ -96,12 +109,24 @@ class BorrowingController extends Controller
 
         $borrowing->update($data);
 
+          ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action'  => "Memperbarui peminjaman alat: {$borrowing->tool->name}"
+        ]);
+
+
         return redirect()->route('admin.borrowings.index');
     }
 
     public function destroy(Borrowing $borrowing)
     {
         $borrowing->delete();
+
+          ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action'  => "Menghapus peminjaman alat: {$borrowing->tool->name}"
+        ]);
+
         return back();
     }
 }

@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
     public function index()
     {
         $categories = Category::all();
+
 
         return view('Admin.Category.index', compact('categories'));
     }
@@ -28,6 +31,15 @@ class CategoryController extends Controller
 
         Category::create($request->all());
 
+
+
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action'  => "Menambahkan kategori: {$request->name}"
+        ]);
+
+
         return redirect()->route('categories.index')->with('success', 'Kategori berhasil ditambahkan!');
     }
 
@@ -45,13 +57,24 @@ class CategoryController extends Controller
         ]);
 
         $category->update($request->all());
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action'  => "Memperbarui kategori: {$request->name}"
+        ]);
+
         return redirect()->route('categories.index')->with('success', 'Kategori berhasil diperbarui!');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action'  => "Menghapus kategori: {$category->name}"
+        ]);
+
         return back();
     }
-
 }

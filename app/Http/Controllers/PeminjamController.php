@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\Borrowing;
 use App\Models\ReturnTool;
 use App\Models\Tool;
@@ -26,6 +27,8 @@ class PeminjamController extends Controller
         $borrowings = Borrowing::with('tool', 'returnTool')
             ->where('user_id', Auth::id())
             ->get();
+
+
 
         return view('Peminjam.Borrowing.index', compact('borrowings', 'tools'));
     }
@@ -58,12 +61,20 @@ class PeminjamController extends Controller
             return back()->with('error', 'Stok alat habis!');
         }
 
+
+        $tool->decrement('stock');
+
         Borrowing::create([
             'user_id'     => $userId,
             'tool_id'     => $request->tool_id,
             'borrow_date' => now(),
             'return_date' => $request->return_date,
             'status'      => $status
+        ]);
+
+        ActivityLog::create([
+            'user_id' => $userId,
+            'action'  => "Meminjam alat: {$tool->name}"
         ]);
 
 
@@ -100,6 +111,11 @@ class PeminjamController extends Controller
         ReturnTool::create([
             'borrowing_id' => $borrowing->id,
             'returned_at' => Carbon::now(),
+        ]);
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action'  => "Mengembalikan alat: {$borrowing->tool->name}"
         ]);
 
         return redirect()
