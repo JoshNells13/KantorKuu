@@ -1,6 +1,6 @@
 # Sistem Peminjaman Peralatan (Tool Inventory System)
 
-Aplikasi berbasis web yang dibangun menggunakan **Laravel** untuk mengelola peminjaman peralatan. Sistem ini memfasilitasi proses peminjaman mulai dari pengajuan oleh peminjam, persetujuan oleh petugas/admin, hingga pengembalian barang, serta mencakup manajemen inventaris dan pelaporan.
+Aplikasi berbasis web yang dibangun menggunakan **Laravel 12** untuk mengelola peminjaman peralatan. Sistem ini memfasilitasi proses peminjaman mulai dari pengajuan oleh peminjam, persetujuan oleh petugas/admin, hingga pengembalian barang, serta mencakup manajemen inventaris dan pelaporan.
 
 ## 🚀 Fitur Utama
 
@@ -41,7 +41,7 @@ Pengguna umum yang akan meminjam barang.
 * **Framework:** Laravel
 * **Bahasa:** PHP
 * **Database:** MySQL
-* **Frontend:** Blade Templating (Bootstrap/Tailwind - *sesuaikan dengan project anda*)
+* **Frontend:** Blade Templating (Tailwind - *sesuaikan dengan project anda*)
 
 ## 📦 Instalasi
 
@@ -99,3 +99,26 @@ protected $middlewareAliases = [
     // --- TAMBAHKAN BARIS INI ---
     'role' => \App\Http\Middleware\CheckRole::class, 
 ];
+
+
+
+// bootstrap/app.php (Hanya untuk Laravel 11)
+use App\Http\Middleware\CheckRole;
+
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.'/../routes/web.php',
+        commands: __DIR__.'/../routes/console.php',
+        health: '/up',
+    )
+    ->withMiddleware(function (Middleware $middleware) {
+        
+        // Daftarkan alias di sini
+        $middleware->alias([
+            'role' => CheckRole::class,
+        ]);
+        
+    })
+    ->withExceptions(function (Exceptions $exceptions) {
+        //
+    })->create();
