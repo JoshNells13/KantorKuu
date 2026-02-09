@@ -36,13 +36,6 @@
                    required>
         </div>
 
-        <div class="mb-4">
-            <label class="block mb-2 font-semibold">Kondisi</label>
-            <select name="condition" class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-blue-500" required>
-                <option value="bagus" {{ $tool->condition == 'bagus' ? 'selected' : '' }}>Bagus</option>
-                <option value="rusak" {{ $tool->condition == 'rusak' ? 'selected' : '' }}>Rusak</option>
-            </select>
-        </div>
 
         <div class="mt-6 flex justify-end gap-2">
             <a href="{{ route('tools.index') }}"

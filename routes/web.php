@@ -107,7 +107,7 @@ Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->group(function (
     Route::get('/return-tools/{borrowing}', [PetugasController::class, 'returnTool'])
         ->name('petugas.return-tools.create');
 
-    Route::post('/return-tools', [PetugasController::class, 'storeReturnTool'])
+    Route::post('/return-tools/{borrowing}', [PetugasController::class, 'storeReturnTool'])
         ->name('petugas.return-tools.store');
 
     Route::patch('/borrowings/{borrowing}/approve', [PetugasController::class, 'approve'])

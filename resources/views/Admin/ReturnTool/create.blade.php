@@ -34,16 +34,9 @@
                     class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-blue-500" required>
             </div>
 
-            <div class="mb-4">
-                <label class="block mb-2 font-semibold">Kondisi Alat</label>
-                <select name="condition" class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-blue-500" required>
-                    <option value="bagus">Bagus</option>
-                    <option value="rusak">Rusak</option>
-                </select>
-            </div>
 
             <div class="mb-4">
-                <label class="block mb-2 font-semibold">Denda (Otional)</label>
+                <label class="block mb-2 font-semibold">Denda (Optional)</label>
                 <input type="number" name="fine" placeholder="Biarkan kosong untuk hitung otomatis"
                     class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-blue-500">
                 <p class="text-xs text-gray-500 mt-1">Denda otomatis: Rp 5.000 / hari keterlambatan.</p>

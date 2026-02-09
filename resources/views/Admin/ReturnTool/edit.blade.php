@@ -25,18 +25,6 @@
                    required>
         </div>
 
-        <div class="mb-4">
-            <label class="block mb-2 font-semibold">Denda</label>
-            <input type="number" name="fine" value="{{ $return->fine }}"
-                   class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-blue-500"
-                   required>
-        </div>
-
-        <div class="mb-4">
-            <label class="block mb-2 font-semibold">Catatan</label>
-            <textarea name="note" class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-blue-500">{{ $return->note }}</textarea>
-        </div>
-
         <div class="mt-6 flex justify-end gap-2">
             <a href="{{ route(auth()->user()->role->name . '.return-tools.index') }}"
                class="px-4 py-2 border rounded hover:bg-gray-50">Batal</a>

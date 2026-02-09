@@ -38,8 +38,7 @@ class DashboardController extends Controller
         //Total Stok Alat
         $totalStokAlat = Tool::sum('stock');
 
-        //Total Alat Rusak dan Hilang
-        $alatRusakHilang = ReturnTool::whereIn('fine', [0])->count();
+
 
         //Total Peminjaman Alat Yang Sedang Diproses
 
@@ -61,7 +60,6 @@ class DashboardController extends Controller
             'keterlambatan',
             'peminjamanTerbaru',
             'totalStokAlat',
-            'alatRusakHilang',
             'persentaseAlatTersedia',
             'peminjamDiProses'
         ));

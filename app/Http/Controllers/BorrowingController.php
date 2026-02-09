@@ -22,7 +22,7 @@ class BorrowingController extends Controller
         $tools = Tool::all();
 
 
-        $users = User::where('role_id', 3)->get();
+        $users = User::where('role_id', 1)->get();
 
         return view('Admin.Borrowing.create', compact('users', 'tools'));
     }

@@ -13,7 +13,7 @@
             <div class="h-48 bg-gray-200 flex items-center justify-center">
                 <i class="fas fa-tools text-4xl text-gray-400"></i>
             </div>
-            
+
             <div class="p-4">
                 <div class="flex justify-between items-start mb-2">
                     <h3 class="text-lg font-bold text-gray-800">{{ $item->name }}</h3>
@@ -21,14 +21,13 @@
                         {{ $item->category->name }}
                     </span>
                 </div>
-                
+
                 <p class="text-sm text-gray-600 mb-4">
-                    Stok: <span class="font-semibold {{ $item->stock > 0 ? 'text-green-600' : 'text-red-600' }}">{{ $item->stock }}</span> 
-                    | Kondisi: <span class="font-semibold">{{ ucfirst($item->condition) }}</span>
+                    Stok: <span class="font-semibold {{ $item->stock > 0 ? 'text-green-600' : 'text-red-600' }}">{{ $item->stock }}</span>
                 </p>
 
                 @if($item->stock > 0 && $item->condition == 'bagus')
-                    <a href="{{ route('peminjam.borrowings.create', ['tool_id' => $item->id]) }}" 
+                    <a href="{{ route('peminjam.borrowings.create', ['tool_id' => $item->id]) }}"
                        class="block w-full text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
                         Pinjam Alat
                     </a>

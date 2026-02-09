@@ -47,10 +47,13 @@
                                         </button>
                                     </form>
                                 @elseif($item->status == 'dipinjam')
-                                    <a href="{{ route('petugas.return-tools.create', $item->id) }}"
-                                        class="text-green-600 hover:text-green-800" title="Kembalikan">
-                                        <i class="fas fa-undo"></i>
-                                    </a>
+                                    <form action="{{ route('petugas.return-tools.store', $item->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('POST')
+                                        <button onclick="return confirm('Kembalikan alat ini?')" class="text-green-600 hover:text-green-800" title="Kembalikan">
+                                            <i class="fas fa-undo"></i>
+                                        </button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>

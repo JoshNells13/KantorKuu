@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('borrowing_id')->constrained()->cascadeOnDelete();
             $table->date('returned_at');
-            $table->integer('fine')->default(0);
-            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

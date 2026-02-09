@@ -30,16 +30,15 @@ class ToolController extends Controller
             'name'        => 'required',
             'category_id' => 'required',
             'stock'       => 'required|integer',
-            'condition'   => 'required|in:bagus,rusak'
         ]);
 
         Tool::create($request->all());
-        return redirect()->route('tools.index');
+        return redirect()->route('tools.index')->with('success', 'Data alat berhasil ditambahkan!');
     }
 
     public function edit(Tool $tool)
     {
-        return view('admin.tools.edit', [
+        return view('Admin.Tool.edit', [
             'tool' => $tool,
             'categories' => Category::all()
         ]);
@@ -51,16 +50,15 @@ class ToolController extends Controller
             'name'        => 'required',
             'category_id' => 'required',
             'stock'       => 'required|integer',
-            'condition'   => 'required|in:bagus,rusak'
         ]);
 
         $tool->update($request->all());
-        return redirect()->route('tools.index');
+        return redirect()->route('tools.index')->with('success', 'Data alat berhasil diperbarui!');
     }
 
     public function destroy(Tool $tool)
     {
         $tool->delete();
-        return redirect()->route('tools.index');
+        return redirect()->route('tools.index')->with('success', 'Data alat berhasil dihapus!');
     }
 }

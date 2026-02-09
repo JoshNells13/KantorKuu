@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Borrowing;
 use App\Models\ReturnTool;
 use App\Models\Tool;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -87,11 +88,7 @@ class PeminjamController extends Controller
 
     public function storeReturnTool(Request $request, Borrowing $borrowing)
     {
-        $request->validate([
-            'returned_at' => 'required|date',
-            'fine'        => 'nullable|numeric',
-            'note'        => 'nullable|string',
-        ]);
+
 
         // Update borrowing status
         $borrowing->update(['status' => 'dikembalikan']);
@@ -102,13 +99,11 @@ class PeminjamController extends Controller
         // Simpan data pengembalian
         ReturnTool::create([
             'borrowing_id' => $borrowing->id,
-            'returned_at'  => $request->returned_at,
-            'fine'         => 1,
-            'note'         => $request->note,
+            'returned_at' => Carbon::now(),
         ]);
 
         return redirect()
-            ->route('petugas.borrowings.index')
+            ->route('peminjam.borrowings.index')
             ->with('success', 'Pengembalian alat berhasil diproses!');
     }
 }

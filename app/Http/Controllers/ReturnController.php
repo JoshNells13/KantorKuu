@@ -30,7 +30,6 @@ class ReturnController extends Controller
     {
         $request->validate([
             'returned_at' => 'required|date',
-            'condition'  => 'required|in:bagus,rusak',
         ]);
 
         $lateDays = Carbon::parse($request->returned_at)
@@ -41,8 +40,6 @@ class ReturnController extends Controller
         ReturnTool::create([
             'borrowing_id' => $borrowing->id,
             'returned_at'  => $request->returned_at,
-            'fine'         => $request->fine ?? $fine,
-            'note'         => $request->note,
         ]);
 
         $borrowing->update(['status' => 'dikembalikan']);
@@ -69,17 +66,13 @@ class ReturnController extends Controller
 
         $request->validate([
             'returned_at' => 'required|date',
-            'fine'        => 'required|integer',
-            'note'        => 'nullable|string'
         ]);
 
         $returnTool->update([
             'returned_at' => $request->returned_at,
-            'fine'        => $request->fine,
-            'note'        => $request->note
         ]);
 
-        return redirect()->route('return-tools.index');
+        return redirect()->route('admin.return-tools.index')->with('success', 'Data pengembalian berhasil diperbarui!');
     }
 
     public function destroy(ReturnTool $returnTool)

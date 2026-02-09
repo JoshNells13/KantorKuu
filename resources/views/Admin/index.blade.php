@@ -121,10 +121,7 @@
                             <div class="w-3 h-3 rounded-full bg-orange-500"></div>
                             <span class="text-sm text-gray-700">Dipinjam: {{ $alatDipinjam }}</span>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                            <span class="text-sm text-gray-700">Rusak/Hilang: {{ $alatRusakHilang }}</span>
-                        </div>
+
                     </div>
                 </div>
             </div>
