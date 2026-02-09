@@ -24,6 +24,6 @@ class ReportController extends Controller
             ->latest()
             ->get();
 
-        return view('Admin.Report.index', compact('borrowings'));
+        return view('Petugas.Report.index', compact('borrowings'));
     }
 }

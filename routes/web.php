@@ -63,7 +63,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
 
     Route::resource('/return-tools', ReturnController::class)
-        ->names('admin.return-tools')->except('create','show','store');
+        ->names('admin.return-tools')->except('create', 'show', 'store');
 
     Route::get('/return-tools/{borrowing}', [ReturnController::class, 'create'])
         ->name('admin.return-tools.create');
@@ -112,6 +112,9 @@ Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->group(function (
 
     Route::patch('/borrowings/{borrowing}/approve', [PetugasController::class, 'approve'])
         ->name('petugas.borrowings.approve');
+
+    Route::get('/reports', [ReportController::class, 'index'])
+        ->name('petugas.reports');
 });
 
 
