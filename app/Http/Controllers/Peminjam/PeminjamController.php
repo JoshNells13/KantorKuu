@@ -55,7 +55,7 @@ class PeminjamController extends Controller
 
         $userId = Auth::user()->id;
 
-        $status = (Auth::user()->role_id == 1 || Auth::user()->role_id == 2) ? $request->status ?? 'menunggu' : 'menunggu';
+
 
         // Check stock
         $tool = Tool::find($request->tool_id);
@@ -69,7 +69,7 @@ class PeminjamController extends Controller
             'tool_id'     => $request->tool_id,
             'borrow_date' => now(),
             'return_date' => $request->return_date,
-            'status'      => $status
+            'status'      => $request->status ?? 'menunggu'
         ]);
 
         ActivityLog::create([
