@@ -49,10 +49,19 @@ class PetugasController extends Controller
         $borrowing->tool->increment('stock');
 
 
-        // Simpan data pengembalian
+        $dueDate = Carbon::parse($borrowing->return_date);
+        $returnedDate = Carbon::parse($request->returned_at);
+
+        $lateDays = $returnedDate->greaterThan($dueDate)
+            ? $dueDate->diffInDays($returnedDate)
+            : 0;
+
+        $fine = $lateDays * 5000;
+
         ReturnTool::create([
             'borrowing_id' => $borrowing->id,
-            'returned_at' => Carbon::now(),
+            'returned_at'  => Carbon::now(),
+            'fine'         => $fine
         ]);
 
         ActivityLog::create([
