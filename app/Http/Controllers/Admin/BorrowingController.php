@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\ActivityLog;
 use App\Models\Borrowing;
@@ -49,7 +51,7 @@ class BorrowingController extends Controller
 
         ActivityLog::create([
             'user_id' => $userId,
-            'action'  => "Meminjam alat: {$tool->name}"
+            'activity'  => "Meminjam alat: {$tool->name}"
         ]);
 
         Borrowing::create([
@@ -72,7 +74,7 @@ class BorrowingController extends Controller
 
         ActivityLog::create([
             'user_id' => Auth::id(),
-            'action'  => "Meminjam alat: {$borrowing->tool->name}"
+            'activity'  => "Meminjam alat: {$borrowing->tool->name}"
         ]);
 
 
@@ -111,7 +113,7 @@ class BorrowingController extends Controller
 
           ActivityLog::create([
             'user_id' => Auth::id(),
-            'action'  => "Memperbarui peminjaman alat: {$borrowing->tool->name}"
+            'activity'  => "Memperbarui peminjaman alat: {$borrowing->tool->name}"
         ]);
 
 
@@ -124,7 +126,7 @@ class BorrowingController extends Controller
 
           ActivityLog::create([
             'user_id' => Auth::id(),
-            'action'  => "Menghapus peminjaman alat: {$borrowing->tool->name}"
+            'activity'  => "Menghapus peminjaman alat: {$borrowing->tool->name}"
         ]);
 
         return back();

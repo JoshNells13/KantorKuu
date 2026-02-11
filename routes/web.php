@@ -1,17 +1,17 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ActivityLogController;
+use App\Http\Controllers\Admin\BorrowingController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ReturnController;
+use App\Http\Controllers\Admin\ToolController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ToolController;
-use App\Http\Controllers\BorrowingController;
-use App\Http\Controllers\ReturnController;
-use App\Http\Controllers\ActivityLogController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PeminjamController;
-use App\Http\Controllers\PetugasController;
-use App\Http\Controllers\ReportController;
+use App\Http\Controllers\Peminjam\PeminjamController;
+use App\Http\Controllers\Petugas\PetugasController;
+use App\Http\Controllers\Petugas\ReportController;
+use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [AuthController::class, 'showLogin'])

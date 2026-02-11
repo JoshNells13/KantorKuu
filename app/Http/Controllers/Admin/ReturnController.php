@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\ActivityLog;
 use App\Models\Borrowing;
@@ -49,7 +51,7 @@ class ReturnController extends Controller
 
         ActivityLog::create([
             'user_id' => Auth::id(),
-            'action'  => "Mengembalikan alat: {$borrowing->tool->name}"
+            'activity'  => "Mengembalikan alat: {$borrowing->tool->name}"
         ]);
 
         return redirect()
@@ -80,7 +82,7 @@ class ReturnController extends Controller
 
         ActivityLog::create([
             'user_id' => Auth::id(),
-            'action'  => "Mengembalikan alat: {$returnTool->borrowing->tool->name}"
+            'activity'  => "Mengembalikan alat: {$returnTool->borrowing->tool->name}"
         ]);
 
         return redirect()->route('admin.return-tools.index')->with('success', 'Data pengembalian berhasil diperbarui!');
@@ -92,7 +94,7 @@ class ReturnController extends Controller
 
         ActivityLog::create([
             'user_id' => Auth::id(),
-            'action'  => "Menghapus data pengembalian alat: {$returnTool->borrowing->tool->name}"
+            'activity'  => "Menghapus data pengembalian alat: {$returnTool->borrowing->tool->name}"
         ]);
 
         return back();

@@ -1,6 +1,7 @@
 <?php
+namespace App\Http\Controllers\Peminjam;
 
-namespace App\Http\Controllers;
+use App\Http\Controllers\Controller;
 
 use App\Models\ActivityLog;
 use App\Models\Borrowing;
@@ -62,8 +63,6 @@ class PeminjamController extends Controller
         }
 
 
-        $tool->decrement('stock');
-
         Borrowing::create([
             'user_id'     => $userId,
             'tool_id'     => $request->tool_id,
@@ -74,7 +73,7 @@ class PeminjamController extends Controller
 
         ActivityLog::create([
             'user_id' => $userId,
-            'action'  => "Meminjam alat: {$tool->name}"
+            'activity'  => "Meminjam alat: {$tool->name}"
         ]);
 
 
@@ -115,7 +114,7 @@ class PeminjamController extends Controller
 
         ActivityLog::create([
             'user_id' => Auth::id(),
-            'action'  => "Mengembalikan alat: {$borrowing->tool->name}"
+            'activity'  => "Mengembalikan alat: {$borrowing->tool->name}"
         ]);
 
         return redirect()

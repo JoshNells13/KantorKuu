@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Petugas;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\ActivityLog;
 use App\Models\Borrowing;
@@ -55,7 +57,7 @@ class PetugasController extends Controller
 
         ActivityLog::create([
             'user_id' => Auth::id(),
-            'action'  => "Mengembalikan alat: {$borrowing->tool->name}"
+            'activity'  => "Mengembalikan alat: {$borrowing->tool->name}"
         ]);
 
         return redirect()->route('petugas.borrowings.index')->with('success', 'Pengembalian alat berhasil diproses!');

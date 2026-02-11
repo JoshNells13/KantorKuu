@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\ActivityLog;
 use App\Models\Category;
@@ -36,7 +38,7 @@ class CategoryController extends Controller
 
         ActivityLog::create([
             'user_id' => Auth::id(),
-            'action'  => "Menambahkan kategori: {$request->name}"
+            'activity'  => "Menambahkan kategori: {$request->name}"
         ]);
 
 
@@ -60,7 +62,7 @@ class CategoryController extends Controller
 
         ActivityLog::create([
             'user_id' => Auth::id(),
-            'action'  => "Memperbarui kategori: {$request->name}"
+            'activity'  => "Memperbarui kategori: {$request->name}"
         ]);
 
         return redirect()->route('categories.index')->with('success', 'Kategori berhasil diperbarui!');
@@ -72,7 +74,7 @@ class CategoryController extends Controller
 
         ActivityLog::create([
             'user_id' => Auth::id(),
-            'action'  => "Menghapus kategori: {$category->name}"
+            'activity'  => "Menghapus kategori: {$category->name}"
         ]);
 
         return back();

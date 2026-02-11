@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\ActivityLog;
 use App\Models\Tool;
@@ -13,9 +15,6 @@ class ToolController extends Controller
     public function index()
     {
         $Tool  = Tool::all();
-
-
-
         return view('Admin.Tool.index', compact('Tool'));
     }
 
@@ -38,7 +37,7 @@ class ToolController extends Controller
 
         ActivityLog::create([
             'user_id' => Auth::id(),
-            'action'  => "Menambahkan alat: {$request->name}"
+            'activity'  => "Menambahkan alat: {$request->name}"
         ]);
 
         return redirect()->route('tools.index')->with('success', 'Data alat berhasil ditambahkan!');
@@ -64,7 +63,7 @@ class ToolController extends Controller
 
         ActivityLog::create([
             'user_id' => Auth::id(),
-            'action'  => "Memperbarui alat: {$request->name}"
+            'activity'  => "Memperbarui alat: {$request->name}"
         ]);
 
         return redirect()->route('tools.index')->with('success', 'Data alat berhasil diperbarui!');
@@ -76,7 +75,7 @@ class ToolController extends Controller
 
         ActivityLog::create([
             'user_id' => Auth::id(),
-            'action'  => "Menghapus alat: {$tool->name}"
+            'activity'  => "Menghapus alat: {$tool->name}"
         ]);
 
         return redirect()->route('tools.index')->with('success', 'Data alat berhasil dihapus!');
