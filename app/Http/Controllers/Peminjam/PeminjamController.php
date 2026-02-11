@@ -129,6 +129,6 @@ class PeminjamController extends Controller
 
         return redirect()
             ->route('peminjam.borrowings.index')
-            ->with('success', 'Pengembalian alat berhasil diproses!');
+            ->with('success', "Pengembalian alat berhasil diproses! Jumlah Barang Menjadi {$borrowing->tool->stock}");
     }
 }

@@ -61,7 +61,7 @@ class ReturnController extends Controller
 
         return redirect()
             ->route('admin.borrowings.index')
-            ->with('success', 'Pengembalian berhasil diproses');
+            ->with('success', "Pengembalian berhasil diproses! Jumlah Barang Menjadi {$borrowing->tool->stock}");
     }
 
 

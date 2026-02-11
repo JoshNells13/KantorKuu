@@ -28,7 +28,7 @@ class PetugasController extends Controller
         $borrowing->tool->decrement('stock');
 
 
-        return back();
+        return redirect()->route('petugas.borrowings.index')->with('success', 'Peminjaman alat disetujui dan stok berhasil dikurangi! Menjadi '.$borrowing->tool->stock );
     }
 
     public function returnTool(Borrowing $borrowing)

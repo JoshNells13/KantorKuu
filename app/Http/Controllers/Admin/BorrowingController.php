@@ -81,7 +81,7 @@ class BorrowingController extends Controller
 
         $borrowing->tool->decrement('stock');
 
-        return redirect()->route('admin.borrowings.index')->with('success', 'Peminjaman berhasil disetujui!');
+        return redirect()->route('admin.borrowings.index')->with('success', "Peminjaman berhasil disetujui!, Stok Berkurang Menjadi {$borrowing->tool->stock}");
     }
 
 
