@@ -53,19 +53,31 @@
                                         </button>
                                     </form>
                                 @elseif($item->status == 'dipinjam')
-                                    <a href="{{ route('admin.return-tools.create', $item->id) }}"
-                                        class="text-green-600 hover:text-green-800" title="Kembalikan">
-                                        <i class="fas fa-undo"></i>
-                                    </a>
+                                    <span
+                                        class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">Dipinjam</span>
+                                    <div class="mt-2">
+                                        <form action="{{ route('admin.return-tools.store', $item->id) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="returned_at" value="{{ now() }}">
+                                            <button type="submit"
+                                                class="text-xs bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded">
+                                                Kembalikan
+                                            </button>
+                                        </form>
+                                    </div>
                                 @endif
 
-                                <a href="{{ route('admin.borrowings.edit', $item) }}"
-                                    class="text-blue-600 hover:text-blue-800" title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </a>
+                                @if ($item->status !== 'dikembalikan')
+                                    <a href="{{ route('admin.borrowings.edit', $item) }}"
+                                        class="text-blue-600 hover:text-blue-800">
+                                        Edit
+                                    </a>
+                                @else
+                                    <span class="text-gray-400 text-sm">Terkunci</span>
+                                @endif
 
-                                <form action="{{ route('admin.borrowings.destroy', $item) }}"
-                                    method="POST" class="inline">
+                                <form action="{{ route('admin.borrowings.destroy', $item) }}" method="POST"
+                                    class="inline">
                                     @csrf
                                     @method('DELETE')
                                     <button onclick="return confirm('Hapus data peminjaman ini?')"

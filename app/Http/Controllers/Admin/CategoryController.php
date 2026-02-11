@@ -77,6 +77,6 @@ class CategoryController extends Controller
             'activity'  => "Menghapus kategori: {$category->name}"
         ]);
 
-        return back();
+        return redirect()->route('categories.index')->with('success', 'Kategori berhasil dihapus!');
     }
 }

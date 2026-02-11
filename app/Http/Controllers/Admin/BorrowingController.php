@@ -81,7 +81,7 @@ class BorrowingController extends Controller
 
         $borrowing->tool->decrement('stock');
 
-        return back();
+        return redirect()->route('admin.borrowings.index')->with('success', 'Peminjaman berhasil disetujui!');
     }
 
 
@@ -98,38 +98,45 @@ class BorrowingController extends Controller
 
     public function update(Request $request, Borrowing $borrowing)
     {
+
+        if ($borrowing->status === 'dikembalikan') {
+            return redirect()
+                ->route('admin.borrowings.index')
+                ->with('error', 'Data yang sudah dikembalikan tidak bisa diedit.');
+        }
+
         $request->validate([
-            'tool_id'     => 'required',
-            'return_date' => 'required|date'
+            'borrow_date' => 'required|date',
+            'return_date' => 'required|date',
+            'status'      => 'required'
         ]);
 
-        $data = [
-            'tool_id'     => $request->tool_id,
+        $toolName = $borrowing->tool->name;
+
+        $borrowing->update([
+            'borrow_date' => $request->borrow_date,
             'return_date' => $request->return_date,
-            'user_id'     => $request->user_id,
             'status'      => $request->status
-        ];
-
-        $borrowing->update($data);
-
-          ActivityLog::create([
-            'user_id' => Auth::id(),
-            'activity'  => "Memperbarui peminjaman alat: {$borrowing->tool->name}"
         ]);
 
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'activity' => "Memperbarui peminjaman alat: {$toolName}"
+        ]);
 
-        return redirect()->route('admin.borrowings.index');
+        return redirect()->route('admin.borrowings.index')->with('success', 'Data peminjaman berhasil diperbarui!');
     }
+
 
     public function destroy(Borrowing $borrowing)
     {
         $borrowing->delete();
 
-          ActivityLog::create([
+        ActivityLog::create([
             'user_id' => Auth::id(),
             'activity'  => "Menghapus peminjaman alat: {$borrowing->tool->name}"
         ]);
 
-        return back();
+        return redirect()->route('admin.borrowings.index')->with('success', 'Data peminjaman berhasil dihapus!');
     }
 }
