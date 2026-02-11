@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
 use App\Models\Borrowing;
 use App\Models\ReturnTool;
+use Carbon\Carbon as CarbonAlias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -35,18 +36,22 @@ class ReturnController extends Controller
             'returned_at' => 'required|date',
         ]);
 
-        $lateDays = Carbon::parse($request->returned_at)
-            ->diffInDays($borrowing->return_date, false);
+        $dueDate = Carbon::parse($borrowing->return_date);
+        $returnedDate = Carbon::parse($request->returned_at);
 
-        $fine = $lateDays < 0 ? abs($lateDays) * 5000 : 0;
+        $lateDays = $returnedDate->greaterThan($dueDate)
+            ? $dueDate->diffInDays($returnedDate)
+            : 0;
+
+        $fine = $lateDays * 5000;
 
         ReturnTool::create([
             'borrowing_id' => $borrowing->id,
-            'returned_at'  => $request->returned_at,
+            'returned_at'  => Carbon::now(),
+            'fine'         => $fine
         ]);
 
         $borrowing->update(['status' => 'dikembalikan']);
-        $borrowing->tool->update(['condition' => $request->condition]);
         $borrowing->tool->increment('stock');
 
         ActivityLog::create([

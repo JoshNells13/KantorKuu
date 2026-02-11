@@ -14,7 +14,7 @@
                     <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">Alat</th>
                     <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Tgl Kembali</th>
                     <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Denda</th>
-                    <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Keterangan</th>
+
                 </tr>
             </thead>
             <tbody class="divide-y">
@@ -26,7 +26,7 @@
                     <td class="px-6 py-4 text-center font-bold text-red-600">
                         Rp {{ number_format($item->fine, 0, ',', '.') }}
                     </td>
-                    <td class="px-6 py-4 text-center">{{ $item->note ?? '-' }}</td>
+
                 </tr>
                 @empty
                 <tr>

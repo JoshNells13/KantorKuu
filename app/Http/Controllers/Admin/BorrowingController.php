@@ -34,10 +34,11 @@ class BorrowingController extends Controller
     {
         $request->validate([
             'tool_id'     => 'required',
-            'return_date' => 'required|date'
+            'return_date' => 'required|date',
+            'user_id'     => 'required'
         ]);
 
-        $userId = Auth::id();
+
         $status = (Auth::user()->role_id == 1 || Auth::user()->role_id == 2) ? $request->status ?? 'menunggu' : 'menunggu';
 
         // Check stock
@@ -46,16 +47,16 @@ class BorrowingController extends Controller
             return back()->with('error', 'Stok alat habis!');
         }
 
-        $tool->decrement('stock');
+
 
 
         ActivityLog::create([
-            'user_id' => $userId,
+            'user_id' => $request->user_id,
             'activity'  => "Meminjam alat: {$tool->name}"
         ]);
 
         Borrowing::create([
-            'user_id'     => $userId,
+            'user_id'     => $request->user_id,
             'tool_id'     => $request->tool_id,
             'borrow_date' => now(),
             'return_date' => $request->return_date,
