@@ -1,29 +1,29 @@
-<a href="{{ route('peminjam.dashboard') }}"
-    class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('peminjam.dashboard') ? 'bg-blue-700' : 'hover:bg-blue-600' }} rounded-lg transition">
-    <i class="fas fa-chart-line"></i>
-    <span>Dashboard</span>
+<a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('peminjam.dashboard') ? 'bg-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary' }} rounded-lg transition-colors"
+    href="{{ route('peminjam.dashboard') }}">
+    <span class="material-icons text-[20px]">dashboard</span>
+    <span class="font-medium">Dashboard</span>
 </a>
 
-<div class="mt-4 mb-2 text-xs text-blue-200 uppercase font-semibold pl-4">Menu</div>
-<a href="{{ route('peminjam.tools') }}"
-    class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('peminjam.tools') ? 'bg-blue-700' : 'hover:bg-blue-600' }} rounded-lg transition">
-    <i class="fas fa-search"></i>
-    <span>Cari Alat</span>
+<a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('peminjam.tools') ? 'bg-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary' }} rounded-lg transition-colors"
+    href="{{ route('peminjam.tools') }}">
+    <span class="material-icons text-[20px]">inventory_2</span>
+    <span class="font-medium">Katalog Alat</span>
 </a>
-<a href="{{ route('peminjam.borrowings.index') }}"
-    class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('peminjam.borrowings') ? 'bg-blue-700' : 'hover:bg-blue-600' }} rounded-lg transition">
-    <i class="fas fa-history"></i>
-    <span>Riwayat Peminjaman</span>
+
+<a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('peminjam.borrowings.*') ? 'bg-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary' }} rounded-lg transition-colors"
+    href="{{ route('peminjam.borrowings.index') }}">
+    <span class="material-icons text-[20px]">assignment</span>
+    <span class="font-medium">Peminjaman Saya</span>
 </a>
-<a href="{{ route('peminjam.return-tools.index') }}"
-    class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('peminjam.return-tools.*') ? 'bg-blue-700' : 'hover:bg-blue-600' }} rounded-lg transition">
-    <i class="fas fa-undo"></i>
-    <span>Riwayat Pengembalian</span>
+
+<a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('peminjam.return-tools.*') ? 'bg-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary' }} rounded-lg transition-colors"
+    href="{{ route('peminjam.return-tools.index') }}">
+    <span class="material-icons text-[20px]">assignment_return</span>
+    <span class="font-medium">Pengembalian Saya</span>
 </a>
-<form action="{{ route('logout') }}" method="POST">
-    @csrf
-    <button type="submit" onclick="return confirm('Ingin Keluar?')" class="flex items-center gap-3 px-4 py-3 hover:bg-blue-600 rounded-lg transition w-full text-left">
-        <i class="fas fa-file-alt"></i>
-        <span>Keluar</span>
-    </button>
-</form>
+
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors"
+    href="{{ route('home') }}">
+    <span class="material-icons text-[20px]">home</span>
+    <span class="font-medium">Beranda</span>
+</a>

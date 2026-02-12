@@ -42,7 +42,7 @@ class CategoryController extends Controller
         ]);
 
 
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil ditambahkan!');
+        return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil ditambahkan!');
     }
 
     public function edit(Category $category)
@@ -65,7 +65,7 @@ class CategoryController extends Controller
             'activity'  => "Memperbarui kategori: {$request->name}"
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil diperbarui!');
+        return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil diperbarui!');
     }
 
     public function destroy(Category $category)
@@ -77,6 +77,6 @@ class CategoryController extends Controller
             'activity'  => "Menghapus kategori: {$category->name}"
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil dihapus!');
+        return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil dihapus!');
     }
 }

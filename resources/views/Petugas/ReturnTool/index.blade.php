@@ -44,16 +44,16 @@
                                         @csrf
                                         @method('PATCH')
                                         <button onclick="return confirm('Setujui peminjaman ini?')"
-                                            class="text-green-600 hover:text-green-800" title="Setujui">
-                                            <i class="fas fa-check"></i>
+                                            class="text-green-600 hover:text-green-800 inline-flex items-center" title="Setujui">
+                                            <span class="material-icons text-lg">check_circle</span>
                                         </button>
                                     </form>
                                 @elseif($item->status == 'dipinjam')
                                     <form action="{{ route('petugas.return-tools.store', $item->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('POST')
-                                        <button onclick="return confirm('Kembalikan alat ini?')" class="text-green-600 hover:text-green-800" title="Kembalikan">
-                                            <i class="fas fa-undo"></i>
+                                        <button onclick="return confirm('Kembalikan alat ini?')" class="text-green-600 hover:text-green-800 inline-flex items-center" title="Kembalikan">
+                                            <span class="material-icons text-lg">undo</span>
                                         </button>
                                     </form>
                                 @endif

@@ -29,6 +29,11 @@ class PeminjamController extends Controller
         return view('Peminjam.Tool.index', compact('Tool'));
     }
 
+    public function ShowTool(Tool $tool)
+    {
+        return view('Peminjam.Tool.show', compact('tool'));
+    }
+
     public function Borrowing()
     {
         $tools = Tool::all();
@@ -39,10 +44,17 @@ class PeminjamController extends Controller
         return view('Peminjam.Borrowing.index', compact('borrowings', 'tools'));
     }
 
-    public function CreateBorrowing()
+    public function CreateBorrowing(Request $request)
     {
-        $tools = Tool::all();
-        return view('Peminjam.Borrowing.create', compact('tools'));
+        // Get tool_id from query parameter if provided
+        $toolId = $request->query('tool_id');
+        $selectedTool = null;
+        
+        if ($toolId) {
+            $selectedTool = Tool::find($toolId);
+        }
+        
+        return view('Peminjam.Borrowing.create', compact('selectedTool'));
     }
 
     public function StoreBorrowing(Request $request)

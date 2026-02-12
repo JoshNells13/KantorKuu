@@ -24,7 +24,7 @@ class PetugasController extends Controller
 
     public function index()
     {
-        $borrowings = Borrowing::with(['user', 'tool'])->get();
+        $borrowings = Borrowing::with(['user', 'tool'])->latest()->get();
         return view('Petugas.ReturnTool.index', compact('borrowings'));
     }
 

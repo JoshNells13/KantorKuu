@@ -32,8 +32,8 @@
                     <td class="px-6 py-4 text-center">Rp {{ number_format($item->fine, 0, ',', '.') }}</td>
                     <td class="px-6 py-4 text-center space-x-2">
                         <a href="{{ route(auth()->user()->role->name . '.return-tools.edit', $item) }}"
-                           class="text-blue-600 hover:text-blue-800" title="Edit">
-                            <i class="fas fa-edit"></i>
+                           class="text-blue-600 hover:text-blue-800 inline-flex items-center" title="Edit">
+                            <span class="material-icons text-lg">edit</span>
                         </a>
 
                         <form action="{{ route(auth()->user()->role->name . '.return-tools.destroy', $item) }}"
@@ -41,8 +41,8 @@
                             @csrf
                             @method('DELETE')
                             <button onclick="return confirm('Hapus data pengembalian ini?')"
-                                    class="text-red-600 hover:text-red-800" title="Hapus">
-                                    <i class="fas fa-trash"></i>
+                                    class="text-red-600 hover:text-red-800 inline-flex items-center" title="Hapus">
+                                    <span class="material-icons text-lg">delete</span>
                             </button>
                         </form>
                     </td>

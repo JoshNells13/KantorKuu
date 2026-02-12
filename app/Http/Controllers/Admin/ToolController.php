@@ -40,7 +40,7 @@ class ToolController extends Controller
             'activity'  => "Menambahkan alat: {$request->name}"
         ]);
 
-        return redirect()->route('tools.index')->with('success', 'Data alat berhasil ditambahkan!');
+        return redirect()->route('admin.tools.index')->with('success', 'Data alat berhasil ditambahkan!');
     }
 
     public function edit(Tool $tool)
@@ -66,7 +66,7 @@ class ToolController extends Controller
             'activity'  => "Memperbarui alat: {$request->name}"
         ]);
 
-        return redirect()->route('tools.index')->with('success', 'Data alat berhasil diperbarui!');
+        return redirect()->route('admin.tools.index')->with('success', 'Data alat berhasil diperbarui!');
     }
 
     public function destroy(Tool $tool)
@@ -78,6 +78,6 @@ class ToolController extends Controller
             'activity'  => "Menghapus alat: {$tool->name}"
         ]);
 
-        return redirect()->route('tools.index')->with('success', 'Data alat berhasil dihapus!');
+        return redirect()->route('admin.tools.index')->with('success', 'Data alat berhasil dihapus!');
     }
 }

@@ -4,7 +4,7 @@
 <div class="p-8 max-w-lg">
     <h1 class="text-2xl font-bold text-blue-900 mb-6">Tambah Alat</h1>
 
-    <form action="{{ route('tools.store') }}" method="POST" class="bg-white p-6 rounded-lg shadow">
+    <form action="{{ route('admin.tools.store') }}" method="POST" class="bg-white p-6 rounded-lg shadow">
         @csrf
 
         <div class="mb-4">
@@ -34,7 +34,7 @@
 
 
         <div class="mt-6 flex justify-end gap-2">
-            <a href="{{ route('tools.index') }}"
+            <a href="{{ route('admin.tools.index') }}"
                class="px-4 py-2 border rounded hover:bg-gray-50">Batal</a>
             <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                 Simpan

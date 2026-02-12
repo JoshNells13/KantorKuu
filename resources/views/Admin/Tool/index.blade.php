@@ -4,9 +4,10 @@
 <div class="p-8">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-blue-900">Data Alat</h1>
-        <a href="{{ route('tools.create') }}"
-           class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-            <i class="fas fa-plus"></i> Tambah
+        <a href="{{ route('admin.tools.create') }}"
+           class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 inline-flex items-center gap-2">
+            <span class="material-icons text-sm">add</span>
+            Tambah
         </a>
     </div>
 
@@ -29,18 +30,20 @@
                     <td class="px-6 py-4 text-center">{{ $item->stock }}</td>
                     <td class="px-6 py-4 text-center">{{ $item->category->name ?? 'Tidak ada kategori' }}</td>
                     <td class="px-6 py-4 text-center space-x-2">
-                        <a href="{{ route('tools.edit', $item) }}"
-                           class="text-blue-600 hover:text-blue-800">
-                            <i class="fas fa-edit"></i>
+                        <a href="{{ route('admin.tools.edit', $item) }}"
+                           class="text-blue-600 hover:text-blue-800 inline-flex items-center"
+                           title="Edit">
+                            <span class="material-icons text-lg">edit</span>
                         </a>
 
-                        <form action="{{ route('tools.destroy', $item) }}"
+                        <form action="{{ route('admin.tools.destroy', $item) }}"
                               method="POST" class="inline">
                             @csrf
                             @method('DELETE')
                             <button onclick="return confirm('Hapus alat ini?')"
-                                    class="text-red-600 hover:text-red-800">
-                                <i class="fas fa-trash"></i>
+                                    class="text-red-600 hover:text-red-800 inline-flex items-center"
+                                    title="Hapus">
+                                <span class="material-icons text-lg">delete</span>
                             </button>
                         </form>
                     </td>

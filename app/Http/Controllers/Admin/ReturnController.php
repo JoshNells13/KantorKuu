@@ -116,6 +116,6 @@ class ReturnController extends Controller
             'activity'  => "Menghapus data pengembalian alat: {$returnTool->borrowing->tool->name}"
         ]);
 
-        return back();
+        return back()->with('success', 'Data pengembalian berhasil dihapus!');
     }
 }

@@ -5,8 +5,9 @@
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold text-blue-900">Data Peminjaman</h1>
             <a href="{{ route(auth()->user()->role->name . '.borrowings.create') }}"
-                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                <i class="fas fa-plus"></i> Tambah
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 inline-flex items-center gap-2">
+                <span class="material-icons text-sm">add</span>
+                Tambah
             </a>
         </div>
 
@@ -50,8 +51,8 @@
                                         @csrf
                                         @method('PATCH')
                                         <button onclick="return confirm('Setujui peminjaman ini?')"
-                                            class="text-green-600 hover:text-green-800" title="Setujui">
-                                            <i class="fas fa-check"></i>
+                                            class="text-green-600 hover:text-green-800 inline-flex items-center" title="Setujui">
+                                            <span class="material-icons text-lg">check_circle</span>
                                         </button>
                                     </form>
                                 @elseif($item->status == 'dipinjam')
@@ -83,8 +84,8 @@
                                     @csrf
                                     @method('DELETE')
                                     <button onclick="return confirm('Hapus data peminjaman ini?')"
-                                        class="text-red-600 hover:text-red-800" title="Hapus">
-                                        <i class="fas fa-trash"></i>
+                                        class="text-red-600 hover:text-red-800 inline-flex items-center" title="Hapus">
+                                        <span class="material-icons text-lg">delete</span>
                                     </button>
                                 </form>
                             </td>

@@ -14,9 +14,7 @@ use App\Http\Controllers\Petugas\ReportController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', [AuthController::class, 'showLogin'])
-    ->name('home')
-    ->middleware('guest');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/login', [AuthController::class, 'showLogin'])
     ->name('login.show')
@@ -47,15 +45,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'admin'])
         ->name('admin.dashboard');
 
-    Route::resource('/users', UserController::class);
+    Route::resource('/users', UserController::class)->names('admin.users');
 
 
     Route::resource('/categories', CategoryController::class)
-        ->except(['show']);
+        ->except(['show'])->names('admin.categories');
 
 
     Route::resource('/tools', ToolController::class)
-        ->except(['show']);
+        ->except(['show'])->names('admin.tools');
 
 
     Route::resource('/borrowings', BorrowingController::class)

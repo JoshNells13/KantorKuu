@@ -1,41 +1,47 @@
-<a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.dashboard') ? 'bg-blue-700' : 'hover:bg-blue-600' }} rounded-lg transition">
-    <i class="fas fa-chart-line"></i>
-    <span>Dashboard</span>
+<a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.dashboard') ? 'bg-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary' }} rounded-lg transition-colors"
+    href="{{ route('admin.dashboard') }}">
+    <span class="material-icons text-[20px]">dashboard</span>
+    <span class="font-medium">Dashboard</span>
 </a>
 
-<div class="mt-4 mb-2 text-xs text-blue-200 uppercase font-semibold pl-4">Master Data</div>
-<a href="{{ route('users.index') }}" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('users.*') ? 'bg-blue-700' : 'hover:bg-blue-600' }} rounded-lg transition">
-    <i class="fas fa-users"></i>
-    <span>Data Pengguna</span>
-</a>
-<a href="{{ route('categories.index') }}" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('categories.*') ? 'bg-blue-700' : 'hover:bg-blue-600' }} rounded-lg transition">
-    <i class="fas fa-tags"></i>
-    <span>Kategori</span>
-</a>
-<a href="{{ route('tools.index') }}" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('tools.*') ? 'bg-blue-700' : 'hover:bg-blue-600' }} rounded-lg transition">
-    <i class="fas fa-tools"></i>
-    <span>Data Alat</span>
+<a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.tools.*') ? 'bg-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary' }} rounded-lg transition-colors"
+    href="{{ route('admin.tools.index') }}">
+    <span class="material-icons text-[20px]">inventory_2</span>
+    <span class="font-medium">Alat</span>
 </a>
 
-<div class="mt-4 mb-2 text-xs text-blue-200 uppercase font-semibold pl-4">Transaksi</div>
-<a href="{{ route('admin.borrowings.index') }}" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('borrowings.*') ? 'bg-blue-700' : 'hover:bg-blue-600' }} rounded-lg transition">
-    <i class="fas fa-clipboard-list"></i>
-    <span>Peminjaman</span>
-</a>
-<a href="{{ route('admin.return-tools.index') }}" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('return-tools.*') ? 'bg-blue-700' : 'hover:bg-blue-600' }} rounded-lg transition">
-    <i class="fas fa-undo"></i>
-    <span>Pengembalian</span>
+<a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.categories.*') ? 'bg-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary' }} rounded-lg transition-colors"
+    href="{{ route('admin.categories.index') }}">
+    <span class="material-icons text-[20px]">category</span>
+    <span class="font-medium">Kategori</span>
 </a>
 
-<div class="mt-4 mb-2 text-xs text-blue-200 uppercase font-semibold pl-4">Lainnya</div>
-<a href="{{ route('admin.activity-logs.index') }}" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('activities.*') ? 'bg-blue-700' : 'hover:bg-blue-600' }} rounded-lg transition">
-    <i class="fas fa-history"></i>
-    <span>Log Aktivitas</span>
+<a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.borrowings.*') ? 'bg-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary' }} rounded-lg transition-colors"
+    href="{{ route('admin.borrowings.index') }}">
+    <span class="material-icons text-[20px]">assignment</span>
+    <span class="font-medium">Peminjaman</span>
 </a>
-<form action="{{ route('logout') }}" method="POST">
-    @csrf
-    <button type="submit" onclick="return confirm('Ingin Keluar?')" class="flex items-center gap-3 px-4 py-3 hover:bg-blue-600 rounded-lg transition w-full text-left">
-        <i class="fas fa-file-alt"></i>
-        <span>Keluar</span>
-    </button>
-</form>
+
+<a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.return-tools.*') ? 'bg-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary' }} rounded-lg transition-colors"
+    href="{{ route('admin.return-tools.index') }}">
+    <span class="material-icons text-[20px]">assignment_return</span>
+    <span class="font-medium">Pengembalian</span>
+</a>
+
+<a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.users.*') ? 'bg-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary' }} rounded-lg transition-colors"
+    href="{{ route('admin.users.index') }}">
+    <span class="material-icons text-[20px]">people</span>
+    <span class="font-medium">Pengguna</span>
+</a>
+
+<a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.activity-logs.*') ? 'bg-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary' }} rounded-lg transition-colors"
+    href="{{ route('admin.activity-logs.index') }}">
+    <span class="material-icons text-[20px]">history</span>
+    <span class="font-medium">Log Aktivitas</span>
+</a>
+
+<a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.reports') ? 'bg-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary' }} rounded-lg transition-colors"
+    href="{{ route('admin.reports') }}">
+    <span class="material-icons text-[20px]">bar_chart</span>
+    <span class="font-medium">Laporan</span>
+</a>

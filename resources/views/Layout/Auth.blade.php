@@ -15,10 +15,10 @@
         @if (session('success'))
             <div id="notif-success"
                 class="fixed top-5 right-5 z-50 flex items-center gap-3 bg-green-600 text-white px-5 py-4 rounded-xl shadow-lg animate-slide-in">
-                <i class="fas fa-circle-check text-xl"></i>
+                <span class="material-icons text-xl">check_circle</span>
                 <span class="text-sm font-semibold">{{ session('success') }}</span>
                 <button onclick="closeNotif('notif-success')" class="ml-2 text-white/80 hover:text-white">
-                    <i class="fas fa-xmark"></i>
+                    <span class="material-icons">close</span>
                 </button>
             </div>
         @endif
@@ -26,10 +26,10 @@
         @if (session('error'))
             <div id="notif-error"
                 class="fixed top-5 right-5 z-50 flex items-center gap-3 bg-red-600 text-white px-5 py-4 rounded-xl shadow-lg animate-slide-in">
-                <i class="fas fa-circle-xmark text-xl"></i>
+                <span class="material-icons text-xl">error</span>
                 <span class="text-sm font-semibold">{{ session('error') }}</span>
                 <button onclick="closeNotif('notif-error')" class="ml-2 text-white/80 hover:text-white">
-                    <i class="fas fa-xmark"></i>
+                    <span class="material-icons">close</span>
                 </button>
             </div>
         @endif

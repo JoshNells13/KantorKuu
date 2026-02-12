@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>EquipRent | Professional Equipment Rental</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 transition-colors duration-200">
+    <!-- Navigation Bar -->
+    <nav
+        class="sticky top-0 z-50 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo and Main Links -->
+                <div class="flex items-center gap-8">
+                    <a class="flex items-center gap-2" href="#">
+                        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                            <span class="material-icons text-white text-xl">construction</span>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">EquipRent</span>
+                    </a>
+                    <div class="hidden md:flex items-center gap-6">
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Categories</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="#">My Rentals</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Support</a>
+                    </div>
+                </div>
+                <!-- Secondary Search & Auth -->
+                <div class="flex items-center gap-4">
+                    <div class="hidden lg:flex relative items-center">
+                        <span class="material-icons absolute left-3 text-slate-400 text-sm">search</span>
+                        <input
+                            class="pl-10 pr-4 py-1.5 text-sm bg-slate-100 dark:bg-slate-800 border-none rounded-full focus:ring-2 focus:ring-primary/50 w-48 transition-all"
+                            placeholder="Quick search..." type="text" />
+                    </div>
+                    <button class="text-sm font-medium px-4 py-2 hover:text-primary transition-colors">Log In</button>
+                    <button
+                        class="bg-primary hover:bg-primary/90 text-white text-sm font-semibold px-5 py-2 rounded-lg shadow-sm transition-all">Sign
+                        Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-primary/10"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+                    Professional Equipment, <br />
+                    <span class="text-primary">Delivered to Your Doorstep.</span>
+                </h1>
+                <p class="text-lg text-slate-600 dark:text-slate-400">
+                    Skip the overhead. Rent high-grade tools, cameras, and machinery for projects of any size. Reliable
+                    service, flexible dates, and doorstep delivery.
+                </p>
+            </div>
+            <!-- Search Widget -->
+            <div class="max-w-4xl mx-auto">
+                <div
+                    class="bg-white dark:bg-slate-900 p-2 rounded-xl lg:rounded-full shadow-xl border border-slate-200 dark:border-slate-800 flex flex-col lg:flex-row gap-2">
+                    <div
+                        class="flex-1 flex items-center px-4 py-2 lg:py-0 border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-slate-800">
+                        <span class="material-icons text-slate-400 mr-3">search</span>
+                        <input
+                            class="w-full bg-transparent border-none focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400"
+                            placeholder="What are you looking for?" type="text" />
+                    </div>
+                    <div
+                        class="flex-1 flex items-center px-4 py-2 lg:py-0 border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-slate-800">
+                        <span class="material-icons text-slate-400 mr-3">calendar_today</span>
+                        <input
+                            class="w-full bg-transparent border-none focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400"
+                            placeholder="Rental dates" type="text" />
+                    </div>
+                    <div class="px-2">
+                        <button
+                            class="w-full lg:w-auto bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-lg lg:rounded-full font-semibold transition-all">
+                            Search Inventory
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-6 flex flex-wrap justify-center gap-3">
+                    <span
+                        class="text-xs font-semibold text-slate-400 uppercase tracking-widest mr-2 py-1">Popular:</span>
+                    <button
+                        class="px-3 py-1 bg-white dark:bg-slate-800 rounded-full text-xs font-medium border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors">Power
+                        Tools</button>
+                    <button
+                        class="px-3 py-1 bg-white dark:bg-slate-800 rounded-full text-xs font-medium border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors">Drones</button>
+                    <button
+                        class="px-3 py-1 bg-white dark:bg-slate-800 rounded-full text-xs font-medium border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors">Party
+                        Gear</button>
+                    <button
+                        class="px-3 py-1 bg-white dark:bg-slate-800 rounded-full text-xs font-medium border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors">Generators</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- How It Works Section -->
+    <section class="py-20 bg-slate-50 dark:bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">How It Works</h2>
+                <div class="w-16 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="text-center group">
+                    <div
+                        class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary transition-colors">
+                        <span
+                            class="material-icons text-primary group-hover:text-white text-3xl transition-colors">inventory_2</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Browse our Catalog</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Access thousands of items from local suppliers and professional rental houses in one place.
+                    </p>
+                </div>
+                <div class="text-center group">
+                    <div
+                        class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary transition-colors">
+                        <span
+                            class="material-icons text-primary group-hover:text-white text-3xl transition-colors">event_available</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Select Dates</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Choose your rental period with flexible daily, weekly, or monthly rates that fit your schedule.
+                    </p>
+                </div>
+                <div class="text-center group">
+                    <div
+                        class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary transition-colors">
+                        <span
+                            class="material-icons text-primary group-hover:text-white text-3xl transition-colors">local_shipping</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Work Smarter</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Pick up your items from a nearby hub or choose convenient on-site delivery and pickup.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Featured Equipment Grid -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl font-bold mb-2">Featured Equipment</h2>
+                    <p class="text-slate-500">The most popular tools being rented right now.</p>
+                </div>
+                <a class="text-primary font-semibold flex items-center hover:underline" href="#">
+                    View All Items <span class="material-icons text-sm ml-1">arrow_forward</span>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Item Card 1 -->
+                <div
+                    class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800 group hover:shadow-lg transition-all">
+                    <div class="relative h-48 overflow-hidden">
+                        <img alt="Professional Concrete Mixer"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="Large industrial concrete mixer in orange color"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJqNNMWe5aLARe3qaDoM0ddVbpzq1V7F7a5FSCjoH__gKEejOdwumCXIyYeQL5jnRERrZkRUGJFjpElCxVetJM4HT2TeMlA7PC-9ANmDRuY2XRgWeo5t3E2m-nL9XwJ8XehsGykz2oDStl-KBlkNZ1t4g6VzjozK6jhCXSsbG-_nGql7B6Cjoi0ArDClZ20OXdnkOT59DD3LbZjEKvuu90uR7GINKQIwJJaLdJ945nMliOkcNfnPFi6lvqxSCnC9Iwc4FlDJ1NMgs" />
+                        <div class="absolute top-3 left-3 flex gap-2">
+                            <span
+                                class="bg-emerald-500 text-white text-[10px] font-bold uppercase px-2 py-1 rounded">Available</span>
+                            <span
+                                class="bg-white/90 backdrop-blur-sm text-slate-800 text-[10px] font-bold uppercase px-2 py-1 rounded flex items-center gap-1">
+                                <span class="material-icons text-[10px] text-primary">verified</span> Verified
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <p class="text-xs font-semibold text-primary uppercase tracking-wide mb-1">Construction</p>
+                        <h3 class="text-lg font-bold mb-2 text-slate-900 dark:text-white">Industrial Concrete Mixer</h3>
+                        <div class="flex items-center gap-1 text-yellow-500 mb-4">
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm">star_half</span>
+                            <span class="text-xs text-slate-400 ml-1 font-medium">(4.8)</span>
+                        </div>
+                        <div class="flex items-center justify-between mt-auto">
+                            <div>
+                                <span class="text-2xl font-bold text-slate-900 dark:text-white">$85</span>
+                                <span class="text-slate-400 text-sm">/day</span>
+                            </div>
+                            <button
+                                class="bg-primary/10 text-primary hover:bg-primary hover:text-white p-2 rounded-lg transition-colors">
+                                <span class="material-icons">chevron_right</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item Card 2 -->
+                <div
+                    class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800 group hover:shadow-lg transition-all">
+                    <div class="relative h-48 overflow-hidden">
+                        <img alt="Professional Camera Kit"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="High-end professional cinema camera kit on tripod"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzqCRY9FtOOh6moczpTFRFx-_GSo_3s3UiR4uxCtgN0n2GtStt2sc2uju6D2l8EO_Y5A3QFQzJRIYH0UphOqp2dI3HnMbGbY0nCSyDAj9CdoSr8tPCd23iZ3vNR2e6Bn-x3-d6YfaE7fujQX1HTzoVySlL7uPThBv9ksotQufhtvnV31yW0zxV-xR1C6j0jmYVdNs5T2eJOkW1lnFfd2CLWCEdM_KXE4l_vDBE_QJNmqOoiwbyXSdAl6xhN-x4To7RbsIw0uEMgrk" />
+                        <div class="absolute top-3 left-3 flex gap-2">
+                            <span class="bg-amber-500 text-white text-[10px] font-bold uppercase px-2 py-1 rounded">Low
+                                Stock</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <p class="text-xs font-semibold text-primary uppercase tracking-wide mb-1">Photography</p>
+                        <h3 class="text-lg font-bold mb-2 text-slate-900 dark:text-white">Sony FX3 Cinema Kit</h3>
+                        <div class="flex items-center gap-1 text-yellow-500 mb-4">
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm text-slate-300">star</span>
+                            <span class="text-xs text-slate-400 ml-1 font-medium">(4.2)</span>
+                        </div>
+                        <div class="flex items-center justify-between mt-auto">
+                            <div>
+                                <span class="text-2xl font-bold text-slate-900 dark:text-white">$149</span>
+                                <span class="text-slate-400 text-sm">/day</span>
+                            </div>
+                            <button
+                                class="bg-primary/10 text-primary hover:bg-primary hover:text-white p-2 rounded-lg transition-colors">
+                                <span class="material-icons">chevron_right</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item Card 3 -->
+                <div
+                    class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800 group hover:shadow-lg transition-all">
+                    <div class="relative h-48 overflow-hidden">
+                        <img alt="Compact Excavator"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="Yellow compact mini excavator on a worksite"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoBYGjkpzd2OyoNwWuXdiGoc3RZN51VrO-Uo6u4EcYjtKSaJUHdNMRBDHrYaHQqDKLpcc-gesJOAwGYT78riVNfCb-OUjgta5eK44GYIWb3l0PK_ljOQlxcCzeeXP-IAyH5X87ictNirpfOiHdcyXwm7wwlNDKFql8OrY7wkZID3LjoLUq086Qub5JRumaBbVw6v8hfHRe3iJgBLTvS720IOzblW04W6-iRHnE2-zOaN9IRikpcJr8sC6a6gjHvIIjo45XAFMEARg" />
+                        <div class="absolute top-3 left-3 flex gap-2">
+                            <span
+                                class="bg-emerald-500 text-white text-[10px] font-bold uppercase px-2 py-1 rounded">Available</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <p class="text-xs font-semibold text-primary uppercase tracking-wide mb-1">Heavy Machinery</p>
+                        <h3 class="text-lg font-bold mb-2 text-slate-900 dark:text-white">Mini Excavator 1.5T</h3>
+                        <div class="flex items-center gap-1 text-yellow-500 mb-4">
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm">star</span>
+                            <span class="text-xs text-slate-400 ml-1 font-medium">(5.0)</span>
+                        </div>
+                        <div class="flex items-center justify-between mt-auto">
+                            <div>
+                                <span class="text-2xl font-bold text-slate-900 dark:text-white">$210</span>
+                                <span class="text-slate-400 text-sm">/day</span>
+                            </div>
+                            <button
+                                class="bg-primary/10 text-primary hover:bg-primary hover:text-white p-2 rounded-lg transition-colors">
+                                <span class="material-icons">chevron_right</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item Card 4 -->
+                <div
+                    class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800 group hover:shadow-lg transition-all">
+                    <div class="relative h-48 overflow-hidden">
+                        <img alt="Pressure Washer"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="Electric high pressure washer machine with nozzle"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW1rdGbtdNGN3hi6_nlIwDh__qeQ9L0dEG1UoZq6EnDJycbLf5Yo55P2npxLPxeV0nyYB2xMvAsj1RZbtmqLXBBhuyI9sqZQMgp9UJbGlJT63C35i7Yag5grJveGdNBoAz0pe1axLk1vP0X7KuXkNq5DnkDzPDMArBWwHfAMIZw5D6lz-JNQGw0k1xClUdOl78nShCAwddz1eNvsfHJ2Vf88CVAQVz2nlw5tu5-C5prdlueZyPGGeWQ_QTMfT8coOwHNTZ09qz-gE" />
+                        <div class="absolute top-3 left-3 flex gap-2">
+                            <span
+                                class="bg-emerald-500 text-white text-[10px] font-bold uppercase px-2 py-1 rounded">Available</span>
+                            <span
+                                class="bg-white/90 backdrop-blur-sm text-slate-800 text-[10px] font-bold uppercase px-2 py-1 rounded flex items-center gap-1">
+                                <span class="material-icons text-[10px] text-primary">verified</span> Verified
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <p class="text-xs font-semibold text-primary uppercase tracking-wide mb-1">Gardening</p>
+                        <h3 class="text-lg font-bold mb-2 text-slate-900 dark:text-white">High-Power Pressure Washer
+                        </h3>
+                        <div class="flex items-center gap-1 text-yellow-500 mb-4">
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm">star</span>
+                            <span class="material-icons text-sm text-slate-300">star</span>
+                            <span class="text-xs text-slate-400 ml-1 font-medium">(4.1)</span>
+                        </div>
+                        <div class="flex items-center justify-between mt-auto">
+                            <div>
+                                <span class="text-2xl font-bold text-slate-900 dark:text-white">$45</span>
+                                <span class="text-slate-400 text-sm">/day</span>
+                            </div>
+                            <button
+                                class="bg-primary/10 text-primary hover:bg-primary hover:text-white p-2 rounded-lg transition-colors">
+                                <span class="material-icons">chevron_right</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-1">
+                    <a class="flex items-center gap-2 mb-6" href="#">
+                        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                            <span class="material-icons text-white text-xl">construction</span>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">EquipRent</span>
+                    </a>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
+                        Making professional equipment accessible for everyone. High quality tools, flexible terms, and
+                        exceptional support.
+                    </p>
+                    <div class="flex gap-4">
+                        <a class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary hover:text-white transition-colors"
+                            href="#">
+                            <span class="material-icons text-sm">facebook</span>
+                        </a>
+                        <a class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary hover:text-white transition-colors"
+                            href="#">
+                            <span class="material-icons text-sm">camera_alt</span>
+                        </a>
+                        <a class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary hover:text-white transition-colors"
+                            href="#">
+                            <span class="material-icons text-sm">alternate_email</span>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-6 text-slate-900 dark:text-white">Quick Links</h4>
+                    <ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a class="hover:text-primary transition-colors" href="#">All Categories</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">How it Works</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Pricing Plans</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Partner with Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-6 text-slate-900 dark:text-white">Support</h4>
+                    <ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Safety Guidelines</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-6 text-slate-900 dark:text-white">Newsletter</h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Get updates on new equipment and seasonal
+                        offers.</p>
+                    <div class="flex flex-col gap-2">
+                        <input
+                            class="px-4 py-2 text-sm bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary/50"
+                            placeholder="Your email address" type="email" />
+                        <button
+                            class="bg-primary text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-primary/90 transition-all">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-slate-400">© 2024 EquipRent Inc. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <div class="flex items-center gap-2 text-xs text-slate-400">
+                        <span class="material-icons text-xs">language</span>
+                        <span>English (US)</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs text-slate-400">
+                        <span class="material-icons text-xs">payments</span>
+                        <span>USD ($)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
