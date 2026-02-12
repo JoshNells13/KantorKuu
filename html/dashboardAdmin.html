@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Admin Inventory Management Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex">
+    <!-- Sidebar -->
+    <aside
+        class="w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col fixed h-full">
+        <div class="p-6 flex items-center gap-3">
+            <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                <span class="material-icons text-white text-sm">construction</span>
+            </div>
+            <span class="text-xl font-bold tracking-tight text-primary">RentMaster</span>
+        </div>
+        <nav class="flex-1 px-4 space-y-1 mt-4">
+            <a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors"
+                href="#">
+                <span class="material-icons text-[20px]">dashboard</span>
+                <span class="font-medium">Dashboard</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 bg-primary text-white rounded-lg transition-colors" href="#">
+                <span class="material-icons text-[20px]">inventory_2</span>
+                <span class="font-medium">Inventory</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors"
+                href="#">
+                <span class="material-icons text-[20px]">people</span>
+                <span class="font-medium">Users</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors"
+                href="#">
+                <span class="material-icons text-[20px]">bar_chart</span>
+                <span class="font-medium">Reports</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors"
+                href="#">
+                <span class="material-icons text-[20px]">settings</span>
+                <span class="font-medium">Settings</span>
+            </a>
+        </nav>
+        <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+            <div class="flex items-center gap-3 p-2">
+                <img alt="Admin Profile" class="w-10 h-10 rounded-full"
+                    data-alt="Portrait of a male professional administrator"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjJlN_rgaGr6MBeGoXG2HNTMxhYkUDyoqe0pwp72Oj7hat9bmXVrdXcydQL-6aDQb-H4S8MY3Ve6OkUv4Q8OtZGdeA7KNw6UUfFDMMh87vlzI8nicQE7YA7hrgY5dGWkCdmg5r3GATZP7mUtqkwPnWfd9QTN3N4MzMa56WUu0PJoMs6OVmsKlh_ff8iTWCFhuPsnu6dRPZ5h-MBYjWQf34e2jannjpj_vLhYMnXZOLmh2SZxrNjCc_hRPY8ul7fyQNuRxYaFZtmkg" />
+                <div class="overflow-hidden">
+                    <p class="text-sm font-semibold truncate">Alex Henderson</p>
+                    <p class="text-xs text-slate-500 truncate">Senior Admin</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <!-- Main Content -->
+    <main class="ml-64 flex-1 flex flex-col min-h-screen">
+        <!-- Top Bar -->
+        <header
+            class="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 sticky top-0 z-10">
+            <div class="flex items-center gap-4">
+                <h1 class="text-xl font-bold">Inventory Management</h1>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="relative">
+                    <span class="material-icons text-slate-400 hover:text-primary cursor-pointer">notifications</span>
+                    <span
+                        class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
+                </div>
+                <button
+                    class="bg-primary text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 hover:bg-blue-700 transition-colors">
+                    <span class="material-icons text-sm">add</span>
+                    <span>Add New Item</span>
+                </button>
+            </div>
+        </header>
+        <!-- Page Content -->
+        <div class="p-8 space-y-8">
+            <!-- Metrics Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div
+                    class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">
+                                Total Equipment</p>
+                            <h3 class="text-3xl font-bold mt-1">1,240</h3>
+                        </div>
+                        <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
+                            <span class="material-icons">category</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center gap-2">
+                        <span class="text-emerald-500 flex items-center text-sm font-medium">
+                            <span class="material-icons text-sm">trending_up</span> 5.2%
+                        </span>
+                        <span class="text-slate-400 text-xs tracking-tight">vs last month</span>
+                    </div>
+                </div>
+                <div
+                    class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">
+                                Active Rentals</p>
+                            <h3 class="text-3xl font-bold mt-1">85</h3>
+                        </div>
+                        <div
+                            class="w-12 h-12 bg-amber-500/10 rounded-lg flex items-center justify-center text-amber-600">
+                            <span class="material-icons">key</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center gap-2">
+                        <span class="text-emerald-500 flex items-center text-sm font-medium">
+                            <span class="material-icons text-sm">trending_up</span> 12.1%
+                        </span>
+                        <span class="text-slate-400 text-xs tracking-tight">vs last month</span>
+                    </div>
+                </div>
+                <div
+                    class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">
+                                Total Revenue</p>
+                            <h3 class="text-3xl font-bold mt-1">$12,500.00</h3>
+                        </div>
+                        <div
+                            class="w-12 h-12 bg-emerald-500/10 rounded-lg flex items-center justify-center text-emerald-600">
+                            <span class="material-icons">payments</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center gap-2">
+                        <span class="text-emerald-500 flex items-center text-sm font-medium">
+                            <span class="material-icons text-sm">trending_up</span> 8.4%
+                        </span>
+                        <span class="text-slate-400 text-xs tracking-tight">vs last month</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Table Section -->
+            <div
+                class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                <!-- Toolbar -->
+                <div
+                    class="p-6 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="relative max-w-md w-full">
+                        <span
+                            class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+                        <input
+                            class="w-full pl-10 pr-4 py-2 bg-background-light dark:bg-slate-800 border-transparent rounded-lg focus:ring-primary focus:border-primary text-sm"
+                            placeholder="Search equipment by name or ID..." type="text" />
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <select
+                            class="bg-background-light dark:bg-slate-800 border-transparent rounded-lg text-sm px-4 py-2 focus:ring-primary focus:border-primary">
+                            <option>All Categories</option>
+                            <option>Heavy Machinery</option>
+                            <option>Power Tools</option>
+                            <option>Generators</option>
+                        </select>
+                        <select
+                            class="bg-background-light dark:bg-slate-800 border-transparent rounded-lg text-sm px-4 py-2 focus:ring-primary focus:border-primary">
+                            <option>All Status</option>
+                            <option>Available</option>
+                            <option>Rented</option>
+                            <option>Maintenance</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Data Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr
+                                class="bg-background-light dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 text-xs font-semibold uppercase tracking-wider">
+                                <th class="px-6 py-4">Item Details</th>
+                                <th class="px-6 py-4">ID</th>
+                                <th class="px-6 py-4">Category</th>
+                                <th class="px-6 py-4">Status</th>
+                                <th class="px-6 py-4">Price/Day</th>
+                                <th class="px-6 py-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                            <!-- Row 1 -->
+                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+                                            <img alt="Industrial Drill" class="object-cover w-full h-full"
+                                                data-alt="A heavy duty industrial cordless drill"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5Vq3980ICLwFimDSK-Cum6QeSjzyxs_nv1fccDbKWA7LaQq3QX73tA_X6ZoP8bmmHgGGsB-vzWjXG1nHxDdEvfVjTHi6ydqVpWaFvC5DSjGE9wsoHe0-ADmiYY3bAzrIm1ypZU9qZLh7Cba4QeHK4R9CpT6MNq3JJ1DpN9e7M8siZdhW0xrzivAVtOWUW1RTNoeM3Ig7e75eOqKI1loDsV6WPDu-Aw2dvumB8S6-MqKcnGwuZClaNOlR8vmlnAz9bwFHdn6VwT04" />
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-sm">Industrial Power Drill</p>
+                                            <p class="text-xs text-slate-500">Brushless Motor X-200</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-mono text-slate-500">#EQ-48291</td>
+                                <td class="px-6 py-4 text-sm">Power Tools</td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400">
+                                        Available
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-semibold">$45.00</td>
+                                <td class="px-6 py-4 text-right">
+                                    <div class="flex items-center justify-end gap-2">
+                                        <button class="p-1 hover:text-primary transition-colors"><span
+                                                class="material-icons text-lg">edit</span></button>
+                                        <button class="p-1 hover:text-red-500 transition-colors"><span
+                                                class="material-icons text-lg">delete</span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 2 -->
+                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+                                            <img alt="Excavator" class="object-cover w-full h-full"
+                                                data-alt="Small yellow construction excavator"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi59bcMb3TSxtCjXe77EwWUzi6wmsPopJ-pEXNezg1KBgGeYTgaxdQUpSFXbsU45PGMwIZjKTeKYoK-clLEZq6Gm4AyuFzKIJBQVqYSI_QxHkml86Ok077v4Ks6mln4hI0kD2qTB-Z5Sz7u29R291MCFofa3sdwr4FhnGS0FwgcGz89d1H71XcjmxlP0yZudfPSYVNG940hQuod5-cNmJo5KVmJx728BRqQz9R6hnIiUVBa1Uwk7o1KwM56074UQMckapLqiG1kJs" />
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-sm">Compact Excavator</p>
+                                            <p class="text-xs text-slate-500">John Deere 35G</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-mono text-slate-500">#EQ-10293</td>
+                                <td class="px-6 py-4 text-sm">Heavy Machinery</td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400">
+                                        Rented
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-semibold">$320.00</td>
+                                <td class="px-6 py-4 text-right">
+                                    <div class="flex items-center justify-end gap-2">
+                                        <button class="p-1 hover:text-primary transition-colors"><span
+                                                class="material-icons text-lg">edit</span></button>
+                                        <button class="p-1 hover:text-red-500 transition-colors"><span
+                                                class="material-icons text-lg">delete</span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 3 -->
+                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+                                            <img alt="Generator" class="object-cover w-full h-full"
+                                                data-alt="Portable fuel powered electric generator"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5qiEIARefLziToapImfGJw9sbZPbdxeF-q-sSgOL_VXsONpefBNhr64a7TLqA8psrZSd8VytWbAjI_o3HhOsKAOL9VN36q0SHJtGKPqIP_zTz4OtMltims12G8Z0Vw_NzIbcWip-fnXIl4dyBP674gMB67MbM4tmN07Qp6m6TSDwei5SqmCHTicbHpbdm6PcZzZ3ype8OCDZcLmF9HG63FgK4G3B3f-3dFKxo77TAq8YsB61mYMWUGnRTCbVFSbGLhaysIUFmhdo" />
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-sm">5000W Generator</p>
+                                            <p class="text-xs text-slate-500">Silent Series Pro</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-mono text-slate-500">#EQ-88374</td>
+                                <td class="px-6 py-4 text-sm">Generators</td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">
+                                        Maintenance
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-semibold">$85.00</td>
+                                <td class="px-6 py-4 text-right">
+                                    <div class="flex items-center justify-end gap-2">
+                                        <button class="p-1 hover:text-primary transition-colors"><span
+                                                class="material-icons text-lg">edit</span></button>
+                                        <button class="p-1 hover:text-red-500 transition-colors"><span
+                                                class="material-icons text-lg">delete</span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 4 -->
+                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+                                            <img alt="Pressure Washer" class="object-cover w-full h-full"
+                                                data-alt="High pressure water cleaning machine"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxcd_KPpZC5M-zmnHbn5sYb7weXh-1Y4jzldy4rVeH5pnBPqSVIBm3ufr-zb4FqkyWEkJWsIxN7KNege85bd3UdaeLabLybmIzrySeand5CN3m-KrUvorg9bF_s6TzUC3PEOOFmYoDlTj4F_Qfa4zdOUULt1vpBnD4883_zPmt1KBGvF1YfSDveWsfu72Z37UTFzKW2PQkS5zPRQdnA9eef9UH5SZDJ7Pk_3hOH-d3hrLLjotR78lMLCTJ2PvrLIlWz-gzWaXo7lE" />
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-sm">Pressure Washer</p>
+                                            <p class="text-xs text-slate-500">AquaForce 3000</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-mono text-slate-500">#EQ-77212</td>
+                                <td class="px-6 py-4 text-sm">Power Tools</td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400">
+                                        Available
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-semibold">$60.00</td>
+                                <td class="px-6 py-4 text-right">
+                                    <div class="flex items-center justify-end gap-2">
+                                        <button class="p-1 hover:text-primary transition-colors"><span
+                                                class="material-icons text-lg">edit</span></button>
+                                        <button class="p-1 hover:text-red-500 transition-colors"><span
+                                                class="material-icons text-lg">delete</span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination -->
+                <div class="p-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                    <p class="text-xs text-slate-500">Showing 4 of 1,240 results</p>
+                    <div class="flex items-center gap-2">
+                        <button
+                            class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs font-medium hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50"
+                            disabled="">Previous</button>
+                        <button class="px-3 py-1 bg-primary text-white rounded text-xs font-medium">1</button>
+                        <button
+                            class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs font-medium hover:bg-slate-50 dark:hover:bg-slate-800">2</button>
+                        <button
+                            class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs font-medium hover:bg-slate-50 dark:hover:bg-slate-800">3</button>
+                        <button
+                            class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs font-medium hover:bg-slate-50 dark:hover:bg-slate-800">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

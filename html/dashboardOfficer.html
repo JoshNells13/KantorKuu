@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Staff Approval Dashboard - Equipment Rental</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "success": "#10b981",
+                        "danger": "#ef4444",
+                        "warning": "#f59e0b",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+    <!-- Navigation Header -->
+    <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-3">
+                    <div class="bg-primary p-2 rounded-lg">
+                        <span class="material-icons text-white">construction</span>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-primary">EquipFlow</span>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a class="border-b-2 border-primary text-primary px-1 pt-1 text-sm font-medium"
+                        href="#">Dashboard</a>
+                    <a class="border-b-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 px-1 pt-1 text-sm font-medium"
+                        href="#">Inventory</a>
+                    <a class="border-b-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 px-1 pt-1 text-sm font-medium"
+                        href="#">Users</a>
+                    <a class="border-b-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 px-1 pt-1 text-sm font-medium"
+                        href="#">Reports</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <button class="text-slate-400 hover:text-slate-500 relative">
+                        <span class="material-icons">notifications</span>
+                        <span
+                            class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-danger ring-2 ring-white"></span>
+                    </button>
+                    <div class="flex items-center gap-3 border-l pl-4 border-slate-200 dark:border-slate-800">
+                        <div class="text-right hidden sm:block">
+                            <p class="text-xs font-semibold">Alex Staff</p>
+                            <p class="text-[10px] text-slate-500">Inventory Officer</p>
+                        </div>
+                        <img alt="Profile" class="h-8 w-8 rounded-full bg-slate-200" data-alt="Staff profile photo"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn05_THdH51zEoueUXLAIbFtH8edVQZSICKLgK4Ozlzz7woO2jvpSRzegjka8q1gqEYGBCSINuRojzY1P4naz5UF9H5E5nm_UHzTJhZzlNx6S3xNpd_QlbwbRjZpgm5_Gj9hp4Vm7eiKh-8Ps7ZeiNhZaTj9mtvYiwsJMhrnZfYdIVekv9MdRl2JrOlyQ4aWmaIb2M0NT2p6Im6vQI1dAZ-BKY0ppCMlAdUQWkpXInUYhUq0xxmjsCyUs8aHH8WhoJ6oXqCDm5qC8" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Dashboard Heading -->
+        <div class="md:flex md:items-center md:justify-between mb-8">
+            <div class="flex-1 min-w-0">
+                <h2 class="text-2xl font-bold leading-7 text-slate-900 dark:text-white sm:text-3xl sm:truncate">Staff
+                    Approval Dashboard</h2>
+                <p class="mt-1 text-sm text-slate-500">You have <span class="text-primary font-semibold">12
+                        pending</span> rental requests requiring attention today.</p>
+            </div>
+            <div class="mt-4 flex md:mt-0 md:ml-4">
+                <button
+                    class="inline-flex items-center px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg shadow-sm text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 transition"
+                    type="button">
+                    <span class="material-icons text-sm mr-2">download</span> Export Data
+                </button>
+            </div>
+        </div>
+        <!-- Filter & Search Section -->
+        <div
+            class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 mb-6 p-4">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                <!-- Status Filter Tabs -->
+                <div class="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-lg w-fit">
+                    <button
+                        class="px-4 py-2 text-sm font-medium rounded-md bg-white dark:bg-slate-700 text-primary shadow-sm transition">Pending</button>
+                    <button
+                        class="px-4 py-2 text-sm font-medium rounded-md text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition">Active</button>
+                    <button
+                        class="px-4 py-2 text-sm font-medium rounded-md text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition">Completed</button>
+                    <button
+                        class="px-4 py-2 text-sm font-medium rounded-md text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition">All</button>
+                </div>
+                <!-- Search and Action Bar -->
+                <div class="flex flex-col sm:flex-row items-center gap-3">
+                    <div class="relative w-full sm:w-64">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <span class="material-icons text-slate-400 text-sm">search</span>
+                        </span>
+                        <input
+                            class="block w-full pl-10 pr-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800 text-sm placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                            placeholder="Search user or equipment..." type="text" />
+                    </div>
+                    <button
+                        class="w-full sm:w-auto inline-flex justify-center items-center px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-medium transition shadow-sm">
+                        <span class="material-icons text-sm mr-2">filter_alt</span> Apply Filters
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Request Table -->
+        <div
+            class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800">
+                    <thead class="bg-slate-50 dark:bg-slate-800/50">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider"
+                                scope="col">User Details</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider"
+                                scope="col">Equipment</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider"
+                                scope="col">Rental Duration</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider"
+                                scope="col">Request Date</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider"
+                                scope="col">Status</th>
+                            <th class="px-6 py-4 text-right text-xs font-semibold text-slate-500 uppercase tracking-wider whitespace-nowrap"
+                                scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-slate-900 divide-y divide-slate-200 dark:divide-slate-800">
+                        <!-- Table Row 1 -->
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img alt="" class="h-10 w-10 rounded-full object-cover"
+                                            data-alt="Portrait of John Doe"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPF8XU4iknL8HiZJHbUjQJPBsfAa_MoZhT-pKiUmu2CBVQm1BogTVXT_m_ujmolAgOfgmlVWY_jYGVpeZzq2Jwpod6xjgr78CzJGVG0dljr-pn3NYSafZMb0GxAuHyLaolkmihmPx0DsLrLhliTlSQOUkpxH_WoJF-1QVr1cbmjmu76Q2sdF74GilK0XZF-hKovh-a4XkWams2lCcWmOrEDEpywnGe4FEkpvVTrVokAoUSeexmBXqyB2lFgwtrviZ076zSqaj5LQA" />
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-semibold text-slate-900 dark:text-white">Johnathan Doe
+                                        </div>
+                                        <div class="text-xs text-slate-500">john.doe@example.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="h-10 w-10 bg-slate-100 dark:bg-slate-800 rounded-md flex items-center justify-center overflow-hidden border border-slate-200 dark:border-slate-700">
+                                        <img alt="" class="object-cover h-full w-full"
+                                            data-alt="Nikon Z6 Camera thumbnail"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDh3MvVnTpnHrHwTkfiqrVBQ7taRcqF5xVQWpEEQMrgqmfVsxloZTqIBMEKHzdo5T86oO55HYOHF27ZSbGirOSars0GuOLFerQLLUfqzLrB0thWVoS4xQ3KW0o7jtE0BV7SXky8uuc-TVtwvFzT8bB1ltG6IcOAC_4CxErjxwVLQ9TMoXDb_5eHnHx-rCVPwctJO9LK0HinqmHmiBTeE60yyU9IR1cu5_xWvNhTbL48ZksoAMma35BivurijLeo2cbW6bdx8xYll8" />
+                                    </div>
+                                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Nikon Z6 II
+                                        Body</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-slate-700 dark:text-slate-300">Oct 24 - Oct 28, 2023</div>
+                                <div class="text-xs text-slate-400">4 Days Total</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                                Oct 21, 2023
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span
+                                    class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-warning/10 text-warning border border-warning/20">
+                                    Pending Approval
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <div class="flex justify-end gap-2">
+                                    <button
+                                        class="bg-success hover:bg-success/90 text-white px-3 py-1.5 rounded-lg flex items-center gap-1 transition shadow-sm">
+                                        <span class="material-icons text-xs">check</span> Approve
+                                    </button>
+                                    <button
+                                        class="bg-danger/10 hover:bg-danger/20 text-danger px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+                                        <span class="material-icons text-xs">close</span> Reject
+                                    </button>
+                                    <button
+                                        class="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                                        <span class="material-icons">more_vert</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Table Row 2 -->
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img alt="" class="h-10 w-10 rounded-full object-cover"
+                                            data-alt="Portrait of Sarah Smith"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6PIetzCv_DqK2TS4vUxf0MtLczvqf9qAgPaXccyFw6FkcJCrpLMB8i80tycdgNMA30RewQ_1Pm6MQKSQZiK6-wR35SCFboV__7wVi0uFmYmU0qEGNQNONad_xSGp_ybcsPgg5mRG1wfgAbX9uM1meYRDxKEKYEnzJ5utqMk6p0L04MhH-pAJ_QQtl7hstmq-POtrlwT-ar-LsAnRq9P93rc2Vc_K2rd3XEUIfb3X1nu0xugCS87ikEI_wDCdPVYhqMcBgbW5Ut7g" />
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-semibold text-slate-900 dark:text-white">Sarah Smith
+                                        </div>
+                                        <div class="text-xs text-slate-500">sarah.s@studio.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="h-10 w-10 bg-slate-100 dark:bg-slate-800 rounded-md flex items-center justify-center overflow-hidden border border-slate-200 dark:border-slate-700">
+                                        <img alt="" class="object-cover h-full w-full"
+                                            data-alt="Studio Lighting Kit thumbnail"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAgSzR1EwwTUEgq4f85iaeq_KO4Wq4wTpDb6jRGgKvybNr0ugwK0X3BfeIc6oxY1KUc4f3_jYifZ24Qkmf7mDDi4wxn_wr2OBbNJQCh6nVpYD2WRsFT9DsvSuZ9hnuK8S6TWjTO1FYuHLjx8zvvi6mB7TJ9Lm6uT00Zt0JzcUvXfnxCFxRAo0ZEGLprRRxnqXREZds4bB9q-AdR48gFdQOC5ynCBM-G3YuUVpA2bJ0hjcE7omWOYSTt5IkpxURjTwIvOA6GHUVxfM" />
+                                    </div>
+                                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Aputure 3-Light
+                                        Kit</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-slate-700 dark:text-slate-300">Oct 26 - Oct 27, 2023</div>
+                                <div class="text-xs text-slate-400">1 Day Total</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                                Oct 22, 2023
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span
+                                    class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-warning/10 text-warning border border-warning/20">
+                                    Pending Approval
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <div class="flex justify-end gap-2">
+                                    <button
+                                        class="bg-success hover:bg-success/90 text-white px-3 py-1.5 rounded-lg flex items-center gap-1 transition shadow-sm">
+                                        <span class="material-icons text-xs">check</span> Approve
+                                    </button>
+                                    <button
+                                        class="bg-danger/10 hover:bg-danger/20 text-danger px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+                                        <span class="material-icons text-xs">close</span> Reject
+                                    </button>
+                                    <button
+                                        class="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                                        <span class="material-icons">more_vert</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Table Row 3 -->
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img alt="" class="h-10 w-10 rounded-full object-cover"
+                                            data-alt="Portrait of Marcus Lee"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcuJEVmargBLBIa-a67_HfHndgSyW-GlfraDoZH6b9jzwTzWeyh6jkOaSboHy-C0CrdMXn5R44dfJT6P_RPfonn_LsRHEDcenT5yQ8r_pqjPDf2krWio4vdwrkx4rN0rCXV_AUV3ZZSRsqsPGpT0Plw6pUrFLW5OvBDHqTdLEtMz57D9n5nMSPY7h7RaDhqJsDoZrcaKktbuGI3GPd_HPvF6MOi6BU_tI6bnHvvpEFuziJNTATk4OGkLT6QTkxVtMiGfEwWg61f7w" />
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-semibold text-slate-900 dark:text-white">Marcus Lee
+                                        </div>
+                                        <div class="text-xs text-slate-500">m.lee@creative.co</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="h-10 w-10 bg-slate-100 dark:bg-slate-800 rounded-md flex items-center justify-center overflow-hidden border border-slate-200 dark:border-slate-700">
+                                        <img alt="" class="object-cover h-full w-full" data-alt="MacBook Pro thumbnail"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvYQ7V2X_QqAwvoLLYfuLWqGRhtiHF9Zj3m-kGTepxdDEDf6WGf4GzLG3jhb8anhihltprJ5i8QCIrs0gKraDSqG2zHXcwg1OgbdTlHg8sxV7QoWKG6Ooxg_wj3bLd7lNujkSAp4Hnv5x6Xrxko2StK7RsMsaOy1Bk2q6oA2pG67z-xzoKxupn4-84ahvQq_8ZpyEkt70T3V_T8BhiMz0dGPNAC-M92KAblF8ytby-Exjb848VwgveoCbcg7t40ZyMVL3DWZPWkjI" />
+                                    </div>
+                                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">MacBook Pro 16"
+                                        M2</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-slate-700 dark:text-slate-300">Oct 25 - Oct 30, 2023</div>
+                                <div class="text-xs text-slate-400">5 Days Total</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                                Oct 23, 2023
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span
+                                    class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-warning/10 text-warning border border-warning/20">
+                                    Pending Approval
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <div class="flex justify-end gap-2">
+                                    <button
+                                        class="bg-success hover:bg-success/90 text-white px-3 py-1.5 rounded-lg flex items-center gap-1 transition shadow-sm">
+                                        <span class="material-icons text-xs">check</span> Approve
+                                    </button>
+                                    <button
+                                        class="bg-danger/10 hover:bg-danger/20 text-danger px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+                                        <span class="material-icons text-xs">close</span> Reject
+                                    </button>
+                                    <button
+                                        class="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                                        <span class="material-icons">more_vert</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagination -->
+            <div
+                class="bg-white dark:bg-slate-900 px-4 py-3 flex items-center justify-between border-t border-slate-200 dark:border-slate-800 sm:px-6">
+                <div class="flex-1 flex justify-between sm:hidden">
+                    <a class="relative inline-flex items-center px-4 py-2 border border-slate-300 dark:border-slate-700 text-sm font-medium rounded-md text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700"
+                        href="#"> Previous </a>
+                    <a class="ml-3 relative inline-flex items-center px-4 py-2 border border-slate-300 dark:border-slate-700 text-sm font-medium rounded-md text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700"
+                        href="#"> Next </a>
+                </div>
+                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <p class="text-sm text-slate-500">
+                            Showing <span class="font-medium">1</span> to <span class="font-medium">3</span> of <span
+                                class="font-medium">12</span> results
+                        </p>
+                    </div>
+                    <div>
+                        <nav aria-label="Pagination" class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                            <a class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-medium text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700"
+                                href="#">
+                                <span class="sr-only">Previous</span>
+                                <span class="material-icons text-sm">chevron_left</span>
+                            </a>
+                            <a aria-current="page"
+                                class="z-10 bg-primary/10 border-primary text-primary relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                                href="#"> 1 </a>
+                            <a class="bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                                href="#"> 2 </a>
+                            <a class="bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                                href="#"> 3 </a>
+                            <a class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-medium text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700"
+                                href="#">
+                                <span class="sr-only">Next</span>
+                                <span class="material-icons text-sm">chevron_right</span>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- System Stats / Footer Area -->
+        <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div
+                class="bg-white dark:bg-slate-900 overflow-hidden shadow-sm rounded-xl border border-slate-200 dark:border-slate-800">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-primary/10 rounded-lg p-3">
+                            <span class="material-icons text-primary">schedule</span>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-xs font-medium text-slate-500 uppercase tracking-wider">Avg. Response
+                                    Time</dt>
+                                <dd class="flex items-baseline">
+                                    <div class="text-xl font-bold text-slate-900 dark:text-white">1.2 Hours</div>
+                                    <div class="ml-2 flex items-baseline text-sm font-semibold text-success">
+                                        <span class="material-icons text-xs">arrow_downward</span>
+                                        <span class="ml-1">4%</span>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="bg-white dark:bg-slate-900 overflow-hidden shadow-sm rounded-xl border border-slate-200 dark:border-slate-800">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-success/10 rounded-lg p-3">
+                            <span class="material-icons text-success">task_alt</span>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-xs font-medium text-slate-500 uppercase tracking-wider">Approvals Today
+                                </dt>
+                                <dd class="flex items-baseline">
+                                    <div class="text-xl font-bold text-slate-900 dark:text-white">28</div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="bg-white dark:bg-slate-900 overflow-hidden shadow-sm rounded-xl border border-slate-200 dark:border-slate-800">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-danger/10 rounded-lg p-3">
+                            <span class="material-icons text-danger">cancel</span>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-xs font-medium text-slate-500 uppercase tracking-wider">Rejections Today
+                                </dt>
+                                <dd class="flex items-baseline">
+                                    <div class="text-xl font-bold text-slate-900 dark:text-white">4</div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="bg-white dark:bg-slate-900 overflow-hidden shadow-sm rounded-xl border border-slate-200 dark:border-slate-800">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-slate-100 dark:bg-slate-800 rounded-lg p-3">
+                            <span class="material-icons text-slate-500">inventory_2</span>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-xs font-medium text-slate-500 uppercase tracking-wider">Equipment
+                                    Utilization</dt>
+                                <dd class="flex items-baseline">
+                                    <div class="text-xl font-bold text-slate-900 dark:text-white">82%</div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Simple Feedback Toast (Hidden by default, shown for UI demonstration context) -->
+    <div class="fixed bottom-4 right-4 z-[100] hidden">
+        <div class="bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3">
+            <span class="material-icons text-success">check_circle</span>
+            <p class="text-sm font-medium">Request approved successfully!</p>
+            <button class="ml-4 text-slate-400 hover:text-white">
+                <span class="material-icons text-sm">close</span>
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

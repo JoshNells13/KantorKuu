@@ -3,56 +3,65 @@
 namespace App\Http\Controllers\Petugas;
 
 use App\Http\Controllers\Controller;
-
-use App\Models\ActivityLog;
 use App\Models\Borrowing;
 use App\Models\ReturnTool;
+use App\Services\ActivityLogService;
+use App\Services\StockService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PetugasController extends Controller
 {
+    protected $stockService;
+    protected $activityLogService;
+
+    public function __construct(StockService $stockService, ActivityLogService $activityLogService)
+    {
+        $this->stockService = $stockService;
+        $this->activityLogService = $activityLogService;
+    }
+
     public function index()
     {
-
         $borrowings = Borrowing::with(['user', 'tool'])->get();
-
         return view('Petugas.ReturnTool.index', compact('borrowings'));
     }
 
     public function approve(Borrowing $borrowing)
     {
+        $qty = $borrowing->qty ?? 1;
+
+        if (!$this->stockService->checkStock($borrowing->tool_id, $qty)) {
+            return back()->with('error', 'Stok tidak mencukupi!');
+        }
+
         $borrowing->update(['status' => 'dipinjam']);
 
-        $Qty = $borrowing->qty ?? 1;
+        $this->stockService->decrementStock($borrowing->tool_id, $qty);
 
-        $borrowing->tool->decrement('stock', $Qty);
+        $this->activityLogService->log(Auth::id(), "Menyetujui peminjaman alat: {$borrowing->tool->name}");
 
-
-        return redirect()->route('petugas.borrowings.index')->with('success', 'Peminjaman alat disetujui dan stok berhasil dikurangi! Menjadi ' . $borrowing->tool->stock);
+        return redirect()->route('petugas.borrowings.index')->with('success', 'Peminjaman alat disetujui dan stok berhasil dikurangi!');
     }
 
     public function returnTool(Borrowing $borrowing)
     {
         $borrowing->load(['user', 'tool']);
-
         return view('Petugas.ReturnTool.create', compact('borrowing'));
     }
 
     public function storeReturnTool(Request $request, Borrowing $borrowing)
     {
-
-
         // Update borrowing status
         $borrowing->update(['status' => 'dikembalikan']);
 
         // Tambah stok alat
-        $borrowing->tool->increment('stock');
-
+        $qty = $borrowing->qty ?? 1;
+        $this->stockService->incrementStock($borrowing->tool_id, $qty);
 
         $dueDate = Carbon::parse($borrowing->return_date);
-        $returnedDate = Carbon::parse($request->returned_at);
+        $returnedDate = Carbon::now();
 
         $lateDays = $returnedDate->greaterThan($dueDate)
             ? $dueDate->diffInDays($returnedDate)
@@ -62,14 +71,11 @@ class PetugasController extends Controller
 
         ReturnTool::create([
             'borrowing_id' => $borrowing->id,
-            'returned_at'  => Carbon::now(),
+            'returned_at'  => $returnedDate,
             'fine'         => $fine
         ]);
 
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'activity'  => "Mengembalikan alat: {$borrowing->tool->name}"
-        ]);
+        $this->activityLogService->log(Auth::id(), "Mengembalikan alat: {$borrowing->tool->name}");
 
         return redirect()->route('petugas.borrowings.index')->with('success', 'Pengembalian alat berhasil diproses!');
     }

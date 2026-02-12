@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Item Detail | ProRent Equipment</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+    <!-- Header / Navigation -->
+    <nav class="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="bg-primary text-white p-2 rounded-lg">
+                        <span class="material-icons">precision_manufacturing</span>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-primary">ProRent</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Catalog</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Categories</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors" href="#">How it works</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Support</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="p-2 text-slate-500 hover:text-primary"><span
+                            class="material-icons">search</span></button>
+                    <button class="p-2 text-slate-500 hover:text-primary relative">
+                        <span class="material-icons">notifications</span>
+                        <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+                    </button>
+                    <div
+                        class="h-8 w-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden">
+                        <img alt="User Profile" data-alt="User profile picture in a circle"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi-RFTo2aUpKXamAMLTmJuWJEbLub01VQapKtd4TgnGpBIpRBZ57qDjX9GJ8sEFIl_KZrT74_w_4HbMUr6LvZnhsJhNx4Gjv1eCFTBOLsZmme6k1zH9UknDaOoURhyG9IZ32xWAJ6gw0JyZEKHX_K81bZbesYYYyae6vVgExaGueOcj90NtbGoE2-TQ_07akSu7ricUuVn0x6rpBAeXoAI-Ok17nOKhaRSe-wZTqAA7hRqhPymJ1CsA6s6cB0kfBPeB2gd1-hDfac" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Breadcrumb -->
+        <nav aria-label="Breadcrumb" class="flex text-sm text-slate-500 dark:text-slate-400 mb-6">
+            <ol class="flex items-center space-x-2">
+                <li><a class="hover:text-primary" href="#">Home</a></li>
+                <li><span class="material-icons text-xs">chevron_right</span></li>
+                <li><a class="hover:text-primary" href="#">Cinema Gear</a></li>
+                <li><span class="material-icons text-xs">chevron_right</span></li>
+                <li class="font-medium text-slate-900 dark:text-slate-200">Sony Alpha a7S III</li>
+            </ol>
+        </nav>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Left Column: Media and Info -->
+            <div class="lg:col-span-8 space-y-8">
+                <!-- Gallery Section -->
+                <div class="space-y-4">
+                    <div class="aspect-video relative rounded-xl overflow-hidden bg-slate-200 dark:bg-slate-800">
+                        <img alt="Main camera image" class="w-full h-full object-cover"
+                            data-alt="High resolution professional mirrorless camera side view"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfKpp2UDSEghCkkAnhblCVCHZYS7AA1LIW0k_zdnjXt4C20gxVqLyr02hx1BKVNTldDHdKS9vviTDIRxxWI1tGiUnbG2P4-xwa02Q8MNoThE9UlI21uVtp90FdCL68i2_xqXPOZeSvTiC-E0AZ24RLTtZCymNFXM67Xl1gaFeUEELzMzxObMlq9SOm_lSDziX0TRdFGTybgSgWk4OBcxn54V8MlJ5udEcuY5_y3XvfQBxIVbrfYA-98H8biOLtt9iJJ9yTfEwcWaY" />
+                        <div class="absolute bottom-4 right-4 flex gap-2">
+                            <button
+                                class="bg-white/90 dark:bg-slate-900/90 p-2 rounded-lg shadow-sm hover:bg-white transition-all"><span
+                                    class="material-icons text-sm">zoom_in</span></button>
+                            <button
+                                class="bg-white/90 dark:bg-slate-900/90 p-2 rounded-lg shadow-sm hover:bg-white transition-all"><span
+                                    class="material-icons text-sm">share</span></button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-5 gap-4">
+                        <div class="aspect-square rounded-lg overflow-hidden border-2 border-primary">
+                            <img alt="Thumbnail 1" class="w-full h-full object-cover"
+                                data-alt="Close up of camera lens mount"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsvEm4pzyIo8dEWUa4m9J0f-C9k800ySkaekI0iX-E4nvhu1D_3edp6BEJJm_fFgWLeWBpXFMQv0h4nNuME6WWt8rIQGNDFW1kyLlgsrNQG4I_QKYTi9LbNmXF2Nu2nCGQEByJudTrdrhNM8ue9hZOYiOYz33CKBnG_OWzl9GQI_LPzPnu_HblJW_KJ5owUSfbjHTUxKh33ngKdqnbVRkHNkC82jMysVaxPtjjHGaKtWCmaoUZEI2-0JoLjpI57UDz3oWJY31qfIY" />
+                        </div>
+                        <div
+                            class="aspect-square rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 cursor-pointer hover:border-primary transition-all">
+                            <img alt="Thumbnail 2" class="w-full h-full object-cover"
+                                data-alt="Back of professional camera showing LCD screen"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9W7zDQbXbM2BiWBYTwAowCc57SxewmlV-Zyd8_k--HDD7lq2JTazoOVMoAf0-JHilStKsbHasQhjucMY57AWMTn0I3LNHn559vMjX-Vpc-HQpSN0HNePnYeZxDCCTj_WfQxJTmulMncFEA3eMV_Nf8OnMH7PSoAdCIxQtre263BdNjP4nZJfjPA3DaiMkTwHOfSJNE7ddLH5laxG1W6UXADqKe_eNS0jk_8svNnR2Eif4cUQzytbB_vToPJ6wb2mgeAp8WMsMnds" />
+                        </div>
+                        <div
+                            class="aspect-square rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 cursor-pointer hover:border-primary transition-all">
+                            <img alt="Thumbnail 3" class="w-full h-full object-cover"
+                                data-alt="Top view of camera control dials"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfenoR758C5e9eCJZp6eh-1dWHNopMAJFImIUzGpy4FdujISHtA5XgP1ejRlVRRVnbCevJAG7px6tMlKc2Ayr3CHbEKgB9Jvc3LFhltJRXVgISe2Bhh7u67Gb_J3dXSFGP-AVcS8IWC23--EeUDZulCZMwg6F4DhTkvVwN5M6TLF3nTdHnYW6FQmBVoNUrlhFUonjZtlIQ7bFVJe4JiCWjP7oa6soFy39Jq2lVJonWV31VmuxuSZzd-Sdu2fYVa0b5YGiqwrePh0I" />
+                        </div>
+                        <div
+                            class="aspect-square rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 cursor-pointer hover:border-primary transition-all">
+                            <img alt="Thumbnail 4" class="w-full h-full object-cover"
+                                data-alt="Camera in a professional protective travel case"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdgvVLrOegz4xOMGJNuNLKnCkJW1VyPa0lDs3CFWvtYR8z36TfROYSZnlNlv3v3PK7K8X2cFGPSdnhVH5sD19ME0z5JW75Z3pNR0PYN20gmcFLnaSx6e-o5J089KbvCvyXScbgdri2CiaSO8F-bG1JZakANXQ0b1zCdWjMB60rdYXRVsyhRuewi2yHthYvppaVOzd3u4vM7rysbySL9t4tZR6R8nC3MRyCSdaczz38_Jzih-YbrRnOS_AySkGjMePVHABZpFC8uXo" />
+                        </div>
+                        <div
+                            class="aspect-square rounded-lg overflow-hidden relative border border-slate-200 dark:border-slate-800 cursor-pointer hover:border-primary transition-all bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                            <span class="text-xs font-bold text-slate-500">+8 Photos</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Title & Basic Info -->
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-8">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span
+                                class="inline-block px-2 py-1 rounded bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider mb-2">Professional
+                                Grade</span>
+                            <h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Sony Alpha a7S III
+                                Mirrorless Digital Camera</h1>
+                            <div class="flex items-center gap-4 text-sm">
+                                <div class="flex items-center text-amber-500">
+                                    <span class="material-icons text-sm">star</span>
+                                    <span class="material-icons text-sm">star</span>
+                                    <span class="material-icons text-sm">star</span>
+                                    <span class="material-icons text-sm">star</span>
+                                    <span class="material-icons text-sm">star_half</span>
+                                    <span class="ml-1 font-semibold text-slate-900 dark:text-slate-100">4.9</span>
+                                    <span class="ml-1 text-slate-500 dark:text-slate-400">(128 reviews)</span>
+                                </div>
+                                <span class="text-slate-300">|</span>
+                                <div class="flex items-center gap-1 text-green-600 dark:text-green-400 font-medium">
+                                    <span class="material-icons text-xs">verified</span>
+                                    <span>Available Today</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button
+                            class="flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                            <span class="material-icons text-sm">favorite_border</span>
+                            <span class="text-sm font-medium">Save</span>
+                        </button>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Optimized for video, sensitivity, and speed, the Sony Alpha a7S III raises the bar for what a
+                        full-frame mirrorless camera is capable of. A revised 12.1MP Exmor R BSI CMOS sensor and updated
+                        BIONZ XR image processor offer faster performance, improved noise reduction, and a wider dynamic
+                        range.
+                    </p>
+                </div>
+                <!-- Technical Specifications -->
+                <div>
+                    <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+                        <span class="material-icons text-primary">list_alt</span>
+                        Technical Specifications
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+                        <div class="flex justify-between py-3 border-b border-slate-100 dark:border-slate-800">
+                            <span class="text-slate-500 dark:text-slate-400">Sensor Type</span>
+                            <span class="font-medium">35mm Full-Frame CMOS</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-slate-100 dark:border-slate-800">
+                            <span class="text-slate-500 dark:text-slate-400">Resolution</span>
+                            <span class="font-medium">12.1 Megapixels</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-slate-100 dark:border-slate-800">
+                            <span class="text-slate-500 dark:text-slate-400">Video Quality</span>
+                            <span class="font-medium">4K 120p / FHD 240p</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-slate-100 dark:border-slate-800">
+                            <span class="text-slate-500 dark:text-slate-400">ISO Range</span>
+                            <span class="font-medium">80 to 102400 (Native)</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-slate-100 dark:border-slate-800">
+                            <span class="text-slate-500 dark:text-slate-400">Mount</span>
+                            <span class="font-medium">Sony E-Mount</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-slate-100 dark:border-slate-800">
+                            <span class="text-slate-500 dark:text-slate-400">Weight</span>
+                            <span class="font-medium">614g (Body Only)</span>
+                        </div>
+                    </div>
+                    <button class="mt-4 text-primary font-medium text-sm flex items-center hover:underline">
+                        Download PDF Manual <span class="material-icons text-sm ml-1">download</span>
+                    </button>
+                </div>
+                <!-- Reviews Section -->
+                <div class="pt-8 border-t border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center justify-between mb-8">
+                        <h2 class="text-xl font-bold">User Reviews</h2>
+                        <button class="text-sm font-semibold text-primary">Write a review</button>
+                    </div>
+                    <div class="space-y-6">
+                        <!-- Review 1 -->
+                        <div
+                            class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm">
+                            <div class="flex justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="h-10 w-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-slate-500">
+                                        JD</div>
+                                    <div>
+                                        <div class="font-bold">James Davidson</div>
+                                        <div class="text-[10px] text-slate-500 uppercase tracking-widest">Verified
+                                            Renter</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center text-amber-500 text-xs">
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="ml-2 text-slate-500">2 days ago</span>
+                                </div>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm italic">"Rented this for a low-light
+                                music video shoot. The ISO performance is absolutely legendary. The camera arrived in
+                                pristine condition, very well packed. Highly recommend!"</p>
+                        </div>
+                        <!-- Review 2 -->
+                        <div
+                            class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm">
+                            <div class="flex justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="h-10 w-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-slate-500">
+                                        SL</div>
+                                    <div>
+                                        <div class="font-bold">Sarah Lee</div>
+                                        <div class="text-[10px] text-slate-500 uppercase tracking-widest">Verified
+                                            Renter</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center text-amber-500 text-xs">
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="material-icons text-xs">star_outline</span>
+                                    <span class="ml-2 text-slate-500">1 week ago</span>
+                                </div>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm italic">"Great camera and great
+                                service. The menu system is so much better than the previous version. Only 4 stars
+                                because the second battery provided was almost dead."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Column: Rental Card (Sticky) -->
+            <div class="lg:col-span-4">
+                <div class="sticky top-24 space-y-6">
+                    <div
+                        class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden">
+                        <div
+                            class="p-6 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 flex justify-between items-end">
+                            <div>
+                                <span class="text-3xl font-black text-slate-900 dark:text-white">$85.00</span>
+                                <span class="text-slate-500 dark:text-slate-400 font-medium">/ day</span>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-[10px] font-bold text-primary uppercase mb-1">Deposit</div>
+                                <div class="text-sm font-bold">$250.00</div>
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <!-- Availability Calendar Placeholder -->
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Select Rental
+                                    Dates</label>
+                                <div
+                                    class="grid grid-cols-2 gap-0 border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden">
+                                    <button
+                                        class="flex flex-col p-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800 border-r border-slate-200 dark:border-slate-800">
+                                        <span class="text-[10px] uppercase font-bold text-slate-400">Pickup</span>
+                                        <span class="text-sm font-semibold">Oct 24, 2023</span>
+                                    </button>
+                                    <button
+                                        class="flex flex-col p-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800">
+                                        <span class="text-[10px] uppercase font-bold text-slate-400">Return</span>
+                                        <span class="text-sm font-semibold">Oct 26, 2023</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Mini Calendar Display -->
+                            <div class="bg-slate-50 dark:bg-slate-800 p-3 rounded-lg">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-bold uppercase">October 2023</span>
+                                    <div class="flex gap-2">
+                                        <span class="material-icons text-sm cursor-pointer">chevron_left</span>
+                                        <span class="material-icons text-sm cursor-pointer">chevron_right</span>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-7 gap-1 text-[10px] text-center mb-1">
+                                    <span class="text-slate-400 uppercase font-bold">S</span>
+                                    <span class="text-slate-400 uppercase font-bold">M</span>
+                                    <span class="text-slate-400 uppercase font-bold">T</span>
+                                    <span class="text-slate-400 uppercase font-bold">W</span>
+                                    <span class="text-slate-400 uppercase font-bold">T</span>
+                                    <span class="text-slate-400 uppercase font-bold">F</span>
+                                    <span class="text-slate-400 uppercase font-bold">S</span>
+                                </div>
+                                <div class="grid grid-cols-7 gap-1 text-[11px] text-center">
+                                    <span class="py-1 text-slate-400">22</span>
+                                    <span class="py-1 text-slate-400">23</span>
+                                    <span class="py-1 bg-primary text-white rounded-full font-bold">24</span>
+                                    <span class="py-1 bg-primary/20 text-primary font-bold">25</span>
+                                    <span class="py-1 bg-primary text-white rounded-full font-bold">26</span>
+                                    <span class="py-1">27</span>
+                                    <span class="py-1">28</span>
+                                </div>
+                            </div>
+                            <!-- Price Breakdown -->
+                            <div class="space-y-2 pt-2 text-sm border-t border-slate-100 dark:border-slate-800">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-500">Rental (2 days x $85)</span>
+                                    <span>$170.00</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-500">Service Fee</span>
+                                    <span>$12.50</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-500">Insurance (Optional)</span>
+                                    <span class="text-primary font-semibold">+$25.00</span>
+                                </div>
+                                <div
+                                    class="flex justify-between pt-2 border-t border-slate-100 dark:border-slate-800 text-lg font-bold">
+                                    <span>Total</span>
+                                    <span>$207.50</span>
+                                </div>
+                            </div>
+                            <button
+                                class="w-full bg-primary hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/30 transition-all flex items-center justify-center gap-2">
+                                <span class="material-icons">bolt</span>
+                                Rent Now
+                            </button>
+                            <p class="text-[10px] text-center text-slate-400 px-4 italic">
+                                You won't be charged yet. We'll send a confirmation after the owner approves your
+                                request.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Owner Card -->
+                    <div
+                        class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center gap-4">
+                        <img alt="Owner" class="h-12 w-12 rounded-full object-cover"
+                            data-alt="Male equipment owner portrait"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLrB8BIj1h3PNk7NOwkDEO9Ki0yDewDwA0yeFBn2rjYiva3Wy0xdtJ9Qs0wZZRUJjrCfdprrvb_HQRvEMNRTHQdG_opeQ4Fn2AaT9Ez9SRcSQMSTtR7ycepBLt92DPE0_nlwXqJF8_sPUD99JedR0zrJNd6E3u_205YwYVO7ANSza9lafhWjtSrAXNvy845ES8CNrO7bC-NxxDuqyDimO6nZPJwOjwag6ZXxHMUqWrE52hyHwWqqFLgKPeI6Ye4liR8CLtmFvTlro" />
+                        <div class="flex-1">
+                            <div class="text-xs text-slate-500 font-bold uppercase">Managed by</div>
+                            <div class="font-bold">Studio Central Hire</div>
+                            <div class="flex items-center text-amber-500 text-[10px]">
+                                <span class="material-icons text-[12px]">star</span>
+                                <span class="font-bold ml-1">4.8 (2k+ rentals)</span>
+                            </div>
+                        </div>
+                        <button class="p-2 text-primary hover:bg-primary/5 rounded-full"><span
+                                class="material-icons">chat_bubble_outline</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Related Items Section -->
+        <div class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-bold">You might also need</h2>
+                <div class="flex gap-2">
+                    <button
+                        class="p-2 rounded-full border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-800"><span
+                            class="material-icons">arrow_back</span></button>
+                    <button
+                        class="p-2 rounded-full border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-800"><span
+                            class="material-icons">arrow_forward</span></button>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Related Card 1 -->
+                <div class="group cursor-pointer">
+                    <div
+                        class="aspect-square rounded-xl overflow-hidden bg-white border border-slate-200 dark:border-slate-800 mb-4 relative">
+                        <img alt="Lens"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            data-alt="Professional camera lens on a white background"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA166QvEudIsbfnFFfo-ap1J7WcsL3B-NxeTVV_d_rWjkK5XC1q6XUFc7cVPYawUAn1fXBtRmHJlgxdFM8ipT2q9q-wKaLkVWB5vub89-0gFxAdBwi0yuo_9OWLlfvGzK6USLubgDL_PZo7UHbfMQ_KaPcXJx4ptGi-nF57FUvy3kytwCYREH5bmC7q78gOq-E_sVLNF8vCujUfnt9ziDtb9u1dQt7xZX5lQonfTf2U1Zl3zAq2QaHEPK19bFVKoOdrACuNAYGCyZ4" />
+                        <div
+                            class="absolute top-2 right-2 bg-white/90 dark:bg-slate-900/90 px-2 py-1 rounded text-[10px] font-bold shadow-sm">
+                            LENS</div>
+                    </div>
+                    <h3 class="font-bold group-hover:text-primary transition-colors line-clamp-1">Sony FE 24-70mm f/2.8
+                        GM II</h3>
+                    <div class="flex justify-between items-center mt-1">
+                        <span class="text-sm font-black text-slate-900 dark:text-white">$45/day</span>
+                        <div class="flex items-center text-[10px] text-amber-500"><span
+                                class="material-icons text-[12px]">star</span> 5.0</div>
+                    </div>
+                </div>
+                <!-- Related Card 2 -->
+                <div class="group cursor-pointer">
+                    <div
+                        class="aspect-square rounded-xl overflow-hidden bg-white border border-slate-200 dark:border-slate-800 mb-4 relative">
+                        <img alt="Tripod"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            data-alt="Carbon fiber professional camera tripod"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDL4x8F-CHMNHktfMiSwE8EfPbm6wIQqyEpLsHw3wewrEXEgPrEEIGAIximowqVJB5fh2dzrRBYOa4DzBqzAa1xhubxK5TB6CRbByOtGnQqP_r-GPEHTcJDceKtuzTy7MyxYLlljeLeOTtoWKUH8SIgYd8o2F4_rXQQc6GWrAx6FOwY_BiGNhVIdvsLuVSPIFcBhXu0_wH3sXAnGV8RJ7y4FQaY8OlJkC-CvpZE84l04xLXexgx42ObxTt0tEECo3KA_f2WyW_w-xY" />
+                        <div
+                            class="absolute top-2 right-2 bg-white/90 dark:bg-slate-900/90 px-2 py-1 rounded text-[10px] font-bold shadow-sm">
+                            SUPPORT</div>
+                    </div>
+                    <h3 class="font-bold group-hover:text-primary transition-colors line-clamp-1">Manfrotto 504X Video
+                        Tripod</h3>
+                    <div class="flex justify-between items-center mt-1">
+                        <span class="text-sm font-black text-slate-900 dark:text-white">$25/day</span>
+                        <div class="flex items-center text-[10px] text-amber-500"><span
+                                class="material-icons text-[12px]">star</span> 4.7</div>
+                    </div>
+                </div>
+                <!-- Related Card 3 -->
+                <div class="group cursor-pointer">
+                    <div
+                        class="aspect-square rounded-xl overflow-hidden bg-white border border-slate-200 dark:border-slate-800 mb-4 relative">
+                        <img alt="Light"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            data-alt="LED studio lighting panel with barn doors"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHlFSQCju2c3M92jkrfHI_qX5l7fLwas5A6eQp5nalAnBp_PG2TNNrhLbNGo-xgorGXQgVdZYDqyXei1GeAMHvCJPhfRNAbZxO9v7LGQFewnzk7bmdgricc0zbQ6EXVC_JRCmGONpLFoCToo6BO1aJrGrvL5UdADPb-VVvYYExpNq85hsEGlkZNTMiYMcBzvF1P2mgqNkWfPF1MXMeie444rnFe2_sVS1HtkwZ3uy-pHnl6NSeLLG_5UwFkOFvL2JyDWPkL9Lxg98" />
+                        <div
+                            class="absolute top-2 right-2 bg-white/90 dark:bg-slate-900/90 px-2 py-1 rounded text-[10px] font-bold shadow-sm">
+                            LIGHTING</div>
+                    </div>
+                    <h3 class="font-bold group-hover:text-primary transition-colors line-clamp-1">Aputure LS 300d II LED
+                        Kit</h3>
+                    <div class="flex justify-between items-center mt-1">
+                        <span class="text-sm font-black text-slate-900 dark:text-white">$60/day</span>
+                        <div class="flex items-center text-[10px] text-amber-500"><span
+                                class="material-icons text-[12px]">star</span> 4.9</div>
+                    </div>
+                </div>
+                <!-- Related Card 4 -->
+                <div class="group cursor-pointer">
+                    <div
+                        class="aspect-square rounded-xl overflow-hidden bg-white border border-slate-200 dark:border-slate-800 mb-4 relative">
+                        <img alt="Monitor"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            data-alt="On-camera video monitor showing color wave forms"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDej176hb8TmSlkxfHso-rJOuY1blz1fqegOH1xr7hATehoHvfXOUUixgDEz8J_etxGj9VWTAypBiSO0eXXUgHj3kZnJCCzRm-FDRwK25IQMkVgJ3XDnqUxW0JLFSqcmllc3bfSIKL-XoHvW6kvdk4g0-4pbMaS4wMKIWTqiSUV-xR9iMhzsGz3PKr469DyCv-5zuSsOJUk4TMUSqai2y7pwpDtu_rW0fGgLf7RIupkEgSpoT0foXQAuG3yQ3V8ufy9JY-WlKjuqxs" />
+                        <div
+                            class="absolute top-2 right-2 bg-white/90 dark:bg-slate-900/90 px-2 py-1 rounded text-[10px] font-bold shadow-sm">
+                            ACCESSORY</div>
+                    </div>
+                    <h3 class="font-bold group-hover:text-primary transition-colors line-clamp-1">Atomos Ninja V 5"
+                        Monitor</h3>
+                    <div class="flex justify-between items-center mt-1">
+                        <span class="text-sm font-black text-slate-900 dark:text-white">$30/day</span>
+                        <div class="flex items-center text-[10px] text-amber-500"><span
+                                class="material-icons text-[12px]">star</span> 4.8</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-20 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="font-bold mb-4">ProRent</h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">The premium destination for professional
+                        equipment rental across the globe.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Platform</h4>
+                    <ul class="text-sm text-slate-500 dark:text-slate-400 space-y-2">
+                        <li><a class="hover:text-primary" href="#">Insurance</a></li>
+                        <li><a class="hover:text-primary" href="#">Safety</a></li>
+                        <li><a class="hover:text-primary" href="#">Rental Agreement</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Support</h4>
+                    <ul class="text-sm text-slate-500 dark:text-slate-400 space-y-2">
+                        <li><a class="hover:text-primary" href="#">Help Center</a></li>
+                        <li><a class="hover:text-primary" href="#">Contact Us</a></li>
+                        <li><a class="hover:text-primary" href="#">Cancellation Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Legal</h4>
+                    <ul class="text-sm text-slate-500 dark:text-slate-400 space-y-2">
+                        <li><a class="hover:text-primary" href="#">Terms of Service</a></li>
+                        <li><a class="hover:text-primary" href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                class="pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <span class="text-xs text-slate-400">© 2023 ProRent Technologies Inc. All rights reserved.</span>
+                <div class="flex gap-4">
+                    <span
+                        class="material-icons text-slate-400 cursor-pointer hover:text-primary transition-colors">facebook</span>
+                    <span
+                        class="material-icons text-slate-400 cursor-pointer hover:text-primary transition-colors">camera_alt</span>
+                    <span
+                        class="material-icons text-slate-400 cursor-pointer hover:text-primary transition-colors">alternate_email</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

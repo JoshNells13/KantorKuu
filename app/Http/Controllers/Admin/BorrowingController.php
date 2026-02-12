@@ -3,30 +3,35 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
-use App\Models\ActivityLog;
 use App\Models\Borrowing;
 use App\Models\Tool;
 use App\Models\User;
+use App\Services\ActivityLogService;
+use App\Services\StockService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class BorrowingController extends Controller
 {
+    protected $stockService;
+    protected $activityLogService;
+
+    public function __construct(StockService $stockService, ActivityLogService $activityLogService)
+    {
+        $this->stockService = $stockService;
+        $this->activityLogService = $activityLogService;
+    }
+
     public function index()
     {
         $borrowings = Borrowing::with('user', 'tool', 'returnTool')->get();
-
         return view('Admin.Borrowing.index', compact('borrowings'));
     }
 
     public function create()
     {
         $tools = Tool::all();
-
-
         $users = User::where('role_id', 1)->get();
-
         return view('Admin.Borrowing.create', compact('users', 'tools'));
     }
 
@@ -35,22 +40,21 @@ class BorrowingController extends Controller
         $request->validate([
             'tool_id'     => 'required',
             'return_date' => 'required|date',
-            'user_id'     => 'required'
+            'user_id'     => 'required',
+            'qty'         => 'sometimes|integer|min:1'
         ]);
 
+        $qty = $request->qty ?? 1;
+
+        if (!$this->stockService->checkStock($request->tool_id, $qty)) {
+            return back()->with('error', 'Stok alat habis atau tidak mencukupi!');
+        }
 
         $status = (Auth::user()->role_id == 1 || Auth::user()->role_id == 2) ? $request->status ?? 'menunggu' : 'menunggu';
 
-        // Check stock
         $tool = Tool::find($request->tool_id);
-        if ($tool->stock < 1) {
-            return back()->with('error', 'Stok alat habis!');
-        }
 
-        ActivityLog::create([
-            'user_id' => $request->user_id,
-            'activity'  => "Meminjam alat: {$tool->name}"
-        ]);
+        $this->activityLogService->log($request->user_id, "Meminjam alat: {$tool->name}");
 
         Borrowing::create([
             'user_id'     => $request->user_id,
@@ -58,39 +62,31 @@ class BorrowingController extends Controller
             'borrow_date' => now(),
             'return_date' => $request->return_date,
             'status'      => $status,
-            'qty'        => $request->qty ?? 1
+            'qty'         => $qty
         ]);
-
 
         return redirect()->route('admin.borrowings.index')->with('success', 'Peminjaman berhasil diajukan!');
     }
 
     public function approve(Borrowing $borrowing)
     {
+        $qty = $borrowing->qty ?? 1;
+
+        if (!$this->stockService->checkStock($borrowing->tool_id, $qty)) {
+            return back()->with('error', 'Stok tidak mencukupi untuk menyetujui peminjaman ini.');
+        }
+
         $borrowing->update(['status' => 'dipinjam']);
 
-        // Decrease stock
+        $this->stockService->decrementStock($borrowing->tool_id, $qty);
 
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'activity'  => "Meminjam alat: {$borrowing->tool->name}"
-        ]);
+        $this->activityLogService->log(Auth::id(), "Menyetujui peminjaman alat: {$borrowing->tool->name}");
 
-        $Qty = $borrowing->qty ?? 1;
-
-        $borrowing->tool->decrement('stock', $Qty);
-
-
-
-
-        return redirect()->route('admin.borrowings.index')->with('success', "Peminjaman berhasil disetujui!, Stok Berkurang Menjadi {$borrowing->tool->stock}");
+        return redirect()->route('admin.borrowings.index')->with('success', "Peminjaman berhasil disetujui!, Stok Berkurang.");
     }
-
 
     public function edit(Borrowing $borrowing)
     {
-
-
         return view('Admin.Borrowing.edit', [
             'borrowing' => $borrowing,
             'tools' => Tool::all(),
@@ -114,26 +110,19 @@ class BorrowingController extends Controller
         ]);
 
         $tool = $borrowing->tool;
-
         $oldQty = $borrowing->qty;
         $newQty = $request->qty;
-
-        // Hitung selisih
         $difference = $newQty - $oldQty;
 
         if ($difference > 0) {
-            // Qty bertambah → stok harus dikurangi
-            if ($tool->stock < $difference) {
+            if (!$this->stockService->checkStock($tool->id, $difference)) {
                 return back()->withErrors(['qty' => 'Stok tidak mencukupi']);
             }
-
-            $tool->decrement('stock', $difference);
+            $this->stockService->decrementStock($tool->id, $difference);
         } elseif ($difference < 0) {
-            // Qty berkurang → stok harus ditambah
-            $tool->increment('stock', abs($difference));
+            $this->stockService->incrementStock($tool->id, abs($difference));
         }
 
-        // Update data
         $borrowing->update([
             'borrow_date' => $request->borrow_date,
             'return_date' => $request->return_date,
@@ -141,26 +130,18 @@ class BorrowingController extends Controller
             'qty'         => $newQty
         ]);
 
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'activity' => "Memperbarui peminjaman alat: {$tool->name}"
-        ]);
+        $this->activityLogService->log(Auth::id(), "Memperbarui peminjaman alat: {$tool->name}");
 
         return redirect()
             ->route('admin.borrowings.index')
             ->with('success', 'Data peminjaman berhasil diperbarui!');
     }
 
-
-
     public function destroy(Borrowing $borrowing)
     {
         $borrowing->delete();
 
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'activity'  => "Menghapus peminjaman alat: {$borrowing->tool->name}"
-        ]);
+        $this->activityLogService->log(Auth::id(), "Menghapus peminjaman alat: {$borrowing->tool->name}");
 
         return redirect()->route('admin.borrowings.index')->with('success', 'Data peminjaman berhasil dihapus!');
     }
