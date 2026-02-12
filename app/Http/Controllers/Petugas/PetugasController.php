@@ -24,11 +24,13 @@ class PetugasController extends Controller
     public function approve(Borrowing $borrowing)
     {
         $borrowing->update(['status' => 'dipinjam']);
-        // Decrease stock
-        $borrowing->tool->decrement('stock');
+
+        $Qty = $borrowing->qty ?? 1;
+
+        $borrowing->tool->decrement('stock', $Qty);
 
 
-        return redirect()->route('petugas.borrowings.index')->with('success', 'Peminjaman alat disetujui dan stok berhasil dikurangi! Menjadi '.$borrowing->tool->stock );
+        return redirect()->route('petugas.borrowings.index')->with('success', 'Peminjaman alat disetujui dan stok berhasil dikurangi! Menjadi ' . $borrowing->tool->stock);
     }
 
     public function returnTool(Borrowing $borrowing)

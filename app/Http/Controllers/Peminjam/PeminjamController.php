@@ -50,7 +50,8 @@ class PeminjamController extends Controller
 
         $request->validate([
             'tool_id'     => 'required',
-            'return_date' => 'required|date'
+            'return_date' => 'required|date',
+            'qty'         => 'required|integer|min:1',
         ]);
 
         $userId = Auth::user()->id;
@@ -59,9 +60,11 @@ class PeminjamController extends Controller
 
         // Check stock
         $tool = Tool::find($request->tool_id);
-        if ($tool->stock < 1) {
-            return back()->with('error', 'Stok alat habis!');
+        if ($tool->stock < $request->qty) {
+            return back()->with('error', 'Stok alat tidak mencukupi!');
         }
+
+
 
 
         Borrowing::create([
@@ -69,7 +72,8 @@ class PeminjamController extends Controller
             'tool_id'     => $request->tool_id,
             'borrow_date' => now(),
             'return_date' => $request->return_date,
-            'status'      => $request->status ?? 'menunggu'
+            'status'      => $request->status ?? 'menunggu',
+            'qty'        => $request->qty ?? 1,
         ]);
 
         ActivityLog::create([
@@ -105,7 +109,8 @@ class PeminjamController extends Controller
         $borrowing->update(['status' => 'dikembalikan']);
 
         // Tambah stok alat
-        $borrowing->tool->increment('stock');
+        $Qty = $borrowing->qty ?? 1;
+        $borrowing->tool->increment('stock', $Qty);
 
         $dueDate = Carbon::parse($borrowing->return_date);
         $returnedDate = Carbon::parse($request->returned_at);

@@ -11,6 +11,7 @@
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">No</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">Peminjam</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">Alat</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">Jumlah</th>
                         <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Tgl Pinjam</th>
                         <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Tgl Kembali</th>
                         <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Status</th>
@@ -23,6 +24,7 @@
                             <td class="px-6 py-4">{{ $loop->iteration }}</td>
                             <td class="px-6 py-4">{{ $item->user->name }}</td>
                             <td class="px-6 py-4">{{ $item->tool->name }}</td>
+                            <td class="px-6 py-4">{{ $item->qty }}</td>
                             <td class="px-6 py-4 text-center">{{ $item->borrow_date }}</td>
                             <td class="px-6 py-4 text-center">{{ $item->return_date }}</td>
                             <td class="px-6 py-4 text-center">

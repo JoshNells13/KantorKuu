@@ -26,7 +26,7 @@
                     Stok: <span class="font-semibold {{ $item->stock > 0 ? 'text-green-600' : 'text-red-600' }}">{{ $item->stock }}</span>
                 </p>
 
-                @if($item->stock > 0 && $item->condition == 'bagus')
+                @if($item->stock > 0)
                     <a href="{{ route('peminjam.borrowings.create', ['tool_id' => $item->id]) }}"
                        class="block w-full text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
                         Pinjam Alat
