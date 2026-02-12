@@ -22,12 +22,12 @@ class ReturnController extends Controller
         ]);
     }
 
-    public function create(Borrowing $borrowing)
-    {
-        $borrowing->load(['user', 'tool']);
+    // public function create(Borrowing $borrowing)
+    // {
+    //     $borrowing->load(['user', 'tool']);
 
-        return view('Admin.ReturnTool.create', compact('borrowing'));
-    }
+    //     return view('Admin.ReturnTool.create', compact('borrowing'));
+    // }
 
 
     public function store(Request $request, Borrowing $borrowing)
@@ -81,8 +81,18 @@ class ReturnController extends Controller
             'returned_at' => 'required|date',
         ]);
 
+        $dueDate = Carbon::parse($returnTool->borrowing->return_date);
+        $returnedDate = Carbon::parse($request->returned_at);
+
+        $lateDays = $returnedDate->greaterThan($dueDate)
+            ? $dueDate->diffInDays($returnedDate)
+            : 0;
+
+        $fine = $lateDays * 5000;
+
         $returnTool->update([
             'returned_at' => $request->returned_at,
+            'fine' => $fine
         ]);
 
         ActivityLog::create([
