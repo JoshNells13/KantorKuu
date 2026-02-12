@@ -47,9 +47,6 @@ class BorrowingController extends Controller
             return back()->with('error', 'Stok alat habis!');
         }
 
-
-
-
         ActivityLog::create([
             'user_id' => $request->user_id,
             'activity'  => "Meminjam alat: {$tool->name}"
@@ -60,7 +57,8 @@ class BorrowingController extends Controller
             'tool_id'     => $request->tool_id,
             'borrow_date' => now(),
             'return_date' => $request->return_date,
-            'status'      => $status
+            'status'      => $status,
+            'qty'        => $request->qty ?? 1
         ]);
 
 
@@ -78,8 +76,12 @@ class BorrowingController extends Controller
             'activity'  => "Meminjam alat: {$borrowing->tool->name}"
         ]);
 
+        $Qty = $borrowing->qty ?? 1;
 
-        $borrowing->tool->decrement('stock');
+        $borrowing->tool->decrement('stock', $Qty);
+
+
+
 
         return redirect()->route('admin.borrowings.index')->with('success', "Peminjaman berhasil disetujui!, Stok Berkurang Menjadi {$borrowing->tool->stock}");
     }
@@ -98,7 +100,6 @@ class BorrowingController extends Controller
 
     public function update(Request $request, Borrowing $borrowing)
     {
-
         if ($borrowing->status === 'dikembalikan') {
             return redirect()
                 ->route('admin.borrowings.index')
@@ -108,24 +109,48 @@ class BorrowingController extends Controller
         $request->validate([
             'borrow_date' => 'required|date',
             'return_date' => 'required|date',
-            'status'      => 'required'
+            'status'      => 'required',
+            'qty'         => 'required|integer|min:1'
         ]);
 
-        $toolName = $borrowing->tool->name;
+        $tool = $borrowing->tool;
 
+        $oldQty = $borrowing->qty;
+        $newQty = $request->qty;
+
+        // Hitung selisih
+        $difference = $newQty - $oldQty;
+
+        if ($difference > 0) {
+            // Qty bertambah → stok harus dikurangi
+            if ($tool->stock < $difference) {
+                return back()->withErrors(['qty' => 'Stok tidak mencukupi']);
+            }
+
+            $tool->decrement('stock', $difference);
+        } elseif ($difference < 0) {
+            // Qty berkurang → stok harus ditambah
+            $tool->increment('stock', abs($difference));
+        }
+
+        // Update data
         $borrowing->update([
             'borrow_date' => $request->borrow_date,
             'return_date' => $request->return_date,
-            'status'      => $request->status
+            'status'      => $request->status,
+            'qty'         => $newQty
         ]);
 
         ActivityLog::create([
             'user_id' => Auth::id(),
-            'activity' => "Memperbarui peminjaman alat: {$toolName}"
+            'activity' => "Memperbarui peminjaman alat: {$tool->name}"
         ]);
 
-        return redirect()->route('admin.borrowings.index')->with('success', 'Data peminjaman berhasil diperbarui!');
+        return redirect()
+            ->route('admin.borrowings.index')
+            ->with('success', 'Data peminjaman berhasil diperbarui!');
     }
+
 
 
     public function destroy(Borrowing $borrowing)

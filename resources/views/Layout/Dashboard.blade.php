@@ -91,6 +91,19 @@
             document.getElementById('notif-success')?.remove();
             document.getElementById('notif-error')?.remove();
         }, 4000);
+
+
+        const toolSelect = document.getElementById('toolSelect');
+        const qtyInput = document.getElementById('qtyInput');
+
+        toolSelect.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const stock = selectedOption.getAttribute('data-stock');
+
+            if (stock) {
+                qtyInput.max = stock;
+            }
+        });
     </script>
 </body>
 

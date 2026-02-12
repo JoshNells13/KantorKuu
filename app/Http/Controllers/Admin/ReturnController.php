@@ -52,7 +52,11 @@ class ReturnController extends Controller
         ]);
 
         $borrowing->update(['status' => 'dikembalikan']);
-        $borrowing->tool->increment('stock');
+
+        $qty = $borrowing->qty ?? 1;
+
+
+        $borrowing->tool->increment('stock', $qty);
 
         ActivityLog::create([
             'user_id' => Auth::id(),
