@@ -24,7 +24,7 @@ class BorrowingController extends Controller
 
     public function index()
     {
-        $borrowings = Borrowing::with('user', 'tool', 'returnTool')->get();
+        $borrowings = Borrowing::with('user', 'tool', 'returnTool')->where('status', '!=', 'dikembalikan')->get();
         return view('Admin.Borrowing.index', compact('borrowings'));
     }
 
