@@ -24,7 +24,7 @@ class PetugasController extends Controller
 
     public function index()
     {
-        $borrowings = Borrowing::with(['user', 'tool'])->latest()->get();
+        $borrowings = Borrowing::with(['user', 'tool'])->where('status', '!=', 'dikembalikan')->latest()->get();
         return view('Petugas.ReturnTool.index', compact('borrowings'));
     }
 
@@ -53,8 +53,6 @@ class PetugasController extends Controller
 
     public function storeReturnTool(Request $request, Borrowing $borrowing)
     {
-        // Update borrowing status
-        $borrowing->update(['status' => 'dikembalikan']);
 
         // Tambah stok alat
         $qty = $borrowing->qty ?? 1;
@@ -69,13 +67,17 @@ class PetugasController extends Controller
 
         $fine = $lateDays * 5000;
 
+        $totalfine = $borrowing->total_price + $fine;
+
         ReturnTool::create([
             'borrowing_id' => $borrowing->id,
             'returned_at'  => $returnedDate,
-            'fine'         => $fine
+            'fine'         => $totalfine
         ]);
 
         $this->activityLogService->log(Auth::id(), "Mengembalikan alat: {$borrowing->tool->name}");
+
+        $borrowing->update(['status' => 'dikembalikan']);
 
         return redirect()->route('petugas.borrowings.index')->with('success', 'Pengembalian alat berhasil diproses!');
     }

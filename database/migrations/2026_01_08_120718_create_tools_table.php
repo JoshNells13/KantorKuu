@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->integer('stock');
-            $table->enum('condition', ['bagus', 'rusak']);
+            $table->decimal('price_per_day', 8, 2);
+            $table->string('img')->nullable();
             $table->timestamps();
         });
     }

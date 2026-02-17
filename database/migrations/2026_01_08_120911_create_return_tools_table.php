@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('returns', function (Blueprint $table) {
             $table->id();
             $table->foreignId('borrowing_id')->constrained()->cascadeOnDelete();
+            $table->decimal('fine', 8, 2)->default(0);
             $table->date('returned_at');
             $table->timestamps();
         });

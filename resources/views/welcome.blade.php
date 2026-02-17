@@ -61,9 +61,9 @@
                     <div class="hidden md:flex items-center gap-6">
                         @auth
                             @if(auth()->user()->role->name === 'peminjam')
-                                <a class="text-sm font-medium hover:text-primary transition-colors" 
+                                <a class="text-sm font-medium hover:text-primary transition-colors"
                                    href="{{ route('peminjam.tools') }}">Katalog Alat</a>
-                                <a class="text-sm font-medium hover:text-primary transition-colors" 
+                                <a class="text-sm font-medium hover:text-primary transition-colors"
                                    href="{{ route('peminjam.borrowings.index') }}">Peminjaman Saya</a>
                             @endif
                         @else
@@ -78,19 +78,19 @@
                     @auth
                         <div class="hidden lg:flex items-center gap-3">
                             <span class="text-sm text-slate-600 dark:text-slate-400">Halo, <strong>{{ auth()->user()->name }}</strong></span>
-                            
+
                             @if(auth()->user()->role->name === 'admin')
-                                <a href="{{ route('admin.dashboard') }}" 
+                                <a href="{{ route('admin.dashboard') }}"
                                    class="text-sm font-medium px-4 py-2 hover:text-primary transition-colors">
                                     Dashboard Admin
                                 </a>
                             @elseif(auth()->user()->role->name === 'petugas')
-                                <a href="{{ route('petugas.dashboard') }}" 
+                                <a href="{{ route('petugas.dashboard') }}"
                                    class="text-sm font-medium px-4 py-2 hover:text-primary transition-colors">
                                     Dashboard Petugas
                                 </a>
                             @elseif(auth()->user()->role->name === 'peminjam')
-                                <a href="{{ route('peminjam.dashboard') }}" 
+                                <a href="{{ route('peminjam.dashboard') }}"
                                    class="text-sm font-medium px-4 py-2 hover:text-primary transition-colors">
                                     Dashboard
                                 </a>
@@ -111,7 +111,7 @@
                                 class="pl-10 pr-4 py-1.5 text-sm bg-slate-100 dark:bg-slate-800 border-none rounded-full focus:ring-2 focus:ring-primary/50 w-48 transition-all"
                                 placeholder="Cari alat..." type="text" />
                         </div>
-                        <a href="{{ route('login.show') }}" 
+                        <a href="{{ route('login.show') }}"
                            class="text-sm font-medium px-4 py-2 hover:text-primary transition-colors">Masuk</a>
                         <a href="{{ route('register.show') }}"
                            class="bg-primary hover:bg-primary/90 text-white text-sm font-semibold px-5 py-2 rounded-lg shadow-sm transition-all">
@@ -132,7 +132,7 @@
                     <span class="text-primary">Dikirim ke Lokasi Anda.</span>
                 </h1>
                 <p class="text-lg text-slate-600 dark:text-slate-400">
-                    Hemat biaya operasional. Sewa peralatan berkualitas tinggi untuk proyek berbagai skala. 
+                    Hemat biaya operasional. Sewa peralatan berkualitas tinggi untuk proyek berbagai skala.
                     Layanan terpercaya dan pengiriman langsung ke lokasi.
                 </p>
             </div>
@@ -240,18 +240,18 @@
                 </div>
                 @auth
                     @if(auth()->user()->role->name === 'peminjam')
-                        <a class="text-primary font-semibold flex items-center hover:underline" 
+                        <a class="text-primary font-semibold flex items-center hover:underline"
                            href="{{ route('peminjam.tools') }}">
                             Lihat Semua <span class="material-icons text-sm ml-1">arrow_forward</span>
                         </a>
                     @else
-                        <a class="text-primary font-semibold flex items-center hover:underline" 
+                        <a class="text-primary font-semibold flex items-center hover:underline"
                            href="{{ route('login.show') }}">
                             Lihat Semua <span class="material-icons text-sm ml-1">arrow_forward</span>
                         </a>
                     @endif
                 @else
-                    <a class="text-primary font-semibold flex items-center hover:underline" 
+                    <a class="text-primary font-semibold flex items-center hover:underline"
                        href="{{ route('login.show') }}">
                         Lihat Semua <span class="material-icons text-sm ml-1">arrow_forward</span>
                     </a>
@@ -264,7 +264,8 @@
                         <div class="relative h-48 overflow-hidden">
                             <!-- Placeholder Image -->
                             <div class="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                                <span class="material-icons text-6xl text-slate-400">construction</span>
+                                <img src="{{ asset('storage/tools/' . ($tool->image ?? 'placeholder.png')) }}" alt="{{ $tool->name }}"
+                                     class="object-cover w-full h-full">
                             </div>
                             <div class="absolute top-3 left-3 flex gap-2">
                                 @if($tool->stock > 0)
@@ -272,6 +273,11 @@
                                 @else
                                     <span class="bg-red-500 text-white text-[10px] font-bold uppercase px-2 py-1 rounded">Habis</span>
                                 @endif
+                            </div>
+
+                            <div>
+                                <span class="absolute top-3 right-3 bg-primary/10 text-primary text-[10px] font-bold uppercase px-2 py-1 rounded">
+                                    {{ $tool->price_per_day }} / hari
                             </div>
                         </div>
                         <div class="p-5">
@@ -314,7 +320,7 @@
                         <p class="text-slate-500 dark:text-slate-500">Alat akan segera ditambahkan. Silakan cek kembali nanti.</p>
                     </div>
                 @endforelse
-                  
+
     </section>
     <!-- Footer -->
     <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 pt-16 pb-8" id="support">
@@ -328,7 +334,7 @@
                         <span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">EquipRent</span>
                     </a>
                     <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
-                        Membuat peralatan profesional dapat diakses oleh semua orang. Alat berkualitas tinggi, 
+                        Membuat peralatan profesional dapat diakses oleh semua orang. Alat berkualitas tinggi,
                         persyaratan fleksibel, dan dukungan luar biasa.
                     </p>
                     <div class="flex gap-4">

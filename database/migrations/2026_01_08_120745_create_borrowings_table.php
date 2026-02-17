@@ -17,7 +17,9 @@ return new class extends Migration
             $table->foreignId('tool_id')->constrained()->cascadeOnDelete();
             $table->date('borrow_date');
             $table->date('return_date');
-            $table->enum('status', ['menunggu', 'dipinjam', 'dikembalikan'])->default('menunggu');
+            $table->integer('qty')->default(1);
+            $table->decimal('total_price', 8, 2)->default(0);
+            $table->enum('status', ['menunggu', 'dipinjam','dikembalikan'])->default('menunggu');
             $table->timestamps();
         });
     }

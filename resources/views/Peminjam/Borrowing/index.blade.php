@@ -18,6 +18,8 @@
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">Alat</th>
                         <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Tgl Pinjam</th>
                         <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Tgl Kembali</th>
+                        <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Jumlah</th>
+                        <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Total</th>
                         <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Status</th>
                     </tr>
                 </thead>
@@ -28,6 +30,8 @@
                             <td class="px-6 py-4">{{ $item->tool->name }}</td>
                             <td class="px-6 py-4 text-center">{{ date('d M Y', strtotime($item->borrow_date)) }}</td>
                             <td class="px-6 py-4 text-center">{{ date('d M Y', strtotime($item->return_date)) }}</td>
+                            <td class="px-6 py-4 text-center">{{ $item->qty }}</td>
+                            <td class="px-6 py-4 text-center">Rp {{ number_format($item->total_price, 0, ',', '.') }}</td>
                             <td class="px-6 py-4 text-center">
                                 @if ($item->status == 'menunggu')
                                     <span

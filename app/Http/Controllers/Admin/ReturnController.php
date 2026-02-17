@@ -45,13 +45,14 @@ class ReturnController extends Controller
 
         $fine = $lateDays * 5000;
 
+        $totalfine = $borrowing->total_price + $fine;
+
         ReturnTool::create([
             'borrowing_id' => $borrowing->id,
             'returned_at'  => Carbon::now(),
-            'fine'         => $fine
+            'fine'         => $totalfine
         ]);
 
-        $borrowing->update(['status' => 'dikembalikan']);
 
         $qty = $borrowing->qty ?? 1;
 
@@ -62,6 +63,8 @@ class ReturnController extends Controller
             'user_id' => Auth::id(),
             'activity'  => "Mengembalikan alat: {$borrowing->tool->name}"
         ]);
+
+        $borrowing->update(['status' => 'dikembalikan']);
 
         return redirect()
             ->route('admin.borrowings.index')
@@ -94,14 +97,16 @@ class ReturnController extends Controller
 
         $fine = $lateDays * 5000;
 
+        $totalfine = $returnTool->borrowing->total_price + $fine;
+
         $returnTool->update([
             'returned_at' => $request->returned_at,
-            'fine' => $fine
+            'fine' => $totalfine
         ]);
 
         ActivityLog::create([
             'user_id' => Auth::id(),
-            'activity'  => "Mengembalikan alat: {$returnTool->borrowing->tool->name}"
+            'activity'  => "Memperbarui data pengembalian alat: {$returnTool->borrowing->tool->name}"
         ]);
 
         return redirect()->route('admin.return-tools.index')->with('success', 'Data pengembalian berhasil diperbarui!');

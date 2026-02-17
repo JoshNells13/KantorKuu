@@ -39,6 +39,7 @@ class PeminjamController extends Controller
         $tools = Tool::all();
         $borrowings = Borrowing::with('tool', 'returnTool')->latest()
             ->where('user_id', Auth::id())
+            ->where('status', '!=', 'dikembalikan')
             ->get();
 
         return view('Peminjam.Borrowing.index', compact('borrowings', 'tools'));
@@ -49,11 +50,11 @@ class PeminjamController extends Controller
         // Get tool_id from query parameter if provided
         $toolId = $request->query('tool_id');
         $selectedTool = null;
-        
+
         if ($toolId) {
             $selectedTool = Tool::find($toolId);
         }
-        
+
         return view('Peminjam.Borrowing.create', compact('selectedTool'));
     }
 
@@ -72,6 +73,10 @@ class PeminjamController extends Controller
             return back()->with('error', 'Stok alat tidak mencukupi!');
         }
 
+        $tool = Tool::find($request->tool_id);
+
+        $totalPrice = $tool->price_per_day * $qty * now()->diffInDays($request->return_date);
+
         Borrowing::create([
             'user_id'     => $userId,
             'tool_id'     => $request->tool_id,
@@ -79,6 +84,7 @@ class PeminjamController extends Controller
             'return_date' => $request->return_date,
             'status'      => $request->status ?? 'menunggu',
             'qty'         => $qty,
+            'total_price' => $totalPrice,
         ]);
 
         $tool = Tool::find($request->tool_id);
@@ -105,8 +111,6 @@ class PeminjamController extends Controller
 
     public function storeReturnTool(Request $request, Borrowing $borrowing)
     {
-        // Update borrowing status
-        $borrowing->update(['status' => 'dikembalikan']);
 
         // Tambah stok alat
         $qty = $borrowing->qty ?? 1;
@@ -127,7 +131,11 @@ class PeminjamController extends Controller
             'fine'         => $fine
         ]);
 
+
+
         $this->activityLogService->log(Auth::id(), "Mengembalikan alat: {$borrowing->tool->name}");
+
+        $borrowing->update(['status' => 'dikembalikan']);
 
         return redirect()
             ->route('peminjam.borrowings.index')

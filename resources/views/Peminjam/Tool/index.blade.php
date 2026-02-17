@@ -11,8 +11,10 @@
         <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
             <!-- Placeholder Image -->
             <div class="h-48 bg-gray-200 flex items-center justify-center">
-                <i class="fas fa-tools text-4xl text-gray-400"></i>
+                <img src="{{ asset('storage/tools/' . ($item->image ?? 'placeholder.png')) }}" alt="{{ $item->name }}"
+                     class="object-cover w-full h-full">
             </div>
+
 
             <div class="p-4">
                 <div class="flex justify-between items-start mb-2">
@@ -20,6 +22,10 @@
                     <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">
                         {{ $item->category->name }}
                     </span>
+                </div>
+
+                <div>
+                    <span class="text-sm font-medium text-gray-700">Harga per hari: Rp {{ number_format($item->price_per_day, 0, ',', '.') }}</span>
                 </div>
 
                 <p class="text-sm text-gray-600 mb-4">
@@ -36,6 +42,8 @@
                         Tidak Tersedia
                     </button>
                 @endif
+
+
             </div>
         </div>
         @endforeach

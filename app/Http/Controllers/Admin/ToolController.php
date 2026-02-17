@@ -31,9 +31,17 @@ class ToolController extends Controller
             'name'        => 'required',
             'category_id' => 'required',
             'stock'       => 'required|integer',
+            'price_per_day' => 'required|numeric',
+            'img'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        Tool::create($request->all());
+        $imgPath = null;
+        if ($request->hasFile('img')) {
+            $imgPath = $request->file('img')->store('tools', 'public');
+        }
+
+
+        Tool::create(array_merge($request->all(), ['img' => $imgPath]));
 
         ActivityLog::create([
             'user_id' => Auth::id(),
@@ -57,9 +65,17 @@ class ToolController extends Controller
             'name'        => 'required',
             'category_id' => 'required',
             'stock'       => 'required|integer',
+            'price_per_day' => 'required|numeric',
+            'img'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        $tool->update($request->all());
+
+        if ($request->hasFile('img')) {
+            $imgPath = $request->file('img')->store('tools', 'public');
+            $tool->img = $imgPath;
+        }
+
+        $tool->update(array_merge($request->all(), ['img' => $tool->img]));
 
         ActivityLog::create([
             'user_id' => Auth::id(),

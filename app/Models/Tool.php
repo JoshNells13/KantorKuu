@@ -10,7 +10,8 @@ class Tool extends Model
         'category_id',
         'name',
         'stock',
-        'condition',
+        'price_per_day',
+        'img',
     ];
 
     public function category()
