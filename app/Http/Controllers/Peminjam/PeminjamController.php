@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Peminjam;
 
 use App\Http\Controllers\Controller;
 use App\Models\Borrowing;
+use App\Models\Category;
 use App\Models\ReturnTool;
 use App\Models\Tool;
 use App\Services\ActivityLogService;
@@ -23,15 +24,26 @@ class PeminjamController extends Controller
         $this->activityLogService = $activityLogService;
     }
 
-    public function Tool()
+    public function Tool(Request $request)
     {
-        $Tool = Tool::all();
-        return view('Peminjam.Tool.index', compact('Tool'));
-    }
+        $query = Tool::query();
 
-    public function ShowTool(Tool $tool)
-    {
-        return view('Peminjam.Tool.show', compact('tool'));
+        $Category = Category::all();
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%')
+                ->orWhereHas('category', function ($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request->search . '%');
+                });
+        }
+
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        $tools = $query->get();
+
+        return view('Peminjam.Tool.index', compact('tools', 'Category'));
     }
 
     public function Borrowing()

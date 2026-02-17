@@ -18,7 +18,7 @@
                     <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">Peminjam</th>
                     <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">Alat</th>
                     <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Tgl Kembali</th>
-                    <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Denda</th>
+                    <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Total Harga dan Denda</th>
                     <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Aksi</th>
                 </tr>
             </thead>

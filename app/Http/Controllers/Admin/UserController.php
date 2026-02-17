@@ -13,6 +13,8 @@ class UserController extends Controller
 {
     public function index()
     {
+
+
         return view('Admin.User.index', [
             'users' => User::with('role')->get()
         ]);
@@ -20,9 +22,10 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('Admin.User.create', [
-            'roles' => Role::all()
-        ]);
+
+        $roles = Role::where('name', '!=', 'admin')->get();
+
+        return view('Admin.User.create', compact('roles'));
     }
 
     public function store(Request $request)

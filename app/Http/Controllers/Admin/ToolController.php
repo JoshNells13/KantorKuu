@@ -12,10 +12,29 @@ use Illuminate\Support\Facades\Auth;
 
 class ToolController extends Controller
 {
-    public function index()
+
+
+    public function index(Request $request)
     {
-        $Tool  = Tool::all();
-        return view('Admin.Tool.index', compact('Tool'));
+        $query = Tool::with('category');
+
+        // Search
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%')
+                ->orWhereHas('category', function ($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request->search . '%');
+                });
+        }
+
+        // Filter Category
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        $tools = $query->paginate(10)->withQueryString();
+        $categories = Category::all();
+
+        return view('Admin.Tool.index', compact('tools', 'categories'));
     }
 
     public function create()

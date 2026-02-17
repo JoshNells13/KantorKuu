@@ -137,7 +137,7 @@
                 </p>
             </div>
             <!-- Search Widget -->
-            <div class="max-w-4xl mx-auto">
+            {{-- <div class="max-w-4xl mx-auto">
                 <div
                     class="bg-white dark:bg-slate-900 p-2 rounded-xl lg:rounded-full shadow-xl border border-slate-200 dark:border-slate-800 flex flex-col lg:flex-row gap-2">
                     <div
@@ -183,7 +183,7 @@
                             class="px-3 py-1 bg-white dark:bg-slate-800 rounded-full text-xs font-medium border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors">{{ $category->name }}</button>
                     @endforeach
                 </div>
-            </div>
+            </div> --}}
         </div>
     </section>
     <!-- How It Works Section -->
