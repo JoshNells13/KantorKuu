@@ -7,11 +7,19 @@ use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
 use App\Models\Tool;
 use App\Models\Category;
+use App\Services\ActivityLogService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ToolController extends Controller
 {
+
+    protected $activityLogService;
+
+    public function __construct(ActivityLogService $activityLogService)
+    {
+        $this->activityLogService = $activityLogService;
+    }
 
 
     public function index(Request $request)
@@ -62,10 +70,7 @@ class ToolController extends Controller
 
         Tool::create(array_merge($request->all(), ['img' => $imgPath]));
 
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'activity'  => "Menambahkan alat: {$request->name}"
-        ]);
+       $this->activityLogService->log(Auth::id(), "Menambahkan alat: {$request->name}");
 
         return redirect()->route('admin.tools.index')->with('success', 'Data alat berhasil ditambahkan!');
     }
@@ -96,10 +101,7 @@ class ToolController extends Controller
 
         $tool->update(array_merge($request->all(), ['img' => $tool->img]));
 
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'activity'  => "Memperbarui alat: {$request->name}"
-        ]);
+        $this->activityLogService->log(Auth::id(), "Memperbarui alat: {$tool->name}");
 
         return redirect()->route('admin.tools.index')->with('success', 'Data alat berhasil diperbarui!');
     }
@@ -108,10 +110,7 @@ class ToolController extends Controller
     {
         $tool->delete();
 
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'activity'  => "Menghapus alat: {$tool->name}"
-        ]);
+        $this->activityLogService->log(Auth::id(), "Menghapus alat: {$tool->name}");
 
         return redirect()->route('admin.tools.index')->with('success', 'Data alat berhasil dihapus!');
     }

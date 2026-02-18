@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
 use App\Models\Borrowing;
 use App\Models\ReturnTool;
+use App\Services\ActivityLogService;
 use Carbon\Carbon as CarbonAlias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Auth;
 
 class ReturnController extends Controller
 {
+
+    protected $activityLogService;
+
+    public function __construct(ActivityLogService $activityLogService)
+    {
+        $this->activityLogService = $activityLogService;
+    }
 
     public function index()
     {
@@ -59,10 +67,7 @@ class ReturnController extends Controller
 
         $borrowing->tool->increment('stock', $qty);
 
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'activity'  => "Mengembalikan alat: {$borrowing->tool->name}"
-        ]);
+       $this->activityLogService->log(Auth::id(), "Mengembalikan alat: {$borrowing->tool->name}");
 
         $borrowing->update(['status' => 'dikembalikan']);
 
@@ -104,10 +109,7 @@ class ReturnController extends Controller
             'fine' => $totalfine
         ]);
 
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'activity'  => "Memperbarui data pengembalian alat: {$returnTool->borrowing->tool->name}"
-        ]);
+        $this->activityLogService->log(Auth::id(), "Memperbarui data pengembalian alat: {$returnTool->borrowing->tool->name}");
 
         return redirect()->route('admin.return-tools.index')->with('success', 'Data pengembalian berhasil diperbarui!');
     }
@@ -116,10 +118,7 @@ class ReturnController extends Controller
     {
         $returnTool->delete();
 
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'activity'  => "Menghapus data pengembalian alat: {$returnTool->borrowing->tool->name}"
-        ]);
+        $this->activityLogService->log(Auth::id(), "Menghapus data pengembalian alat: {$returnTool->borrowing->tool->name}");
 
         return back()->with('success', 'Data pengembalian berhasil dihapus!');
     }

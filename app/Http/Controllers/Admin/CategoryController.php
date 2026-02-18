@@ -6,11 +6,20 @@ use App\Http\Controllers\Controller;
 
 use App\Models\ActivityLog;
 use App\Models\Category;
+use App\Services\ActivityLogService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
+
+    protected $activityLogService;
+
+    public function __construct(ActivityLogService $activityLogService)
+    {
+        $this->activityLogService = $activityLogService;
+    }
+
     public function index()
     {
         $categories = Category::all();
@@ -36,10 +45,7 @@ class CategoryController extends Controller
 
 
 
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'activity'  => "Menambahkan kategori: {$request->name}"
-        ]);
+        $this->activityLogService->log(Auth::id(), "Menambahkan kategori: {$request->name}");
 
 
         return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil ditambahkan!');
@@ -60,10 +66,7 @@ class CategoryController extends Controller
 
         $category->update($request->all());
 
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'activity'  => "Memperbarui kategori: {$request->name}"
-        ]);
+        $this->activityLogService->log(Auth::id(), "Memperbarui kategori: {$category->name}");
 
         return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil diperbarui!');
     }
@@ -72,10 +75,7 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'activity'  => "Menghapus kategori: {$category->name}"
-        ]);
+        $this->activityLogService->log(Auth::id(), "Menghapus kategori: {$category->name}");
 
         return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil dihapus!');
     }
