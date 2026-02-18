@@ -40,8 +40,4 @@
     <span class="font-medium">Log Aktivitas</span>
 </a>
 
-<a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.reports') ? 'bg-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary' }} rounded-lg transition-colors"
-    href="{{ route('admin.reports') }}">
-    <span class="material-icons text-[20px]">bar_chart</span>
-    <span class="font-medium">Laporan</span>
-</a>
+
