@@ -58,7 +58,6 @@ class ToolController extends Controller
             'name'        => 'required',
             'category_id' => 'required',
             'stock'       => 'required|integer',
-            'price_per_day' => 'required|numeric',
             'img'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
@@ -89,7 +88,6 @@ class ToolController extends Controller
             'name'        => 'required',
             'category_id' => 'required',
             'stock'       => 'required|integer',
-            'price_per_day' => 'required|numeric',
             'img'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 

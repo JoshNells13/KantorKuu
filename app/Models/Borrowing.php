@@ -12,7 +12,6 @@ class Borrowing extends Model
         'borrow_date',
         'return_date',
         'status',
-        'total_price',
         'qty'
     ];
 

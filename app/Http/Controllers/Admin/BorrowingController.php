@@ -56,8 +56,6 @@ class BorrowingController extends Controller
 
         $this->activityLogService->log($request->user_id, "Meminjam alat: {$tool->name}");
 
-        $totalPrice = $tool->price_per_day * $qty * now()->diffInDays($request->return_date);
-
         Borrowing::create([
             'user_id'     => $request->user_id,
             'tool_id'     => $request->tool_id,
@@ -65,7 +63,6 @@ class BorrowingController extends Controller
             'return_date' => $request->return_date,
             'status'      => $status,
             'qty'         => $qty,
-            'total_price' => $totalPrice
         ]);
 
         return redirect()->route('admin.borrowings.index')->with('success', 'Peminjaman berhasil diajukan!');
@@ -110,7 +107,6 @@ class BorrowingController extends Controller
             'return_date' => 'required|date',
             'status'      => 'required',
             'qty'         => 'required|integer|min:1',
-            'total_price' => 'required|numeric|min:0'
         ]);
 
         $tool = $borrowing->tool;
@@ -128,14 +124,11 @@ class BorrowingController extends Controller
         }
 
 
-        $totalPrice = $tool->price_per_day * $newQty * now()->diffInDays($request->return_date);
-
         $borrowing->update([
             'borrow_date' => $request->borrow_date,
             'return_date' => $request->return_date,
             'status'      => $request->status,
             'qty'         => $newQty,
-            'total_price' => $totalPrice
         ]);
 
         $this->activityLogService->log(Auth::id(), "Memperbarui peminjaman alat: {$tool->name}");

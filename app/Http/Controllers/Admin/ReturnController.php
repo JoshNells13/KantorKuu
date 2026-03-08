@@ -51,14 +51,10 @@ class ReturnController extends Controller
             ? $dueDate->diffInDays($returnedDate)
             : 0;
 
-        $fine = $lateDays * 5000;
-
-        $totalfine = $borrowing->total_price + $fine;
-
         ReturnTool::create([
             'borrowing_id' => $borrowing->id,
             'returned_at'  => Carbon::now(),
-            'fine'         => $totalfine
+            'fine'         => $fine
         ]);
 
 
@@ -100,13 +96,9 @@ class ReturnController extends Controller
             ? $dueDate->diffInDays($returnedDate)
             : 0;
 
-        $fine = $lateDays * 5000;
-
-        $totalfine = $returnTool->borrowing->total_price + $fine;
-
         $returnTool->update([
             'returned_at' => $request->returned_at,
-            'fine' => $totalfine
+            'fine' => $fine
         ]);
 
         $this->activityLogService->log(Auth::id(), "Memperbarui data pengembalian alat: {$returnTool->borrowing->tool->name}");

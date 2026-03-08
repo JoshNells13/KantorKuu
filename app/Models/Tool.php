@@ -10,7 +10,6 @@ class Tool extends Model
         'category_id',
         'name',
         'stock',
-        'price_per_day',
         'img',
     ];
 

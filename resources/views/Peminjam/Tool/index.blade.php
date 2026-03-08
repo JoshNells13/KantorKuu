@@ -55,10 +55,6 @@
                             </span>
                         </div>
 
-                        <div>
-                            <span class="text-sm font-medium text-gray-700">Harga per hari: Rp
-                                {{ number_format($item->price_per_day, 0, ',', '.') }}</span>
-                        </div>
 
                         <p class="text-sm text-gray-600 mb-4">
                             Stok: <span
