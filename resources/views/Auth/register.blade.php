@@ -40,7 +40,7 @@
         <div class="text-center mb-8">
             <a href="{{ route('home') }}" class="inline-flex items-center gap-2 mb-6">
                 <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                    <span class="material-icons text-white text-2xl">construction</span>
+                    <span class="material-icons text-white text-2xl">business</span>
                 </div>
                 <span class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">KantorKuu</span>
             </a>
