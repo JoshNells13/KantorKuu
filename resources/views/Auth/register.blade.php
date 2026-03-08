@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar | EquipRent</title>
+    <title>Daftar | KantorKuu</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
@@ -32,7 +33,8 @@
     </style>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark font-display flex items-center justify-center min-h-screen p-4">
+<body
+    class="bg-background-light dark:bg-background-dark font-display flex items-center justify-center min-h-screen p-4">
     <div class="w-full max-w-md">
         <!-- Logo Header -->
         <div class="text-center mb-8">
@@ -40,7 +42,7 @@
                 <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                     <span class="material-icons text-white text-2xl">construction</span>
                 </div>
-                <span class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">EquipRent</span>
+                <span class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">KantorKuu</span>
             </a>
             <h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Buat Akun Baru</h1>
             <p class="text-slate-500 dark:text-slate-400">Daftar untuk mulai menyewa peralatan</p>
@@ -50,7 +52,7 @@
         <div class="bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-slate-200 dark:border-slate-800 p-8">
             <form action="{{ route('register') }}" method="POST" class="space-y-5">
                 @csrf
-                
+
                 <!-- Name Field -->
                 <div>
                     <label for="name" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
@@ -118,7 +120,7 @@
                         <input type="password" name="password" id="password" required
                             class="w-full pl-11 pr-12 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all @error('password') border-red-500 @enderror"
                             placeholder="Buat password (min. 8 karakter)">
-                        <button type="button" onclick="togglePassword('password', 'toggleIcon1')" 
+                        <button type="button" onclick="togglePassword('password', 'toggleIcon1')"
                             class="absolute right-3 top-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
                             <span class="material-icons text-xl" id="toggleIcon1">visibility_off</span>
                         </button>
@@ -133,7 +135,8 @@
 
                 <!-- Password Confirmation Field -->
                 <div>
-                    <label for="password_confirmation" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    <label for="password_confirmation"
+                        class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                         Konfirmasi Password
                     </label>
                     <div class="relative">
@@ -141,7 +144,7 @@
                         <input type="password" name="password_confirmation" id="password_confirmation" required
                             class="w-full pl-11 pr-12 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                             placeholder="Ketik ulang password Anda">
-                        <button type="button" onclick="togglePassword('password_confirmation', 'toggleIcon2')" 
+                        <button type="button" onclick="togglePassword('password_confirmation', 'toggleIcon2')"
                             class="absolute right-3 top-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
                             <span class="material-icons text-xl" id="toggleIcon2">visibility_off</span>
                         </button>
@@ -152,7 +155,8 @@
                 <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
                     <div class="flex items-start gap-2 text-blue-600 dark:text-blue-400">
                         <span class="material-icons text-sm mt-0.5">info</span>
-                        <span class="text-xs">Akun yang terdaftar akan otomatis menjadi <strong>Peminjam</strong>. Untuk mendapatkan akses Admin/Petugas, hubungi administrator sistem.</span>
+                        <span class="text-xs">Akun yang terdaftar akan otomatis menjadi <strong>Peminjam</strong>. Untuk
+                            mendapatkan akses Admin/Petugas, hubungi administrator sistem.</span>
                     </div>
                 </div>
 
@@ -177,20 +181,11 @@
             <!-- Login Link -->
             <p class="text-center text-sm text-slate-600 dark:text-slate-400">
                 Sudah punya akun?
-                <a href="{{ route('login.show') }}" 
-                   class="font-semibold text-primary hover:text-primary/90 hover:underline ml-1">
+                <a href="{{ route('login.show') }}"
+                    class="font-semibold text-primary hover:text-primary/90 hover:underline ml-1">
                     Masuk di sini
                 </a>
             </p>
-        </div>
-
-        <!-- Back to Home -->
-        <div class="text-center mt-6">
-            <a href="{{ route('home') }}" 
-               class="text-sm text-slate-500 hover:text-primary transition-colors inline-flex items-center gap-1">
-                <span class="material-icons text-sm">arrow_back</span>
-                Kembali ke Beranda
-            </a>
         </div>
     </div>
 
@@ -198,7 +193,7 @@
         function togglePassword(inputId, iconId) {
             const passwordInput = document.getElementById(inputId);
             const toggleIcon = document.getElementById(iconId);
-            
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 toggleIcon.textContent = 'visibility';

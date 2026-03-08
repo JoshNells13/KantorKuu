@@ -38,10 +38,10 @@ class BorrowingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tool_id'     => 'required',
+            'tool_id' => 'required',
             'return_date' => 'required|date',
-            'user_id'     => 'required',
-            'qty'         => 'sometimes|integer|min:1'
+            'user_id' => 'required',
+            'qty' => 'sometimes|integer|min:1'
         ]);
 
         $qty = $request->qty ?? 1;
@@ -57,12 +57,12 @@ class BorrowingController extends Controller
         $this->activityLogService->log($request->user_id, "Meminjam alat: {$tool->name}");
 
         Borrowing::create([
-            'user_id'     => $request->user_id,
-            'tool_id'     => $request->tool_id,
+            'user_id' => $request->user_id,
+            'tool_id' => $request->tool_id,
             'borrow_date' => now(),
             'return_date' => $request->return_date,
-            'status'      => $status,
-            'qty'         => $qty,
+            'status' => $status,
+            'qty' => $qty,
         ]);
 
         return redirect()->route('admin.borrowings.index')->with('success', 'Peminjaman berhasil diajukan!');
@@ -80,7 +80,7 @@ class BorrowingController extends Controller
 
         $this->stockService->decrementStock($borrowing->tool_id, $qty);
 
-        $this->activityLogService->log(Auth::id(), "Menyetujui peminjaman alat: {$borrowing->tool->name}");
+        $this->activityLogService->log(Auth::id(), "Menyetujui peminjaman di KantorKuu: {$borrowing->tool->name}");
 
         return redirect()->route('admin.borrowings.index')->with('success', "Peminjaman berhasil disetujui!, Stok Berkurang.");
     }
@@ -105,8 +105,8 @@ class BorrowingController extends Controller
         $request->validate([
             'borrow_date' => 'required|date',
             'return_date' => 'required|date',
-            'status'      => 'required',
-            'qty'         => 'required|integer|min:1',
+            'status' => 'required',
+            'qty' => 'required|integer|min:1',
         ]);
 
         $tool = $borrowing->tool;
@@ -127,11 +127,11 @@ class BorrowingController extends Controller
         $borrowing->update([
             'borrow_date' => $request->borrow_date,
             'return_date' => $request->return_date,
-            'status'      => $request->status,
-            'qty'         => $newQty,
+            'status' => $request->status,
+            'qty' => $newQty,
         ]);
 
-        $this->activityLogService->log(Auth::id(), "Memperbarui peminjaman alat: {$tool->name}");
+        $this->activityLogService->log(Auth::id(), "Memperbarui peminjaman di KantorKuu: {$tool->name}");
 
         return redirect()
             ->route('admin.borrowings.index')
@@ -142,7 +142,7 @@ class BorrowingController extends Controller
     {
         $borrowing->delete();
 
-        $this->activityLogService->log(Auth::id(), "Menghapus peminjaman alat: {$borrowing->tool->name}");
+        $this->activityLogService->log(Auth::id(), "Menghapus peminjaman di KantorKuu: {$borrowing->tool->name}");
 
         return redirect()->route('admin.borrowings.index')->with('success', 'Data peminjaman berhasil dihapus!');
     }

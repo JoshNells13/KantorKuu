@@ -9,7 +9,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h2 class="text-2xl font-bold mb-2">Dashboard Petugas</h2>
-                    <p class="text-blue-100">Kelola persetujuan dan peminjaman alat</p>
+                    <p class="text-blue-100">Kelola persetujuan dan peminjaman alat di KantorKuu</p>
                 </div>
                 <div class="hidden md:block">
                     <span class="material-icons text-8xl opacity-20">assignment_ind</span>

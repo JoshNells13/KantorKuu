@@ -9,7 +9,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h2 class="text-2xl font-bold mb-2">Selamat Datang, {{ auth()->user()->name }}!</h2>
-                    <p class="text-blue-100">Kelola peminjaman alat Anda dengan mudah dan efisien</p>
+                    <p class="text-blue-100">Kelola peminjaman alat Anda di KantorKuu dengan mudah dan efisien</p>
                 </div>
                 <div class="hidden md:block">
                     <span class="material-icons text-8xl opacity-20">construction</span>
@@ -131,11 +131,11 @@
                                     </div>
                                 </div>
                                 <span class="px-3 py-1 text-xs font-semibold rounded-full
-                                                @if($borrowing->status == 'approved') bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400
-                                                @elseif($borrowing->status == 'pending') bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400
-                                                @elseif($borrowing->status == 'returned') bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400
-                                                @else bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400
-                                                @endif">
+                                                            @if($borrowing->status == 'approved') bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400
+                                                            @elseif($borrowing->status == 'pending') bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400
+                                                            @elseif($borrowing->status == 'returned') bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400
+                                                            @else bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400
+                                                            @endif">
                                     {{ ucfirst($borrowing->status ?? 'pending') }}
                                 </span>
                             </div>

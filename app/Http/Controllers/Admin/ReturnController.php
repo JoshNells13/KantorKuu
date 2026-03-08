@@ -91,10 +91,9 @@ class ReturnController extends Controller
 
     public function update(Request $request, ReturnTool $returnTool)
     {
-
-
         $request->validate([
             'returned_at' => 'required|date',
+            'return_condition' => 'required',
         ]);
 
         $dueDate = Carbon::parse($returnTool->borrowing->return_date);
@@ -106,7 +105,7 @@ class ReturnController extends Controller
 
         $returnTool->update([
             'returned_at' => $request->returned_at,
-            'fine' => $fine
+            'return_condition' => $request->return_condition,
         ]);
 
         $this->activityLogService->log(Auth::id(), "Memperbarui data pengembalian alat: {$returnTool->borrowing->tool->name}");

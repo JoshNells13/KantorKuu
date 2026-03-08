@@ -12,14 +12,13 @@
         @elseif(auth()->user()->role->name === 'peminjam')
             Dashboard Peminjam
         @endif
-        | EquipRent
+        | KantorKuu
     </title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
@@ -34,11 +33,11 @@
                     fontFamily: {
                         "display": ["Inter"]
                     },
-                    borderRadius: { 
-                        "DEFAULT": "0.25rem", 
-                        "lg": "0.5rem", 
-                        "xl": "0.75rem", 
-                        "full": "9999px" 
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
                     },
                 },
             },
@@ -51,14 +50,16 @@
     </style>
 </head>
 
-<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex">
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex">
     <!-- Sidebar -->
-    <aside class="w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col fixed h-full">
+    <aside
+        class="w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col fixed h-full">
         <div class="p-6 flex items-center gap-3">
             <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
                 <span class="material-icons text-white text-sm">construction</span>
             </div>
-            <span class="text-xl font-bold tracking-tight text-primary">EquipRent</span>
+            <span class="text-xl font-bold tracking-tight text-primary">KantorKuu</span>
         </div>
         <nav class="flex-1 px-4 space-y-1 mt-4">
             @if (auth()->user()->role->name === 'admin')
@@ -81,22 +82,25 @@
             </div>
         </div>
     </aside>
-    
+
     <!-- Main Content -->
     <main class="ml-64 flex-1 flex flex-col min-h-screen">
         <!-- Top Bar -->
-        <header class="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 sticky top-0 z-10">
+        <header
+            class="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 sticky top-0 z-10">
             <div class="flex items-center gap-4">
                 <h1 class="text-xl font-bold">@yield('page-title', 'Dashboard')</h1>
             </div>
             <div class="flex items-center gap-6">
                 <div class="relative">
                     <span class="material-icons text-slate-400 hover:text-primary cursor-pointer">notifications</span>
-                    <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
+                    <span
+                        class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
                 </div>
                 <form action="{{ route('logout') }}" method="POST" class="inline">
                     @csrf
-                    <button type="submit" onclick="return confirm('Apakah Anda yakin ingin keluar?')" class="bg-red-500 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 hover:bg-red-600 transition-colors text-sm">
+                    <button type="submit" onclick="return confirm('Apakah Anda yakin ingin keluar?')"
+                        class="bg-red-500 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 hover:bg-red-600 transition-colors text-sm">
                         <span class="material-icons text-sm">logout</span>
                         <span>Keluar</span>
                     </button>
@@ -149,7 +153,7 @@
         const qtyInput = document.getElementById('qtyInput');
 
         if (toolSelect && qtyInput) {
-            toolSelect.addEventListener('change', function() {
+            toolSelect.addEventListener('change', function () {
                 const selectedOption = this.options[this.selectedIndex];
                 const stock = selectedOption.getAttribute('data-stock');
 

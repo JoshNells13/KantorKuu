@@ -4,7 +4,8 @@
     <div class="p-8 max-w-2xl mx-auto">
         <div class="mb-6">
             <h1 class="text-3xl font-bold text-slate-800 dark:text-white mb-2">Ajukan Peminjaman</h1>
-            <p class="text-slate-600 dark:text-slate-400">Lengkapi form di bawah untuk mengajukan peminjaman alat</p>
+            <p class="text-slate-600 dark:text-slate-400">Lengkapi form di bawah untuk mengajukan peminjaman alat di
+                KantorKuu</p>
         </div>
 
         <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg">
@@ -17,7 +18,8 @@
                         </div>
                         <div class="flex-1">
                             <h3 class="text-lg font-bold text-slate-800 dark:text-white">{{ $selectedTool->name }}</h3>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Kategori: {{ $selectedTool->category->name ?? '-' }}</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Kategori:
+                                {{ $selectedTool->category->name ?? '-' }}</p>
                             <p class="text-sm font-semibold {{ $selectedTool->stock > 0 ? 'text-green-600' : 'text-red-600' }}">
                                 Stok tersedia: {{ $selectedTool->stock }}
                             </p>
@@ -40,7 +42,8 @@
                             <p class="font-semibold">Tidak ada alat yang dipilih!</p>
                         </div>
                         <p class="mt-2 text-sm text-red-600 dark:text-red-400">
-                            Silakan kembali ke <a href="{{ route('peminjam.tools') }}" class="underline font-semibold">Katalog Alat</a> dan pilih alat yang ingin dipinjam.
+                            Silakan kembali ke <a href="{{ route('peminjam.tools') }}" class="underline font-semibold">Katalog
+                                Alat</a> dan pilih alat yang ingin dipinjam.
                         </p>
                     </div>
                 @endif
@@ -52,13 +55,10 @@
                     </label>
                     <div class="relative">
                         <span class="material-icons absolute left-3 top-3 text-slate-400 text-xl">pin</span>
-                        <input type="number" name="qty" min="1" 
-                            @if($selectedTool) max="{{ $selectedTool->stock }}" @endif
+                        <input type="number" name="qty" min="1" @if($selectedTool) max="{{ $selectedTool->stock }}" @endif
                             value="1"
                             class="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all @error('qty') border-red-500 @enderror"
-                            placeholder="Masukkan jumlah"
-                            @if(!$selectedTool) disabled @endif
-                            required>
+                            placeholder="Masukkan jumlah" @if(!$selectedTool) disabled @endif required>
                     </div>
                     @error('qty')
                         <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
@@ -80,11 +80,9 @@
                     </label>
                     <div class="relative">
                         <span class="material-icons absolute left-3 top-3 text-slate-400 text-xl">calendar_today</span>
-                        <input type="date" name="return_date"
-                            min="{{ date('Y-m-d', strtotime('+1 day')) }}"
+                        <input type="date" name="return_date" min="{{ date('Y-m-d', strtotime('+1 day')) }}"
                             class="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all @error('return_date') border-red-500 @enderror"
-                            @if(!$selectedTool) disabled @endif
-                            required>
+                            @if(!$selectedTool) disabled @endif required>
                     </div>
                     @error('return_date')
                         <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
@@ -104,7 +102,7 @@
                         <span class="material-icons text-sm">arrow_back</span>
                         Kembali
                     </a>
-                    <button type="submit" 
+                    <button type="submit"
                         class="px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg shadow-lg shadow-primary/30 transition-all font-semibold inline-flex items-center gap-2 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                         @if(!$selectedTool) disabled @endif>
                         <span class="material-icons text-sm">send</span>

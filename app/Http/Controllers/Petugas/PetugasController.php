@@ -42,7 +42,7 @@ class PetugasController extends Controller
 
         $this->activityLogService->log(Auth::id(), "Menyetujui peminjaman alat: {$borrowing->tool->name}");
 
-        return redirect()->route('petugas.borrowings.index')->with('success', 'Peminjaman alat disetujui dan stok berhasil dikurangi!');
+        return redirect()->route('petugas.borrowings.index')->with('success', 'Peminjaman di KantorKuu disetujui dan stok berhasil dikurangi!');
     }
 
     public function returnTool(Borrowing $borrowing)
