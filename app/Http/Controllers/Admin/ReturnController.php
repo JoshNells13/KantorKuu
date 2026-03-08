@@ -40,36 +40,44 @@ class ReturnController extends Controller
 
     public function store(Request $request, Borrowing $borrowing)
     {
-        $request->validate([
-            'returned_at' => 'required|date',
-        ]);
+        // This acts as "Approval" for the return
+        // Borrowing already has a ReturnTool record created by the Borrower
+        $returnTool = $borrowing->returnTool;
+
+        if (!$returnTool) {
+            // Backup case if peminjam didn't submit correctly or it's a direct return by admin
+            $returnTool = ReturnTool::create([
+                'borrowing_id' => $borrowing->id,
+                'returned_at' => Carbon::now(),
+                'fine' => 0,
+                'return_condition' => 'Tidak Diketahui'
+            ]);
+        }
 
         $dueDate = Carbon::parse($borrowing->return_date);
-        $returnedDate = Carbon::parse($request->returned_at);
+        $returnedDate = Carbon::now();
 
         $lateDays = $returnedDate->greaterThan($dueDate)
             ? $dueDate->diffInDays($returnedDate)
             : 0;
 
-        ReturnTool::create([
-            'borrowing_id' => $borrowing->id,
-            'returned_at'  => Carbon::now(),
-            'fine'         => $fine
+        $fine = $lateDays * 5000;
+
+        $returnTool->update([
+            'fine' => $fine,
+            'returned_at' => $returnedDate
         ]);
 
-
         $qty = $borrowing->qty ?? 1;
-
-
         $borrowing->tool->increment('stock', $qty);
 
-       $this->activityLogService->log(Auth::id(), "Mengembalikan alat: {$borrowing->tool->name}");
+        $this->activityLogService->log(Auth::id(), "Menyetujui pengembalian alat: {$borrowing->tool->name}");
 
         $borrowing->update(['status' => 'dikembalikan']);
 
         return redirect()
             ->route('admin.borrowings.index')
-            ->with('success', "Pengembalian berhasil diproses! Jumlah Barang Menjadi {$borrowing->tool->stock}");
+            ->with('success', "Pengembalian berhasil disetujui! Stok Barang Menjadi {$borrowing->tool->stock}");
     }
 
 

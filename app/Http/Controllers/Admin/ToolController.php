@@ -55,10 +55,12 @@ class ToolController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'        => 'required',
-            'category_id' => 'required',
-            'stock'       => 'required|integer',
-            'img'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'name'              => 'required',
+            'category_id'       => 'required',
+            'description'       => 'nullable',
+            'stock'             => 'required|integer',
+            'initial_condition' => 'required|string',
+            'img'               => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         $imgPath = null;
@@ -69,7 +71,7 @@ class ToolController extends Controller
 
         Tool::create(array_merge($request->all(), ['img' => $imgPath]));
 
-       $this->activityLogService->log(Auth::id(), "Menambahkan alat: {$request->name}");
+        $this->activityLogService->log(Auth::id(), "Menambahkan alat: {$request->name}");
 
         return redirect()->route('admin.tools.index')->with('success', 'Data alat berhasil ditambahkan!');
     }
@@ -85,10 +87,12 @@ class ToolController extends Controller
     public function update(Request $request, Tool $tool)
     {
         $request->validate([
-            'name'        => 'required',
-            'category_id' => 'required',
-            'stock'       => 'required|integer',
-            'img'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'name'              => 'required',
+            'category_id'       => 'required',
+            'description'       => 'nullable',
+            'stock'             => 'required|integer',
+            'initial_condition' => 'required|string',
+            'img'               => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
 

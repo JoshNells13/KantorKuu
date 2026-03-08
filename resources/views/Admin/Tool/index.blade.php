@@ -47,7 +47,9 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">No</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">Nama</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">Deskripsi</th>
                         <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Stock</th>
+                        <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Kondisi</th>
                         <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Kategori</th>
                         <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Aksi</th>
                     </tr>
@@ -57,7 +59,9 @@
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4">{{ $loop->iteration }}</td>
                             <td class="px-6 py-4">{{ $item->name }}</td>
+                            <td class="px-6 py-4 text-xs max-w-xs truncate">{{ $item->description }}</td>
                             <td class="px-6 py-4 text-center">{{ $item->stock }}</td>
+                            <td class="px-6 py-4 text-center text-sm font-medium text-gray-700">{{ $item->initial_condition }}</td>
                             <td class="px-6 py-4 text-center">{{ $item->category->name ?? 'Tidak ada kategori' }}</td>
                             <td class="px-6 py-4 text-center space-x-2">
                                 <a href="{{ route('admin.tools.edit', $item) }}"

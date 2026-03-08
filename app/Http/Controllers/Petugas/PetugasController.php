@@ -53,10 +53,17 @@ class PetugasController extends Controller
 
     public function storeReturnTool(Request $request, Borrowing $borrowing)
     {
+        // This acts as "Approval" for the return
+        $returnTool = $borrowing->returnTool;
 
-        // Tambah stok alat
-        $qty = $borrowing->qty ?? 1;
-        $this->stockService->incrementStock($borrowing->tool_id, $qty);
+        if (!$returnTool) {
+            $returnTool = ReturnTool::create([
+                'borrowing_id' => $borrowing->id,
+                'returned_at' => Carbon::now(),
+                'fine' => 0,
+                'return_condition' => 'Tidak Diketahui'
+            ]);
+        }
 
         $dueDate = Carbon::parse($borrowing->return_date);
         $returnedDate = Carbon::now();
@@ -67,18 +74,18 @@ class PetugasController extends Controller
 
         $fine = $lateDays * 5000;
 
-        $totalfine = $borrowing->total_price + $fine;
-
-        ReturnTool::create([
-            'borrowing_id' => $borrowing->id,
-            'returned_at'  => $returnedDate,
-            'fine'         => $totalfine
+        $returnTool->update([
+            'fine' => $fine,
+            'returned_at' => $returnedDate
         ]);
 
-        $this->activityLogService->log(Auth::id(), "Mengembalikan alat: {$borrowing->tool->name}");
+        $qty = $borrowing->qty ?? 1;
+        $this->stockService->incrementStock($borrowing->tool_id, $qty);
+
+        $this->activityLogService->log(Auth::id(), "Menyetujui pengembalian alat: {$borrowing->tool->name}");
 
         $borrowing->update(['status' => 'dikembalikan']);
 
-        return redirect()->route('petugas.borrowings.index')->with('success', 'Pengembalian alat berhasil diproses!');
+        return redirect()->route('petugas.borrowings.index')->with('success', 'Pengembalian alat berhasil disetujui!');
     }
 }

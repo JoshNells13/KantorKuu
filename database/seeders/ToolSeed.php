@@ -18,7 +18,7 @@ class ToolSeed extends Seeder
                 'category_id' => 1,
                 'name' => 'Obeng Plus',
                 'stock' => 20,
-                'price_per_day' => 5000,
+        
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -26,7 +26,7 @@ class ToolSeed extends Seeder
                 'category_id' => 1,
                 'name' => 'Kunci Inggris',
                 'stock' => 15,
-                'price_per_day' => 7000,
+         
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -34,7 +34,7 @@ class ToolSeed extends Seeder
                 'category_id' => 2,
                 'name' => 'Bor Listrik',
                 'stock' => 5,
-                'price_per_day' => 15000,
+          
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -42,7 +42,7 @@ class ToolSeed extends Seeder
                 'category_id' => 3,
                 'name' => 'Meteran',
                 'stock' => 10,
-                'price_per_day' => 3000,
+               
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

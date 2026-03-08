@@ -12,6 +12,7 @@ class ReturnTool extends Model
         'borrowing_id',
         'returned_at',
         'fine',
+        'return_condition',
     ];
 
     public function borrowing()

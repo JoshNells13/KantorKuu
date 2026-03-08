@@ -123,34 +123,25 @@ class PeminjamController extends Controller
 
     public function storeReturnTool(Request $request, Borrowing $borrowing)
     {
-
-        // Tambah stok alat
-        $qty = $borrowing->qty ?? 1;
-        $this->stockService->incrementStock($borrowing->tool_id, $qty);
-
-        $dueDate = Carbon::parse($borrowing->return_date);
-        $returnedDate = Carbon::now();
-
-        $lateDays = $returnedDate->greaterThan($dueDate)
-            ? $dueDate->diffInDays($returnedDate)
-            : 0;
-
-        $fine = $lateDays * 5000;
-
-        ReturnTool::create([
-            'borrowing_id' => $borrowing->id,
-            'returned_at'  => $returnedDate,
-            'fine'         => $fine
+        $request->validate([
+            'return_condition' => 'required|string',
         ]);
 
+        // Don't increment stock yet, wait for approval
+        // Create ReturnTool entry (or update if needed)
+        ReturnTool::create([
+            'borrowing_id'     => $borrowing->id,
+            'returned_at'      => Carbon::now(),
+            'fine'             => 0, // Admin will finalize fine? 
+            'return_condition' => $request->return_condition,
+        ]);
 
+        $borrowing->update(['status' => 'menunggu_kembali']);
 
-        $this->activityLogService->log(Auth::id(), "Mengembalikan alat: {$borrowing->tool->name}");
-
-        $borrowing->update(['status' => 'dikembalikan']);
+        $this->activityLogService->log(Auth::id(), "Mengajukan pengembalian alat: {$borrowing->tool->name}");
 
         return redirect()
             ->route('peminjam.borrowings.index')
-            ->with('success', "Pengembalian alat berhasil diproses! Jumlah Barang Menjadi {$borrowing->tool->stock}");
+            ->with('success', "Pengembalian alat berhasil diajukan! Menunggu verifikasi petugas.");
     }
 }

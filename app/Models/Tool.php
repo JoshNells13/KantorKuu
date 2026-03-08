@@ -9,7 +9,9 @@ class Tool extends Model
     protected $fillable = [
         'category_id',
         'name',
+        'description',
         'stock',
+        'initial_condition',
         'img',
     ];
 

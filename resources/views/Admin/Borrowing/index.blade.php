@@ -35,11 +35,8 @@
                             <td class="px-6 py-4 text-center">{{ $item->borrow_date }}</td>
                             <td class="px-6 py-4 text-center">{{ $item->return_date }}</td>
                             <td class="px-6 py-4 text-center">
-                                @if ($item->status == 'menunggu')
-                                    <span
-                                        class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">Menunggu</span>
-                                @elseif($item->status == 'dipinjam')
-                                    <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">Dipinjam</span>
+                                @elseif($item->status == 'menunggu_kembali')
+                                    <span class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs">Menunggu Validasi</span>
                                 @elseif($item->status == 'dikembalikan')
                                     <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Selesai</span>
                                 @endif
@@ -55,19 +52,26 @@
                                             <span class="material-icons text-lg">check_circle</span>
                                         </button>
                                     </form>
-                                @elseif($item->status == 'dipinjam')
-                                    <span
-                                        class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">Dipinjam</span>
-                                    <div class="mt-2">
-                                        <form action="{{ route('admin.return-tools.store', $item->id) }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="returned_at" value="{{ now() }}">
-                                            <button type="submit"
-                                                class="text-xs bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded">
-                                                Kembalikan
-                                            </button>
-                                        </form>
+                                @elseif($item->status == 'menunggu_kembali')
+                                    <div class="text-xs text-left mb-2">
+                                        <p>Kondisi Awal: <span class="font-semibold">{{ $item->tool->initial_condition }}</span></p>
+                                        <p>Kondisi Kembali: <span class="font-semibold text-purple-600">{{ $item->returnTool->return_condition ?? '-' }}</span></p>
                                     </div>
+                                    <form action="{{ route(auth()->user()->role->name . '.return-tools.store', $item->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button onclick="return confirm('Setujui pengembalian ini? Pastikan kondisi barang sudah sesuai.')"
+                                            class="bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700">
+                                            ACC Pengembalian
+                                        </button>
+                                    </form>
+                                @elseif($item->status == 'dipinjam')
+                                    <form action="{{ route(auth()->user()->role->name . '.return-tools.store', $item->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                            class="text-xs bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded">
+                                            Kembalikan (Paksa)
+                                        </button>
+                                    </form>
                                 @endif
 
                                 @if ($item->status !== 'dikembalikan')

@@ -28,11 +28,11 @@
                             <td class="px-6 py-4 text-center">{{ $item->borrow_date }}</td>
                             <td class="px-6 py-4 text-center">{{ $item->return_date }}</td>
                             <td class="px-6 py-4 text-center">
-                                @if ($item->status == 'menunggu')
-                                    <span
-                                        class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">Menunggu</span>
-                                @elseif($item->status == 'dipinjam')
-                                    <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">Dipinjam</span>
+                                @if($item->status == 'dipinjam')
+                                    <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">Dipinjam</span>
+                                @elseif($item->status == 'menunggu_kembali')
+                                    <span class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs">Menunggu
+                                        Validasi</span>
                                 @elseif($item->status == 'dikembalikan')
                                     <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Selesai</span>
                                 @endif
@@ -48,11 +48,29 @@
                                             <span class="material-icons text-lg">check_circle</span>
                                         </button>
                                     </form>
+                                @elseif($item->status == 'menunggu_kembali')
+                                    <div class="text-xs text-left mb-2">
+                                        <p>Kondisi Awal: <span class="font-semibold">{{ $item->tool->initial_condition }}</span></p>
+                                        <p>Kondisi Kembali: <span
+                                                class="font-semibold text-purple-600">{{ $item->returnTool->return_condition ?? '-' }}</span>
+                                        </p>
+                                    </div>
+                                    <form action="{{ route(auth()->user()->role->name . '.return-tools.store', $item->id) }}"
+                                        method="POST" class="inline">
+                                        @csrf
+                                        <button
+                                            onclick="return confirm('Setujui pengembalian ini? Pastikan kondisi barang sudah sesuai.')"
+                                            class="bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700">
+                                            ACC Pengembalian
+                                        </button>
+                                    </form>
                                 @elseif($item->status == 'dipinjam')
-                                    <form action="{{ route('petugas.return-tools.store', $item->id) }}" method="POST" class="inline">
+                                    <form action="{{ route('petugas.return-tools.store', $item->id) }}" method="POST"
+                                        class="inline">
                                         @csrf
                                         @method('POST')
-                                        <button onclick="return confirm('Kembalikan alat ini?')" class="text-green-600 hover:text-green-800 inline-flex items-center" title="Kembalikan">
+                                        <button onclick="return confirm('Kembalikan alat ini?')"
+                                            class="text-green-600 hover:text-green-800 inline-flex items-center" title="Kembalikan">
                                             <span class="material-icons text-lg">undo</span>
                                         </button>
                                     </form>

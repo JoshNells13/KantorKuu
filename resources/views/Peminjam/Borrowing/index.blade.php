@@ -37,16 +37,22 @@
                                 @elseif($item->status == 'dipinjam')
                                     <span
                                         class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">Dipinjam</span>
-                                    <div class="mt-2">
+                                    <div class="mt-2 p-2 border rounded bg-gray-50 text-left">
+                                        <p class="text-xs text-gray-600 mb-1">Kondisi Awal: <span class="font-semibold">{{ $item->tool->initial_condition }}</span></p>
                                         <form action="{{ route('peminjam.return-tools.store', $item->id) }}" method="POST">
                                             @csrf
-                                            <input type="hidden" name="returned_at" value="{{ now() }}">
+                                            <input type="text" name="return_condition" 
+                                                   placeholder="Kondisi saat ini..."
+                                                   class="text-xs w-full border rounded px-2 py-1 mb-2" required>
                                             <button type="submit"
-                                                class="text-xs bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded">
+                                                class="w-full text-xs bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded">
                                                 Kembalikan
                                             </button>
                                         </form>
                                     </div>
+                                @elseif($item->status == 'menunggu_kembali')
+                                    <span
+                                        class="bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded">Menunggu Valdasi</span>
                                 @elseif($item->status == 'dikembalikan' || $item->status == 'selesai')
                                     <span
                                         class="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">Selesai</span>

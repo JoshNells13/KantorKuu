@@ -15,7 +15,7 @@ use App\Http\Controllers\Petugas\ReportController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [AuthController::class, 'showLogin'])->name('home');
 
 Route::get('/login', [AuthController::class, 'showLogin'])
     ->name('login.show')

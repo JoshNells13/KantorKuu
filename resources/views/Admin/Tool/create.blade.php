@@ -31,6 +31,18 @@
                    required>
         </div>
 
+        <div class="mb-4">
+            <label class="block mb-2 font-semibold">Deskripsi</label>
+            <textarea name="description" class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-blue-500" rows="3"></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label class="block mb-2 font-semibold">Kondisi Awal</label>
+            <input type="text" name="initial_condition" value="Baik"
+                   class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-blue-500"
+                   required>
+        </div>
+
 
 
         <div class="mt-6 flex justify-end gap-2">

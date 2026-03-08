@@ -18,7 +18,8 @@
                     <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">Peminjam</th>
                     <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">Alat</th>
                     <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Tgl Kembali</th>
-                    <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Total Harga dan Denda</th>
+                    <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Total Denda</th>
+                    <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Kondisi Kembali</th>
                     <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Aksi</th>
                 </tr>
             </thead>
@@ -30,6 +31,7 @@
                     <td class="px-6 py-4">{{ $item->borrowing->tool->name }}</td>
                     <td class="px-6 py-4 text-center">{{ $item->returned_at }}</td>
                     <td class="px-6 py-4 text-center">Rp {{ number_format($item->fine, 0, ',', '.') }}</td>
+                    <td class="px-6 py-4 text-center text-xs">{{ $item->return_condition ?? '-' }}</td>
                     <td class="px-6 py-4 text-center space-x-2">
                         <a href="{{ route(auth()->user()->role->name . '.return-tools.edit', $item) }}"
                            class="text-blue-600 hover:text-blue-800 inline-flex items-center" title="Edit">
