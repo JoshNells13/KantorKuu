@@ -42,8 +42,8 @@
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
                     <!-- Placeholder Image -->
                     <div class="h-48 bg-gray-200 flex items-center justify-center">
-                        <img src="{{ asset('storage/tools/' . ($item->image ?? 'placeholder.png')) }}"
-                            alt="{{ $item->name }}" class="object-cover w-full h-full">
+                        <img src="{{ asset('storage/' . ($item->img ?? 'placeholder.png')) }}" alt="{{ $item->name }}"
+                            class="object-cover w-full h-full">
                     </div>
 
 

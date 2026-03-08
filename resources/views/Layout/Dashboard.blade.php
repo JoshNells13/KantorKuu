@@ -92,11 +92,6 @@
                 <h1 class="text-xl font-bold">@yield('page-title', 'Dashboard')</h1>
             </div>
             <div class="flex items-center gap-6">
-                <div class="relative">
-                    <span class="material-icons text-slate-400 hover:text-primary cursor-pointer">notifications</span>
-                    <span
-                        class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
-                </div>
                 <form action="{{ route('logout') }}" method="POST" class="inline">
                     @csrf
                     <button type="submit" onclick="return confirm('Apakah Anda yakin ingin keluar?')"
