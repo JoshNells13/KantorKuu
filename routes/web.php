@@ -12,6 +12,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Peminjam\PeminjamController;
 use App\Http\Controllers\Petugas\PetugasController;
 use App\Http\Controllers\Petugas\ReportController;
+use App\Http\Controllers\BorrowingPdfController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -35,6 +36,10 @@ Route::post('/register', [AuthController::class, 'register'])
 
 Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout')
+    ->middleware('auth');
+
+Route::get('/borrowings/{borrowing}/download-proof', [BorrowingPdfController::class, 'download'])
+    ->name('borrowings.download-proof')
     ->middleware('auth');
 
 

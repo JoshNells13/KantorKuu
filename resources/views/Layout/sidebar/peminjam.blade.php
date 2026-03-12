@@ -22,8 +22,3 @@
     <span class="font-medium">Pengembalian Saya</span>
 </a>
 
-<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors"
-    href="{{ route('home') }}">
-    <span class="material-icons text-[20px]">home</span>
-    <span class="font-medium">Beranda</span>
-</a>

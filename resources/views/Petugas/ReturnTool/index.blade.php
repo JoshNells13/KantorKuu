@@ -55,17 +55,35 @@
                                                 class="font-semibold text-purple-600">{{ $item->returnTool->return_condition ?? '-' }}</span>
                                         </p>
                                     </div>
-                                    <form action="{{ route(auth()->user()->role->name . '.return-tools.store', $item->id) }}"
-                                        method="POST" class="inline">
-                                        @csrf
-                                        <button
-                                            onclick="return confirm('Setujui pengembalian ini? Pastikan kondisi barang sudah sesuai.')"
-                                            class="bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700">
-                                            ACC Pengembalian
-                                        </button>
-                                    </form>
+                                    <div class="flex items-center space-x-2">
+                                        <form action="{{ route(auth()->user()->role->name . '.return-tools.store', $item->id) }}"
+                                            method="POST" class="inline">
+                                            @csrf
+                                            <button
+                                                onclick="return confirm('Setujui pengembalian ini? Pastikan kondisi barang sudah sesuai.')"
+                                                class="bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700">
+                                                ACC Pengembalian
+                                            </button>
+                                        </form>
+                                        @if ($item->proof)
+                                            <a href="{{ route('borrowings.download-proof', $item) }}"
+                                                class="bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700 inline-flex items-center">
+                                                <span class="material-icons text-xs mr-1">download</span>
+                                                Cetak
+                                            </a>
+                                        @endif
+                                    </div>
                                 @elseif($item->status == 'dipinjam')
-                                 <p class="text-xs text-gray-500">Menunggu pengembalian</p>
+                                    <div class="flex flex-col items-center space-y-2">
+                                        <p class="text-xs text-gray-500">Menunggu pengembalian</p>
+                                        @if ($item->proof)
+                                            <a href="{{ route('borrowings.download-proof', $item) }}"
+                                                class="bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700 inline-flex items-center">
+                                                <span class="material-icons text-xs mr-1">download</span>
+                                                Cetak Surat
+                                            </a>
+                                        @endif
+                                    </div>
                                 @endif
                             </td>
                         </tr>

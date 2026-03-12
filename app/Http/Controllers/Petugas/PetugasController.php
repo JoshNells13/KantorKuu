@@ -36,13 +36,30 @@ class PetugasController extends Controller
             return back()->with('error', 'Stok tidak mencukupi!');
         }
 
-        $borrowing->update(['status' => 'dipinjam']);
+        // Generate PDF Proof
+        $borrowing->load(['user', 'tool']);
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('PDF.approval', compact('borrowing'));
+
+        $filename = 'surat_persetujuan_' . $borrowing->id . '_' . time() . '.pdf';
+        $path = 'proofs/' . $filename;
+
+        // Ensure directory exists
+        if (!\Illuminate\Support\Facades\Storage::disk('public')->exists('proofs')) {
+            \Illuminate\Support\Facades\Storage::disk('public')->makeDirectory('proofs');
+        }
+
+        \Illuminate\Support\Facades\Storage::disk('public')->put($path, $pdf->output());
+
+        $borrowing->update([
+            'status' => 'dipinjam',
+            'proof' => $path
+        ]);
 
         $this->stockService->decrementStock($borrowing->tool_id, $qty);
 
         $this->activityLogService->log(Auth::id(), "Menyetujui peminjaman alat: {$borrowing->tool->name}");
 
-        return redirect()->route('petugas.borrowings.index')->with('success', 'Peminjaman di KantorKuu disetujui dan stok berhasil dikurangi!');
+        return redirect()->route('petugas.borrowings.index')->with('success', 'Peminjaman di KantorKuu disetujui, surat persetujuan dibuat, dan stok berhasil dikurangi!');
     }
 
     public function returnTool(Borrowing $borrowing)
